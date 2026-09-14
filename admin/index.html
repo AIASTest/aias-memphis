@@ -14,10 +14,7 @@
 <main class="admin-shell" id="main">
   <div class="admin-top">
     <a class="admin-brand" href="../index.html"><span class="admin-brand-mark">AIAS</span><span>Memphis Leadership</span></a>
-    <nav class="admin-nav" aria-label="Admin navigation">
-      <a class="button button-outline" href="help.html">Help Center</a>
-      <a class="button button-outline" href="../index.html">View public site</a>
-    </nav>
+    <nav class="admin-nav" aria-label="Admin navigation"><a class="button button-outline" href="help.html">Help Center</a><a class="button button-outline" href="../index.html">View public site</a></nav>
   </div>
 
   <section class="admin-hero">
@@ -25,14 +22,9 @@
       <p class="eyebrow">Leadership control panel</p>
       <h1>Manage the chapter website.</h1>
       <p class="muted">Routine content changes happen in Pages CMS. The public admin area gives leadership a central place for editing instructions, content counts, site-health checks, and handoff guidance.</p>
-      <div class="admin-actions">
-        <a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open website editor</a>
-        <a class="button button-outline" href="help.html">Read editing guides</a>
-        <a class="button button-outline" href="https://github.com/AIASTest/aias-memphis" target="_blank" rel="noopener">GitHub repository</a>
-      </div>
+      <div class="admin-actions"><a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open website editor</a><a class="button button-outline" href="help.html">Read editing guides</a><a class="button button-outline" href="https://github.com/AIASTest/aias-memphis" target="_blank" rel="noopener">GitHub repository</a></div>
       <div class="admin-note small"><strong>Use the CMS for normal updates.</strong> GitHub should only be necessary for structural/code changes. Never store passwords, private student records, API keys, or other secrets in the website repository.</div>
     </div>
-
     <aside class="admin-panel admin-status" aria-label="Website content status">
       <div><p class="eyebrow">Content status</p><h2 style="margin:.35rem 0 0">Current website</h2></div>
       <div class="status-row"><span>Events</span><span class="status-value" id="event-count">—</span></div>
@@ -57,32 +49,14 @@
   </section>
 
   <section class="admin-panel" style="margin-top:1rem" aria-labelledby="health-title">
-    <div class="section-head" style="margin-bottom:.75rem">
-      <div><p class="eyebrow">Automated review</p><h2 id="health-title" style="font-size:2rem">Site health</h2></div>
-      <span class="health-badge" id="health-badge">Checking content…</span>
-    </div>
+    <div class="section-head" style="margin-bottom:.75rem"><div><p class="eyebrow">Automated review</p><h2 id="health-title" style="font-size:2rem">Site health</h2></div><span class="health-badge" id="health-badge">Checking content…</span></div>
     <p class="muted">These checks catch common publishing mistakes. They are a safety net, not a substitute for previewing important changes.</p>
     <ul class="health-list" id="health-list"><li class="health-item"><span class="health-dot"></span><div>Loading website content…</div></li></ul>
   </section>
 
   <section class="admin-help-grid">
-    <div class="admin-panel">
-      <p class="eyebrow">Publishing workflow</p>
-      <h2 style="font-size:2rem">Make a change safely</h2>
-      <ol>
-        <li>Open Pages CMS and select <strong>AIASTest / aias-memphis</strong>.</li>
-        <li>Open the appropriate content area and make the edit.</li>
-        <li>Use a full <strong>https://</strong> URL for external links.</li>
-        <li>Save, then open the public site and verify the result.</li>
-        <li>If something looks wrong, correct the CMS entry; the previous version remains in GitHub history.</li>
-      </ol>
-    </div>
-    <div class="admin-panel">
-      <p class="eyebrow">Need instructions?</p>
-      <h2 style="font-size:2rem">Admin Help Center</h2>
-      <p class="muted">The help center covers every routine task plus images, formatting, access, troubleshooting, content safety, and officer handoff.</p>
-      <div class="admin-actions"><a class="button button-primary" href="help.html">Open Help Center</a></div>
-    </div>
+    <div class="admin-panel"><p class="eyebrow">Publishing workflow</p><h2 style="font-size:2rem">Make a change safely</h2><ol><li>Open Pages CMS and select <strong>AIASTest / aias-memphis</strong>.</li><li>Open the appropriate content area and make the edit.</li><li>Use a full <strong>https://</strong> URL for external links.</li><li>Save, then open the public site and verify the result.</li><li>If something looks wrong, correct the CMS entry; the previous version remains in GitHub history.</li></ol></div>
+    <div class="admin-panel"><p class="eyebrow">Need instructions?</p><h2 style="font-size:2rem">Admin Help Center</h2><p class="muted">The help center covers every routine task plus images, formatting, access, troubleshooting, content safety, and officer handoff.</p><div class="admin-actions"><a class="button button-primary" href="help.html">Open Help Center</a></div></div>
   </section>
 </main>
 
@@ -92,17 +66,16 @@
   const validDate=value=>/^\d{4}-\d{2}-\d{2}$/.test(String(value||''));
   const validHttps=value=>!value||/^https:\/\/.+/i.test(String(value).trim());
   const validEmail=value=>!value||/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(value).trim());
+  const sampleLike=value=>/\b(sample|example|prototype)\b/i.test(String(value||''));
+  const escapeHTML=value=>String(value||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
   async function getJSON(file){const r=await fetch(`../${file}`,{cache:'no-store'});if(!r.ok)throw new Error(file);return r.json()}
   function setCount(id,value){const el=document.getElementById(id);if(el)el.textContent=value}
   function issue(message,detail='',level='warn'){return{message,detail,level}}
-  function sampleLike(value=''){return /\b(sample|example|prototype)\b/i.test(String(value))}
 
   async function loadDashboard(){
     const healthList=document.getElementById('health-list');
     try{
-      const [site,eventsRaw,projectsRaw,jobsRaw,leadersRaw,pagesRaw]=await Promise.all([
-        getJSON('data/site.json'),getJSON('data/events.json'),getJSON('data/projects.json'),getJSON('data/jobs.json'),getJSON('data/leadership.json'),getJSON('data/pages.json')
-      ]);
+      const [site,eventsRaw,projectsRaw,jobsRaw,leadersRaw,pagesRaw]=await Promise.all([getJSON('data/site.json'),getJSON('data/events.json'),getJSON('data/projects.json'),getJSON('data/jobs.json'),getJSON('data/leadership.json'),getJSON('data/pages.json')]);
       const events=asArray(eventsRaw),projects=asArray(projectsRaw),jobs=asArray(jobsRaw),leaders=asArray(leadersRaw),pages=asArray(pagesRaw),now=today();
       const visibleJobs=jobs.filter(j=>j&&j.active&&(!validDate(j.deadline)||j.deadline>=now));
       [['event-count',events.length],['event-count-card',events.length],['project-count',projects.length],['project-count-card',projects.length],['job-count',visibleJobs.length],['job-count-card',visibleJobs.length],['leader-count',leaders.length],['leader-count-card',leaders.length],['page-count',pages.length],['page-count-card',pages.length]].forEach(([id,value])=>setCount(id,value));
@@ -112,41 +85,17 @@
       if(sampleLike(site.contact_email))issues.push(issue('The public contact email still looks like placeholder content.',site.contact_email));
       if(site.demo_notice&&sampleLike(site.demo_notice))issues.push(issue('The announcement banner still identifies the site as a prototype/sample.',site.demo_notice));
       [['Membership URL',site.membership_url],['Department URL',site.department_url],['Instagram URL',site.instagram_url]].forEach(([name,url])=>{if(!validHttps(url))issues.push(issue(`${name} is not a full https:// link.`,url,'error'))});
-      events.forEach((e,i)=>{
-        if(!validDate(e?.date))issues.push(issue(`Event ${i+1} has a missing or invalid date.`,e?.title||'Untitled event','error'));
-        if(e?.registration_url&&!validHttps(e.registration_url))issues.push(issue(`Event “${e.title||`#${i+1}`}” has an invalid RSVP link.`,'Use a full https:// URL.','error'));
-        if(sampleLike(e?.location)||sampleLike(e?.summary))issues.push(issue(`Event “${e.title||`#${i+1}`}” may contain sample/example content.`));
-      });
-      projects.forEach((p,i)=>{
-        if(!p?.image)issues.push(issue(`Project “${p?.title||`#${i+1}`}” is missing an image.`,'Projects without images have less visual impact.'));
-        if(sampleLike(p?.student)||sampleLike(p?.summary))issues.push(issue(`Project “${p?.title||`#${i+1}`}” may contain sample content.`));
-      });
-      jobs.forEach((j,i)=>{
-        if(j?.active&&validDate(j.deadline)&&j.deadline<now)issues.push(issue(`Expired job “${j.title||`#${i+1}`}” is still marked active.`,'It is hidden publicly, but should be cleaned up in the CMS.'));
-        if(j?.apply_url&&!validHttps(j.apply_url))issues.push(issue(`Job “${j?.title||`#${i+1}`}” has an invalid application link.`,'Use a full https:// URL.','error'));
-        if(sampleLike(j?.company)||sampleLike(j?.summary))issues.push(issue(`Job “${j?.title||`#${i+1}`}” may contain sample/example content.`));
-      });
-      leaders.forEach((person,i)=>{
-        if(person?.email&&!validEmail(person.email))issues.push(issue(`Leadership email for ${person.name||`entry ${i+1}`} is invalid.`,person.email,'error'));
-        if(/^(chapter |faculty advisor$)/i.test(String(person?.name||'')))issues.push(issue(`Leadership entry “${person.name}” still looks like a placeholder.`));
-      });
-      const slugs=new Set();
-      pages.forEach((p,i)=>{
-        if(!/^[a-z0-9-]+$/.test(String(p?.slug||'')))issues.push(issue(`Custom page ${i+1} has an invalid URL name.`,p?.slug||'Missing slug','error'));
-        if(slugs.has(p?.slug))issues.push(issue(`Duplicate custom-page URL name: ${p.slug}`,'Each page slug must be unique.','error'));
-        slugs.add(p?.slug);
-      });
+      events.forEach((e,i)=>{if(!validDate(e?.date))issues.push(issue(`Event ${i+1} has a missing or invalid date.`,e?.title||'Untitled event','error'));if(e?.registration_url&&!validHttps(e.registration_url))issues.push(issue(`Event “${e.title||`#${i+1}`}” has an invalid RSVP link.`,'Use a full https:// URL.','error'));if(sampleLike(e?.location)||sampleLike(e?.summary))issues.push(issue(`Event “${e.title||`#${i+1}`}” may contain sample/example content.`))});
+      projects.forEach((p,i)=>{if(!p?.image)issues.push(issue(`Project “${p?.title||`#${i+1}`}” is missing an image.`,'Projects without images have less visual impact.'));if(sampleLike(p?.student)||sampleLike(p?.summary))issues.push(issue(`Project “${p?.title||`#${i+1}`}” may contain sample content.`))});
+      jobs.forEach((j,i)=>{if(j?.active&&validDate(j.deadline)&&j.deadline<now)issues.push(issue(`Expired job “${j.title||`#${i+1}`}” is still marked active.`,'It is hidden publicly, but should be cleaned up in the CMS.'));if(j?.apply_url&&!validHttps(j.apply_url))issues.push(issue(`Job “${j?.title||`#${i+1}`}” has an invalid application link.`,'Use a full https:// URL.','error'));if(sampleLike(j?.company)||sampleLike(j?.summary))issues.push(issue(`Job “${j?.title||`#${i+1}`}” may contain sample/example content.`))});
+      leaders.forEach((person,i)=>{if(person?.email&&!validEmail(person.email))issues.push(issue(`Leadership email for ${person.name||`entry ${i+1}`} is invalid.`,person.email,'error'));if(/^(chapter |faculty advisor$)/i.test(String(person?.name||'')))issues.push(issue(`Leadership entry “${person.name}” still looks like a placeholder.`))});
+      const slugs=new Set();pages.forEach((p,i)=>{if(!/^[a-z0-9-]+$/.test(String(p?.slug||'')))issues.push(issue(`Custom page ${i+1} has an invalid URL name.`,p?.slug||'Missing slug','error'));if(slugs.has(p?.slug))issues.push(issue(`Duplicate custom-page URL name: ${p.slug}`,'Each page slug must be unique.','error'));slugs.add(p?.slug)});
 
       setCount('health-count',issues.length?`${issues.length} item${issues.length===1?'':'s'}`:'Good');
-      const badge=document.getElementById('health-badge');
-      badge.textContent=issues.length?`${issues.length} item${issues.length===1?'':'s'} to review`:'No obvious issues found';
+      const badge=document.getElementById('health-badge');badge.textContent=issues.length?`${issues.length} item${issues.length===1?'':'s'} to review`:'No obvious issues found';
       if(!issues.length){healthList.innerHTML='<li class="health-item ok"><span class="health-dot"></span><div><strong>No obvious content issues found.</strong><span class="muted small">Continue previewing important edits after publishing.</span></div></li>';return}
-      healthList.innerHTML=issues.map(x=>`<li class="health-item ${x.level==='error'?'error':''}"><span class="health-dot"></span><div><strong>${x.message}</strong>${x.detail?`<span class="muted small">${x.detail}</span>`:''}</div></li>`).join('');
-    }catch(error){
-      console.error(error);setCount('health-count','Unavailable');
-      document.getElementById('health-badge').textContent='Could not run checks';
-      healthList.innerHTML='<li class="health-item error"><span class="health-dot"></span><div><strong>Site-health checks could not load the content files.</strong><span class="muted small">Refresh this page. If it continues, use the Help Center troubleshooting article.</span></div></li>';
-    }
+      healthList.innerHTML=issues.map(x=>`<li class="health-item ${x.level==='error'?'error':''}"><span class="health-dot"></span><div><strong>${escapeHTML(x.message)}</strong>${x.detail?`<span class="muted small">${escapeHTML(x.detail)}</span>`:''}</div></li>`).join('');
+    }catch(error){console.error(error);setCount('health-count','Unavailable');document.getElementById('health-badge').textContent='Could not run checks';healthList.innerHTML='<li class="health-item error"><span class="health-dot"></span><div><strong>Site-health checks could not load the content files.</strong><span class="muted small">Refresh this page. If it continues, use the Help Center troubleshooting article.</span></div></li>'}
   }
   loadDashboard();
 </script>

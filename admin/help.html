@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Editing guides and troubleshooting for AIAS Memphis website leadership.">
+  <title>Admin Help Center | AIAS Memphis</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body class="admin-body">
+<a class="skip-link" href="#main">Skip to help articles</a>
+<main class="admin-shell" id="main">
+  <div class="admin-top">
+    <a class="admin-brand" href="index.html"><span class="admin-brand-mark">AIAS</span><span>Admin Help Center</span></a>
+    <nav class="admin-nav" aria-label="Admin navigation"><a class="button button-outline" href="index.html">Dashboard</a><a class="button button-outline" href="../index.html">Public site</a><a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open editor</a></nav>
+  </div>
+
+  <div class="kb-layout">
+    <aside class="admin-panel kb-sidebar" aria-label="Help topics">
+      <label for="kb-search"><strong>Search help articles</strong></label>
+      <input class="kb-search" id="kb-search" type="search" placeholder="Try “event”, “image”, “link”…" autocomplete="off">
+      <nav class="kb-nav" id="kb-nav">
+        <a href="#getting-started">Getting started</a>
+        <a href="#site-settings">Site settings</a>
+        <a href="#events">Events</a>
+        <a href="#projects">Student projects</a>
+        <a href="#jobs">Jobs & internships</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#pages">Custom pages</a>
+        <a href="#images">Images & media</a>
+        <a href="#links">Links & formatting</a>
+        <a href="#publishing">Publishing & history</a>
+        <a href="#access">Access & collaborators</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#handoff">Officer handoff</a>
+        <a href="#safety">Content safety</a>
+      </nav>
+    </aside>
+
+    <section class="kb-main">
+      <article class="admin-panel kb-intro">
+        <p class="eyebrow">Knowledge base</p>
+        <h1 style="font-size:clamp(2.3rem,5vw,4.2rem);margin-bottom:.75rem">Website editing guide</h1>
+        <p class="muted">Routine updates do not require coding. Use Pages CMS for content, then verify the result on the public site. These articles are intended to be enough for a future officer to maintain the site without knowing how it was built.</p>
+        <div class="kb-chip-row"><span class="kb-chip">Pages CMS</span><span class="kb-chip">GitHub Pages</span><span class="kb-chip">No database</span><span class="kb-chip">Officer-friendly</span></div>
+      </article>
+
+      <div class="admin-panel kb-empty" id="kb-empty"><strong>No help articles matched that search.</strong><p class="muted" style="margin:.35rem 0 0">Try a broader term such as “page”, “event”, “image”, “access”, or “publish”.</p></div>
+
+      <article class="admin-panel kb-article" id="getting-started" data-keywords="start login cms editor github basic workflow save">
+        <p class="eyebrow">Article 01</p><h2>Getting started with the editor</h2>
+        <ol><li>Open <a href="https://app.pagescms.org/" target="_blank" rel="noopener">Pages CMS</a> and sign in.</li><li>Select <strong>AIASTest / aias-memphis</strong>.</li><li>Choose <strong>Website</strong> for global settings/pages/leadership or <strong>Chapter content</strong> for events/projects/jobs.</li><li>Edit the fields and save.</li><li>Open the public site and confirm the change looks correct.</li></ol>
+        <div class="kb-callout"><strong>Normal editors should not need GitHub.</strong> The CMS writes changes to the repository for you. GitHub is mainly for site structure, code, history, and ownership.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="site-settings" data-keywords="homepage settings banner email instagram membership department headline about contact">
+        <p class="eyebrow">Article 02</p><h2>Edit site settings and homepage text</h2>
+        <p>Open <strong>Website → Site settings</strong>. This controls the chapter name, header name, tagline, homepage headline/introduction, About-page description, public email, Instagram URL, membership URL, department URL, and announcement banner.</p>
+        <h3>Announcement banner</h3><p>Enter a short message to show a banner above the navigation. Clear the field completely to hide it.</p>
+        <h3>External links</h3><p>Use the complete address beginning with <span class="code-lite">https://</span>. The CMS validates these links before saving.</p>
+        <div class="kb-callout warning"><strong>Launch checklist:</strong> replace the placeholder public email and remove the prototype/sample banner before presenting the site as final.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="events" data-keywords="event calendar meeting workshop tour RSVP registration featured date time location">
+        <p class="eyebrow">Article 03</p><h2>Add or update an event</h2>
+        <ol><li>Open <strong>Chapter content → Events</strong>.</li><li>Add a new item or select an existing event.</li><li>Enter the event name and date. Add time/location when known.</li><li>Write a concise description that makes sense without extra context.</li><li>Optionally upload an image and add an accessibility description.</li><li>For registration, paste the full <span class="code-lite">https://</span> RSVP link.</li><li>Turn on <strong>Feature on homepage</strong> for high-priority upcoming events.</li><li>Save and preview both the homepage and Events page.</li></ol>
+        <div class="kb-callout"><strong>Past events archive automatically.</strong> When an event date passes, it moves from Upcoming Events to the Past Events section. You normally do not need to delete it.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="projects" data-keywords="student project portfolio work studio course image featured consent permission alt">
+        <p class="eyebrow">Article 04</p><h2>Publish student work</h2>
+        <ol><li>Open <strong>Chapter content → Student projects</strong>.</li><li>Add the project title and student name.</li><li>Add the studio/course and project year when useful.</li><li>Write a short project description.</li><li>Upload the strongest landscape-oriented image available and describe what it shows.</li><li>Use <strong>Feature on homepage</strong> for work you want highlighted.</li></ol>
+        <div class="kb-callout warning"><strong>Get permission.</strong> Confirm the student agrees to publication of their name and work. Do not publish private critiques, grades, unpublished client material, or other sensitive information.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="jobs" data-keywords="jobs internship career opportunity deadline apply employer firm fellowship competition expired active">
+        <p class="eyebrow">Article 05</p><h2>Post a job, internship, or opportunity</h2>
+        <ol><li>Open <strong>Chapter content → Jobs & internships</strong>.</li><li>Add the position title, firm/organization, location, and opportunity type.</li><li>Add the posted date and deadline when known.</li><li>Summarize the role without copying an entire job posting.</li><li>Use the employer's original full <span class="code-lite">https://</span> application link.</li><li>Leave <strong>Show on website</strong> enabled while the listing is current.</li></ol>
+        <p>If a valid deadline is entered, the public website automatically stops displaying the listing after that date. The Admin Dashboard will still flag it for cleanup if it remains marked active.</p>
+      </article>
+
+      <article class="admin-panel kb-article" id="leadership" data-keywords="leadership officer president vice treasurer advisor email people">
+        <p class="eyebrow">Article 06</p><h2>Update chapter leadership</h2>
+        <p>Open <strong>Website → Leadership</strong>. Each entry has a name, position, and optional public email address. Keep the list current when officer terms change.</p>
+        <div class="kb-callout"><strong>Email is optional.</strong> Leave it blank if the person does not want a personal address published. A chapter-wide email in Site Settings is generally preferable for continuity.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="pages" data-keywords="custom page resources scholarships competitions committees slug navigation nav rich text markdown">
+        <p class="eyebrow">Article 07</p><h2>Create a custom information page</h2>
+        <ol><li>Open <strong>Website → Custom pages</strong> and add an item.</li><li>Choose a clear title.</li><li>Set the URL name (slug), for example <span class="code-lite">scholarships</span>. Use lowercase letters, numbers, and hyphens only.</li><li>Optionally provide a shorter navigation label.</li><li>Turn <strong>Show in main navigation</strong> on only for pages that deserve a permanent top-level link.</li><li>Add an introduction, optional hero image, and formatted page content.</li></ol>
+        <div class="kb-callout warning"><strong>Avoid casually changing a slug after launch.</strong> Existing bookmarks or shared links use that slug and can break if it changes.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="images" data-keywords="image media upload picture photo file aspect ratio alt accessibility size optimization">
+        <p class="eyebrow">Article 08</p><h2>Images and media</h2>
+        <p>Images uploaded in Pages CMS are stored in <span class="code-lite">assets/uploads/</span> inside the website repository. They remain with the site when leadership changes.</p>
+        <h3>Recommended practice</h3><ul><li>Use JPG, PNG, or WebP for normal photos/renderings.</li><li>Use reasonably compressed images; very large files slow the site and repository.</li><li>Landscape images work best for event and project cards.</li><li>Use short, descriptive image-alt text for meaningful images.</li><li>Do not upload copyrighted material unless the chapter has permission to use it.</li></ul>
+        <p>Pages CMS supports image fields and repository-backed media uploads directly. citeturn695685search2turn695685search7</p>
+      </article>
+
+      <article class="admin-panel kb-article" id="links" data-keywords="link URL https email markdown formatting rich text external internal broken">
+        <p class="eyebrow">Article 09</p><h2>Links and formatted text</h2>
+        <h3>External links</h3><p>Always paste the complete address beginning with <span class="code-lite">https://</span>. Examples: registration forms, employer postings, University pages, and social accounts.</p>
+        <h3>Custom-page editor</h3><p>The page body uses the Pages CMS rich-text editor. It can create headings, lists, emphasis, links, and images while storing the content as Markdown. citeturn695685search0</p>
+        <h3>Broken link behavior</h3><p>The public site intentionally refuses unsafe/malformed external URLs rather than rendering a questionable link. The Admin Dashboard also flags common bad links.</p>
+      </article>
+
+      <article class="admin-panel kb-article" id="publishing" data-keywords="publish save deployment github pages history undo revert commit change refresh cache">
+        <p class="eyebrow">Article 10</p><h2>Publishing, verification, and history</h2>
+        <p>When you save in Pages CMS, it writes the content change to GitHub. GitHub Pages then republishes the static website.</p>
+        <ol><li>Save the CMS entry.</li><li>Open or refresh the public page.</li><li>Check desktop and mobile-width layouts for important content.</li><li>Open external links you just changed.</li><li>If necessary, correct the entry and save again.</li></ol>
+        <p>Each CMS save becomes a Git commit, so the repository retains a history of changes. Pages CMS can attach the editing user's identity to commits when configured with <span class="code-lite">settings.commit.identity: user</span>. citeturn101532search3</p>
+      </article>
+
+      <article class="admin-panel kb-article" id="access" data-keywords="access collaborator github user invite permission leadership account cms authorization">
+        <p class="eyebrow">Article 11</p><h2>Editor access and collaborators</h2>
+        <p>Only approved people should have editing access. GitHub users with repository access can edit through Pages CMS. Pages CMS also supports invited email collaborators for people who need content/media access without normal GitHub repository management. citeturn695685search3</p>
+        <h3>When an officer leaves</h3><ul><li>Remove or revoke editing access they no longer need.</li><li>Confirm at least two current leaders retain administrative access.</li><li>Keep ownership with the chapter rather than depending on one student's personal account long-term.</li></ul>
+      </article>
+
+      <article class="admin-panel kb-article" id="troubleshooting" data-keywords="troubleshoot error react page not updating missing broken refresh cms invalid url image cache">
+        <p class="eyebrow">Article 12</p><h2>Troubleshooting common problems</h2>
+        <h3>A saved change is not visible</h3><p>Refresh the public page and confirm the CMS save completed. Check the repository's Actions/Pages deployment if the change still does not appear.</p>
+        <h3>A button/link does not appear</h3><p>Confirm the URL is complete and begins with <span class="code-lite">https://</span>. Invalid external URLs are intentionally hidden.</p>
+        <h3>An event is missing</h3><p>Check its date. Events with invalid/missing dates are hidden; past events appear in the archive.</p>
+        <h3>A job disappeared</h3><p>Check <strong>Show on website</strong> and the deadline. Listings stop displaying after a valid past deadline.</p>
+        <h3>Pages CMS shows an editor error</h3><p>Hard-refresh the CMS first. If multiple sections fail, inspect recent changes to <span class="code-lite">.pages.yml</span> or use GitHub history to identify the change.</p>
+        <div class="kb-callout"><strong>Start with the Admin Dashboard.</strong> Its Site Health section identifies many content-level problems automatically.</div>
+      </article>
+
+      <article class="admin-panel kb-article" id="handoff" data-keywords="handoff officer transition annual semester ownership backup access maintenance checklist">
+        <p class="eyebrow">Article 13</p><h2>Officer handoff checklist</h2>
+        <ul><li>Confirm the chapter still controls the GitHub repository and Pages CMS access.</li><li>Add incoming officers before outgoing officers lose access.</li><li>Remove access that is no longer appropriate.</li><li>Update Leadership and public contact information.</li><li>Review old events and inactive/expired jobs.</li><li>Replace outdated announcement banners.</li><li>Check custom pages for stale dates, links, scholarships, or resources.</li><li>Run the Admin Dashboard Site Health check.</li><li>Make sure at least one incoming officer understands this Help Center.</li></ul>
+      </article>
+
+      <article class="admin-panel kb-article" id="safety" data-keywords="privacy safety secrets password student information private copyright permission security sensitive">
+        <p class="eyebrow">Article 14</p><h2>Content safety and privacy</h2>
+        <div class="kb-callout danger"><strong>Everything in the public repository should be treated as public.</strong> Never store passwords, access tokens, API keys, private student records, grades, addresses, unpublished sensitive documents, or other secrets in the CMS/repository.</div>
+        <ul><li>Get student permission before publishing identifiable project work.</li><li>Use a chapter email rather than personal contact details when practical.</li><li>Verify employer/job links before publishing.</li><li>Use only images and graphics the chapter has permission to publish.</li><li>Keep editor access limited to current authorized leadership.</li></ul>
+      </article>
+    </section>
+  </div>
+</main>
+
+<script>
+  const search=document.getElementById('kb-search');
+  const articles=[...document.querySelectorAll('.kb-article')];
+  const navLinks=[...document.querySelectorAll('#kb-nav a')];
+  const empty=document.getElementById('kb-empty');
+  function filterArticles(){
+    const q=search.value.trim().toLowerCase();let visible=0;
+    articles.forEach(article=>{const haystack=`${article.textContent} ${article.dataset.keywords||''}`.toLowerCase();const show=!q||haystack.includes(q);article.hidden=!show;if(show)visible++});
+    navLinks.forEach(link=>{const target=document.querySelector(link.getAttribute('href'));link.hidden=Boolean(target?.hidden)});
+    empty.classList.toggle('show',visible===0);
+  }
+  search.addEventListener('input',filterArticles);
+  if(location.hash){const target=document.querySelector(location.hash);target?.scrollIntoView({block:'start'})}
+</script>
+</body>
+</html>

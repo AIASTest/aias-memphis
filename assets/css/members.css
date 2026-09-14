@@ -129,8 +129,9 @@
 .member-back-link:hover { color:#fff; text-decoration:underline; }
 .member-detail-grid { display:grid; grid-template-columns:minmax(260px,.7fr) minmax(0,1.3fr); gap:3.5rem; align-items:center; }
 .member-detail-photo { aspect-ratio:4/5; border-radius:22px; overflow:hidden; display:grid; place-items:center; background:linear-gradient(135deg,#0f5da6,#66a4d9); box-shadow:0 24px 70px rgba(0,0,0,.22); }
-.member-detail-photo img { width:100%; height:100%; object-fit:cover; }
-.member-detail-photo .member-card-initials { font-size:6rem; }
+.member-detail-photo-inner { width:100%; height:100%; display:grid; place-items:center; overflow:hidden; }
+.member-detail-photo-inner img { width:100%; height:100%; object-fit:cover; }
+.member-detail-photo-inner .member-card-initials { font-size:6rem; }
 .member-detail-copy h1 { margin-bottom:.6rem; }
 .member-detail-program { color:#cfdceb; font-size:1.06rem; }
 .member-detail-bio { max-width:760px; color:#e1ebf4; font-size:1.15rem; white-space:pre-line; }

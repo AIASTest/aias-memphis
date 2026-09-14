@@ -8,8 +8,18 @@
     }
   };
 
-  function addSupportLinks() {
+  function addPersistentLinks() {
     const nav = document.getElementById('main-nav');
+    if (nav && !nav.querySelector('[data-members-nav]')) {
+      const link = document.createElement('a');
+      link.href = 'members.html';
+      link.textContent = 'Members';
+      link.dataset.membersNav = 'true';
+      if (['members', 'member'].includes(document.body.dataset.page)) link.setAttribute('aria-current', 'page');
+      const about = [...nav.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
+      nav.insertBefore(link, about || null);
+    }
+
     if (nav && !nav.querySelector('[data-support-nav]')) {
       const link = document.createElement('a');
       link.href = 'support.html';
@@ -21,6 +31,15 @@
     }
 
     const footerLinks = document.querySelector('.footer-links');
+    if (footerLinks && !footerLinks.querySelector('[data-members-footer]')) {
+      const link = document.createElement('a');
+      link.href = 'members.html';
+      link.textContent = 'Chapter Members';
+      link.dataset.membersFooter = 'true';
+      const about = [...footerLinks.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
+      footerLinks.insertBefore(link, about || null);
+    }
+
     if (footerLinks && !footerLinks.querySelector('[data-support-footer]')) {
       const link = document.createElement('a');
       link.href = 'support.html';
@@ -50,11 +69,11 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    addSupportLinks();
+    addPersistentLinks();
     addInstagramLinks();
     const header = document.getElementById('site-header');
     const footer = document.getElementById('site-footer');
-    if (header) new MutationObserver(addSupportLinks).observe(header, { childList: true, subtree: true });
-    if (footer) new MutationObserver(addSupportLinks).observe(footer, { childList: true, subtree: true });
+    if (header) new MutationObserver(addPersistentLinks).observe(header, { childList: true, subtree: true });
+    if (footer) new MutationObserver(addPersistentLinks).observe(footer, { childList: true, subtree: true });
   });
 })();

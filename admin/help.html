@@ -59,9 +59,23 @@
         <div class="kb-callout"><strong>Past events archive automatically.</strong> When an event date passes, it moves from Upcoming Events to Past Events. You normally do not need to delete it.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="projects" data-keywords="student project portfolio work studio course image featured consent permission alt">
-        <p class="eyebrow">Article 04</p><h2>Publish student work</h2>
-        <ol><li>Open <strong>Chapter content → Student projects</strong>.</li><li>Add the project title and student name.</li><li>Add the studio/course and project year when useful.</li><li>Write a short project description.</li><li>Upload the strongest landscape-oriented image available and describe what it shows.</li><li>Use <strong>Feature on homepage</strong> for work you want highlighted.</li></ol>
+      <article class="admin-panel kb-article" id="projects" data-keywords="student project portfolio work studio course gallery slideshow cover image caption narrative slug featured consent permission alt">
+        <p class="eyebrow">Article 04</p><h2>Publish a student project portfolio</h2>
+        <p>Each student project has its own public detail page. The project card on the homepage or Student Work page opens that detail page automatically.</p>
+        <ol>
+          <li>Open <strong>Chapter content → Student projects</strong> and add a new item.</li>
+          <li>Enter the <strong>Project title</strong> and <strong>Student name</strong>.</li>
+          <li>Create a permanent <strong>Project URL name</strong> such as <span class="code-lite">river-threshold</span>. Use lowercase letters, numbers, and hyphens only.</li>
+          <li>Add studio/course, semester, year, and project type when useful.</li>
+          <li>Write the <strong>Short project summary</strong>. This appears on the project card and near the top of the project page.</li>
+          <li>Choose a strong <strong>Cover image</strong>. This is the image visitors see before opening the project.</li>
+          <li>Build the <strong>Project gallery</strong>. Add gallery items in the order they should appear. Each item should have an image, a short accessibility description, and an optional visible caption.</li>
+          <li>Write the <strong>Full project description</strong>. This is a rich-text area intended for a real design narrative, not just one paragraph. Headings, paragraphs, lists, emphasis, links, and inserted images are supported.</li>
+          <li>Optionally add a full <span class="code-lite">https://</span> link to the student's portfolio, a publication, video, or other external project page.</li>
+          <li>Use <strong>Feature on homepage</strong> for work you want highlighted, then save and open the project's public detail page to test the complete gallery.</li>
+        </ol>
+        <h3>Gallery order</h3><p>The first gallery item opens first. Drag/reorder gallery items in the CMS to control the sequence. On the public page visitors can use thumbnails, previous/next buttons, the large image, or the keyboard arrow keys.</p>
+        <h3>Project URL names</h3><p>Treat the project slug as permanent once a link has been shared. Changing it changes the project's URL and can break old links.</p>
         <div class="kb-callout warning"><strong>Get permission.</strong> Confirm the student agrees to publication of their name and work. Do not publish private critiques, grades, unpublished client material, or other sensitive information.</div>
       </article>
 
@@ -83,24 +97,24 @@
         <div class="kb-callout warning"><strong>Avoid casually changing a slug after launch.</strong> Existing bookmarks or shared links use that slug and can break if it changes.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="images" data-keywords="image media upload picture photo file aspect ratio alt accessibility size optimization">
+      <article class="admin-panel kb-article" id="images" data-keywords="image media upload picture photo file aspect ratio alt accessibility size optimization gallery rendering drawing model">
         <p class="eyebrow">Article 08</p><h2>Images and media</h2>
         <p>Images uploaded in Pages CMS are stored in <span class="code-lite">assets/uploads/</span> inside the website repository. They remain with the site when leadership changes.</p>
-        <h3>Recommended practice</h3><ul><li>Use JPG, PNG, or WebP for normal photos/renderings.</li><li>Compress very large files before uploading.</li><li>Landscape images work best for event and project cards.</li><li>Use short, descriptive alt text for meaningful images.</li><li>Do not upload copyrighted material unless the chapter has permission to use it.</li></ul>
+        <h3>Recommended practice</h3><ul><li>Use JPG, PNG, or WebP for normal photos, drawings, and renderings.</li><li>Compress very large files before uploading.</li><li>Landscape images work best for event and project cover cards.</li><li>Project gallery images can use different proportions; the detail viewer contains them without cropping.</li><li>Use short, descriptive alt text for meaningful images.</li><li>Use captions when a drawing, diagram, model, or process image benefits from explanation.</li><li>Do not upload copyrighted material unless the chapter has permission to use it.</li></ul>
         <p><a href="https://pagescms.org/docs/configuration/fields/image/" target="_blank" rel="noopener">Pages CMS image-field documentation</a></p>
       </article>
 
       <article class="admin-panel kb-article" id="links" data-keywords="link URL https email markdown formatting rich text external internal broken">
         <p class="eyebrow">Article 09</p><h2>Links and formatted text</h2>
-        <h3>External links</h3><p>Always paste the complete address beginning with <span class="code-lite">https://</span>. Examples include registration forms, employer postings, University pages, and social accounts.</p>
-        <h3>Custom-page editor</h3><p>The page body uses a rich-text editor for headings, lists, emphasis, links, and images while storing the content as Markdown. <a href="https://pagescms.org/docs/configuration/fields/rich-text/" target="_blank" rel="noopener">Rich-text documentation</a></p>
+        <h3>External links</h3><p>Always paste the complete address beginning with <span class="code-lite">https://</span>. Examples include registration forms, employer postings, University pages, project portfolios, and social accounts.</p>
+        <h3>Rich-text editors</h3><p>Custom-page content and the full student-project narrative use a rich-text editor for headings, lists, emphasis, links, and images while storing the content as Markdown. <a href="https://pagescms.org/docs/configuration/fields/rich-text/" target="_blank" rel="noopener">Rich-text documentation</a></p>
         <h3>Broken link behavior</h3><p>The public site intentionally refuses unsafe or malformed external URLs rather than rendering a questionable link. The Admin Dashboard also flags common bad links.</p>
       </article>
 
       <article class="admin-panel kb-article" id="publishing" data-keywords="publish save deployment github pages history undo revert commit change refresh cache">
         <p class="eyebrow">Article 10</p><h2>Publishing, verification, and history</h2>
         <p>When you save in Pages CMS, it writes the content change to GitHub. GitHub Pages then republishes the static website.</p>
-        <ol><li>Save the CMS entry.</li><li>Open or refresh the public page.</li><li>Check desktop and mobile-width layouts for important content.</li><li>Open external links you just changed.</li><li>If necessary, correct the entry and save again.</li></ol>
+        <ol><li>Save the CMS entry.</li><li>Open or refresh the public page.</li><li>Check desktop and mobile-width layouts for important content.</li><li>Open external links you just changed.</li><li>For student work, open the project's individual page and click through every gallery image.</li><li>If necessary, correct the entry and save again.</li></ol>
         <p>Each CMS save becomes a Git commit, so the repository retains a history of changes. <a href="https://pagescms.org/docs/configuration/settings/" target="_blank" rel="noopener">Pages CMS commit settings</a></p>
       </article>
 
@@ -111,11 +125,13 @@
         <p><a href="https://pagescms.org/docs/configuration/collaborators/" target="_blank" rel="noopener">Pages CMS collaborator documentation</a></p>
       </article>
 
-      <article class="admin-panel kb-article" id="troubleshooting" data-keywords="troubleshoot error react page not updating missing broken refresh cms invalid url image cache">
+      <article class="admin-panel kb-article" id="troubleshooting" data-keywords="troubleshoot error react page not updating missing broken refresh cms invalid url image cache project gallery slug">
         <p class="eyebrow">Article 12</p><h2>Troubleshooting common problems</h2>
         <h3>A saved change is not visible</h3><p>Refresh the public page and confirm the CMS save completed. Check the repository's Actions/Pages deployment if the change still does not appear.</p>
         <h3>A button or link does not appear</h3><p>Confirm the URL is complete and begins with <span class="code-lite">https://</span>. Invalid external URLs are intentionally hidden.</p>
         <h3>An event is missing</h3><p>Check its date. Events with invalid or missing dates are hidden; past events appear in the archive.</p>
+        <h3>A project card opens “Project not found”</h3><p>Check that the project has a valid, unique <strong>Project URL name</strong>. Duplicate or changed slugs can break a detail link. The Admin Dashboard flags this automatically.</p>
+        <h3>A project image is missing from the gallery</h3><p>Open that gallery item in Pages CMS and confirm an image is selected. Each gallery entry should contain an image and accessibility description.</p>
         <h3>A job disappeared</h3><p>Check <strong>Show on website</strong> and the deadline. Listings stop displaying after a valid past deadline.</p>
         <h3>Pages CMS shows an editor error</h3><p>Hard-refresh the CMS first. If multiple sections fail, inspect recent changes to <span class="code-lite">.pages.yml</span> or use GitHub history to identify the change.</p>
         <div class="kb-callout"><strong>Start with the Admin Dashboard.</strong> Its Site Health section identifies many content-level problems automatically.</div>
@@ -123,7 +139,7 @@
 
       <article class="admin-panel kb-article" id="handoff" data-keywords="handoff officer transition annual semester ownership backup access maintenance checklist">
         <p class="eyebrow">Article 13</p><h2>Officer handoff checklist</h2>
-        <ul><li>Confirm the chapter still controls the GitHub repository and Pages CMS access.</li><li>Add incoming officers before outgoing officers lose access.</li><li>Remove access that is no longer appropriate.</li><li>Update Leadership and public contact information.</li><li>Review old events and inactive or expired jobs.</li><li>Replace outdated announcement banners.</li><li>Check custom pages for stale dates, links, scholarships, or resources.</li><li>Run the Admin Dashboard Site Health check.</li><li>Make sure at least one incoming officer understands this Help Center.</li></ul>
+        <ul><li>Confirm the chapter still controls the GitHub repository and Pages CMS access.</li><li>Add incoming officers before outgoing officers lose access.</li><li>Remove access that is no longer appropriate.</li><li>Update Leadership and public contact information.</li><li>Review old events and inactive or expired jobs.</li><li>Replace outdated announcement banners.</li><li>Check student projects for broken galleries or outdated external portfolio links.</li><li>Check custom pages for stale dates, links, scholarships, or resources.</li><li>Run the Admin Dashboard Site Health check.</li><li>Make sure at least one incoming officer understands this Help Center.</li></ul>
       </article>
 
       <article class="admin-panel kb-article" id="safety" data-keywords="privacy safety secrets password student information private copyright permission security sensitive">

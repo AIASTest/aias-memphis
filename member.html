@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-root="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AIAS Memphis chapter member profile and student work.">
+  <title>Member Profile | AIAS Memphis</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/projects.css">
+  <link rel="stylesheet" href="assets/css/members.css">
+</head>
+<body data-page="member">
+<a class="skip-link" href="#main">Skip to content</a>
+<header id="site-header"></header>
+<main id="main">
+  <div id="member-detail-shell">
+    <section class="member-detail-hero">
+      <div class="container">
+        <a class="member-back-link" href="members.html">← Back to chapter members</a>
+        <div class="member-detail-grid">
+          <div class="member-detail-photo" id="member-detail-photo"></div>
+          <div class="member-detail-copy">
+            <p class="eyebrow" id="member-detail-role">Chapter member</p>
+            <h1 id="member-detail-name">Member</h1>
+            <p class="member-detail-program" id="member-detail-program"></p>
+            <p class="member-detail-bio" id="member-detail-bio"></p>
+            <div class="member-profile-actions">
+              <a class="button button-light" id="member-detail-email" href="#" hidden>Email this member</a>
+              <a class="button button-outline member-light-outline" href="members.html">All members</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section member-about-section">
+      <div class="container member-about-grid">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>Profile</h2>
+          <div class="content-prose" id="member-detail-description"></div>
+        </div>
+        <aside class="member-meta-panel" id="member-detail-meta" aria-label="Member information"></aside>
+      </div>
+    </section>
+
+    <section class="section member-projects-section" style="background:#fff">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Student work</p>
+            <h2 id="member-projects-heading">Published projects</h2>
+            <p class="muted" id="member-projects-copy"></p>
+          </div>
+          <a class="button button-outline" href="projects.html">All student work</a>
+        </div>
+        <div class="card-grid" id="member-projects"></div>
+      </div>
+    </section>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/members.js"></script>
+<script src="assets/js/site-extras.js"></script>
+</body>
+</html>

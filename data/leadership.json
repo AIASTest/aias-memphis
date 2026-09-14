@@ -1,34 +1,54 @@
 [
   {
+    "slug": "chapter-president",
     "name": "Chapter President",
     "role": "President",
+    "program": "",
     "photo": "",
     "photo_alt": "",
     "bio": "",
-    "email": ""
+    "description": "",
+    "interests": "",
+    "email": "",
+    "public_profile": true
   },
   {
+    "slug": "chapter-vice-president",
     "name": "Chapter Vice President",
     "role": "Vice President",
+    "program": "",
     "photo": "",
     "photo_alt": "",
     "bio": "",
-    "email": ""
+    "description": "",
+    "interests": "",
+    "email": "",
+    "public_profile": true
   },
   {
+    "slug": "chapter-treasurer",
     "name": "Chapter Treasurer",
     "role": "Treasurer",
+    "program": "",
     "photo": "",
     "photo_alt": "",
     "bio": "",
-    "email": ""
+    "description": "",
+    "interests": "",
+    "email": "",
+    "public_profile": true
   },
   {
+    "slug": "faculty-advisor",
     "name": "Faculty Advisor",
     "role": "Faculty Advisor",
+    "program": "",
     "photo": "",
     "photo_alt": "",
     "bio": "",
-    "email": ""
+    "description": "",
+    "interests": "",
+    "email": "",
+    "public_profile": true
   }
 ]

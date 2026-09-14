@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="MATERIAL COMMONS">
+  <rect width="800" height="520" fill="#193059"/>
+  <g fill="none" stroke="#E2E4E6" stroke-width="3" opacity=".75">
+    <path d="M80 440L220 130L350 350L505 92L720 420"/>
+    <rect x="130" y="205" width="190" height="180"/>
+    <rect x="435" y="180" width="220" height="150" transform="rotate(8 435 180)"/>
+    <circle cx="575" cy="350" r="88"/>
+  </g>
+  <text x="52" y="72" fill="#E2E4E6" font-family="Arial, sans-serif" font-size="24" letter-spacing="4">MATERIAL COMMONS</text>
+</svg>

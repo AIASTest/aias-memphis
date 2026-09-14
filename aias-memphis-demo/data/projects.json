@@ -1,0 +1,29 @@
+[
+  {
+    "title": "River Threshold",
+    "student": "Sample Student",
+    "studio": "Third-Year Design Studio",
+    "year": "2026",
+    "summary": "A speculative civic threshold exploring movement, shade, and changing water conditions along the Mississippi River.",
+    "image": "assets/images/project-river.svg",
+    "featured": true
+  },
+  {
+    "title": "Adaptive Courtyard",
+    "student": "Sample Student",
+    "studio": "Environmental Design Studio",
+    "year": "2026",
+    "summary": "A mixed-use courtyard study centered on passive cooling, daylight, and flexible community space.",
+    "image": "assets/images/project-courtyard.svg",
+    "featured": true
+  },
+  {
+    "title": "Material Commons",
+    "student": "Sample Student",
+    "studio": "Fabrication Seminar",
+    "year": "2026",
+    "summary": "A small-scale pavilion proposal testing repeatable assemblies and reclaimed material systems.",
+    "image": "assets/images/project-material.svg",
+    "featured": false
+  }
+]

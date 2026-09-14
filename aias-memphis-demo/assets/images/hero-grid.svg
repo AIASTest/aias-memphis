@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-label="Abstract architectural linework">
+  <rect width="1200" height="700" fill="#193059"/>
+  <g fill="none" stroke="#E2E4E6" stroke-opacity=".22" stroke-width="2">
+    <path d="M0 120H1200M0 240H1200M0 360H1200M0 480H1200M0 600H1200"/>
+    <path d="M120 0V700M300 0V700M480 0V700M660 0V700M840 0V700M1020 0V700"/>
+    <path d="M40 650L420 170L710 430L980 110L1180 350" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
+    <circle cx="420" cy="170" r="58"/><circle cx="980" cy="110" r="78"/>
+    <rect x="645" y="390" width="245" height="175" transform="rotate(-8 645 390)"/>
+  </g>
+  <path d="M0 625L1200 285V700H0Z" fill="#00498F" fill-opacity=".86"/>
+</svg>

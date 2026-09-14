@@ -1,0 +1,32 @@
+[
+  {
+    "title": "Portfolio Night",
+    "date": "2026-09-24",
+    "time": "6:00 PM",
+    "location": "Architecture Studio — University of Memphis",
+    "summary": "Bring a draft portfolio and get feedback from peers and local professionals.",
+    "image": "assets/images/event-portfolio.svg",
+    "registration_url": "",
+    "featured": true
+  },
+  {
+    "title": "Memphis Firm Crawl",
+    "date": "2026-10-09",
+    "time": "1:00 PM",
+    "location": "Downtown Memphis",
+    "summary": "A sample chapter event visiting architecture and design offices around Memphis.",
+    "image": "assets/images/event-firm-crawl.svg",
+    "registration_url": "",
+    "featured": true
+  },
+  {
+    "title": "AIAS Chapter Meeting",
+    "date": "2026-10-15",
+    "time": "5:30 PM",
+    "location": "Architecture Building",
+    "summary": "Monthly chapter updates, upcoming opportunities, committee work, and open discussion.",
+    "image": "assets/images/event-meeting.svg",
+    "registration_url": "",
+    "featured": false
+  }
+]

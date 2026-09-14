@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leadership Admin | AIAS Memphis</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .admin-shell{max-width:860px;margin:0 auto;padding:5rem 1.25rem}.admin-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:2rem;box-shadow:var(--shadow)}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}.admin-step{padding:1rem;border:1px solid var(--border);border-radius:14px}.admin-step strong{display:block;color:var(--memphis-blue);margin-bottom:.35rem}@media(max-width:650px){.admin-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="admin-shell">
+    <p class="eyebrow">Leadership access</p>
+    <h1 style="font-size:clamp(2.5rem,7vw,5rem)">Content manager</h1>
+    <div class="admin-card">
+      <h2 style="font-size:2rem">Update the website without editing code.</h2>
+      <p class="muted">This prototype uses Pages CMS as the editing interface. Authentication is handled with GitHub; authorized chapter leaders can edit site text, events, jobs, student projects, leadership information, images, and custom pages.</p>
+      <div class="admin-grid">
+        <div class="admin-step"><strong>1. Sign in</strong><span>Use the GitHub account that has access to the chapter website repository.</span></div>
+        <div class="admin-step"><strong>2. Select the repository</strong><span>Open the AIAS Memphis website repository in Pages CMS.</span></div>
+        <div class="admin-step"><strong>3. Edit content</strong><span>Choose Events, Projects, Jobs, Custom Pages, Leadership, or Site Settings.</span></div>
+        <div class="admin-step"><strong>4. Save</strong><span>The CMS commits the change to GitHub. GitHub Pages serves the updated files.</span></div>
+      </div>
+      <div class="button-row">
+        <a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open content manager</a>
+        <a class="button button-outline" href="../index.html">Return to site</a>
+      </div>
+      <p class="muted" style="margin-top:1.5rem;font-size:.9rem">Do not store passwords, private student records, API secrets, or other sensitive information in the website repository.</p>
+    </div>
+  </main>
+</body>
+</html>

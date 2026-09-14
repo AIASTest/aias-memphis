@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Architecture Intern",
+    "company": "Sample Memphis Design Studio",
+    "location": "Memphis, TN",
+    "type": "Internship",
+    "posted": "2026-09-10",
+    "deadline": "2026-10-10",
+    "summary": "Sample listing demonstrating how leadership can post local internships and early-career opportunities.",
+    "apply_url": "",
+    "active": true
+  },
+  {
+    "title": "Student Design Assistant",
+    "company": "Sample Built Environment Group",
+    "location": "Memphis, TN",
+    "type": "Part-time",
+    "posted": "2026-09-12",
+    "deadline": "2026-10-01",
+    "summary": "Example part-time opportunity for students with basic drafting, modeling, and presentation skills.",
+    "apply_url": "",
+    "active": true
+  }
+]

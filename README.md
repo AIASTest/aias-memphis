@@ -1,75 +1,92 @@
-# AIAS Memphis Website Prototype
+# AIAS Memphis Website
 
-A build-free static site prototype designed for GitHub Pages with editable content through Pages CMS.
+Static chapter website for AIAS at the University of Memphis. It is hosted with GitHub Pages and uses Pages CMS for officer-friendly content editing.
 
-## What is included
+## Live structure
 
-- Home page
-- Events page
-- Student projects page
-- Jobs/internships page
-- About + leadership page
-- Custom pages managed from `data/pages.json`
-- Image uploads in `assets/uploads/`
-- Leadership admin gateway at `/admin/`
-- Pages CMS configuration in `.pages.yml`
-- Responsive, accessible layout using University of Memphis-inspired brand colors
+- `index.html` — homepage
+- `events.html` — upcoming and archived events
+- `projects.html` — student work showcase
+- `jobs.html` — active jobs/internships/opportunities
+- `about.html` — chapter information and leadership
+- `page.html` — template for CMS-created custom pages
+- `admin/` — leadership dashboard
+- `admin/help.html` — searchable editing knowledge base
+- `data/` — structured content edited by Pages CMS
+- `assets/uploads/` — CMS-uploaded images
+- `.pages.yml` — Pages CMS schema and validation rules
+
+## Editing content
+
+Routine editors should use Pages CMS rather than editing repository files directly:
+
+1. Open https://app.pagescms.org/
+2. Sign in and select `AIASTest / aias-memphis`.
+3. Choose the content area.
+4. Edit and save.
+5. Verify the result on the public site after GitHub Pages republishes it.
+
+The in-site leadership dashboard is at `/admin/`. It includes content counts, automated site-health checks, links to the editor, and a Help Center with task-specific instructions.
+
+## Content model
+
+- `data/site.json` — chapter/site-wide text and links
+- `data/events.json` — events
+- `data/projects.json` — student work
+- `data/jobs.json` — jobs and internships
+- `data/leadership.json` — officers and advisor
+- `data/pages.json` — custom information/resource pages
+
+The public JavaScript is defensive: malformed array data, bad URLs, invalid dates, and missing optional fields are handled without intentionally breaking the entire page.
+
+## GitHub Pages
+
+Repository Pages settings should remain:
+
+- Source: **Deploy from a branch**
+- Branch: **main**
+- Folder: **/ (root)**
+
+`.nojekyll` is present so GitHub Pages serves the static files directly.
 
 ## Local preview
 
-Do not open `index.html` directly because browsers block local `fetch()` calls.
-
-From the project folder run:
+Because the site loads JSON with `fetch()`, do not open the HTML files directly from disk. From the repository folder run:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then open:
+Then open `http://localhost:8000`.
 
-```text
-http://localhost:8000
-```
+## Launch / content checklist
 
-## Deploy to GitHub Pages
+Before treating the prototype as a final chapter site:
 
-1. Create a new public GitHub repository, for example `aias-memphis`.
-2. Upload/push all files in this folder to the repository's `main` branch.
-3. In GitHub open **Settings → Pages**.
-4. Under **Build and deployment**, choose **Deploy from a branch**.
-5. Select `main` and `/ (root)`, then save.
-6. GitHub will publish the site at `https://YOUR-ACCOUNT.github.io/aias-memphis/` unless a custom domain is configured.
+- Replace placeholder/sample events, projects, jobs, leadership names, and email addresses.
+- Remove the prototype/sample announcement banner in Site Settings.
+- Add the chapter's actual Instagram URL if desired.
+- Confirm the approved AIAS and University of Memphis branding/marks before adding official logos.
+- Verify permission before publishing identifiable student work.
+- Verify job/opportunity links and deadlines.
+- Run the `/admin/` Site Health check and resolve warnings.
+- Preview the homepage, Events, Student Work, Jobs, About, and custom pages on desktop and mobile widths.
 
-Because this project includes `.nojekyll`, GitHub Pages serves the files directly without a Jekyll build.
+## Access and officer handoff
 
-## Enable the editor
+Long-term ownership should belong to the chapter or another durable organizational account, not one graduating student's personal account. During officer transitions:
 
-1. Go to `https://app.pagescms.org/`.
-2. Sign in with GitHub.
-3. Install/authorize the Pages CMS GitHub App for the website repository.
-4. Open the repository. Pages CMS detects `.pages.yml` automatically.
-5. Add chapter leaders as GitHub collaborators (or configure Pages CMS collaborator access) so only approved people can save changes.
+1. Add incoming editors before outgoing editors lose access.
+2. Remove access that is no longer appropriate.
+3. Update leadership and contact information.
+4. Review stale events/jobs/pages.
+5. Run Site Health.
+6. Make sure incoming leadership knows where `/admin/help.html` is.
 
-The public website's `/admin/` page is a branded gateway to this editor.
+## Security and privacy
 
-## Content model
+This is a public repository and public website. Never store passwords, tokens, API keys, private student records, grades, home addresses, or other sensitive information in the CMS or repository.
 
-- `data/site.json` — global text and links
-- `data/events.json` — events
-- `data/projects.json` — student work
-- `data/jobs.json` — jobs and internships
-- `data/leadership.json` — chapter officers/advisor
-- `data/pages.json` — additional custom pages
-- `assets/uploads/` — leadership-uploaded images
+## Structural changes
 
-## Important before launch
-
-- Replace all sample events, projects, jobs, people, and the placeholder email.
-- Obtain and use the current approved AIAS chapter logo/branding.
-- Confirm University of Memphis branding requirements before using official university marks.
-- Decide who owns the GitHub repository. A chapter-controlled GitHub organization is preferable to a graduating student's personal account.
-- Keep the repository free of secrets and private student data.
-
-## Optional phase 2
-
-If the chapter requires the full editor itself to live at `/admin/` rather than linking to Pages CMS, replace the admin gateway with Decap CMS and use a small OAuth service (for example a Cloudflare Worker) for GitHub authentication. The content files can remain largely the same.
+Normal content edits should happen in Pages CMS. Changes to HTML, CSS, JavaScript, the CMS schema, authentication architecture, or GitHub Pages settings should be treated as structural changes and reviewed/tested accordingly.

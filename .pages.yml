@@ -214,6 +214,17 @@ content:
             required: true
             options:
               maxlength: 100
+          - name: slug
+            label: Event URL name
+            type: string
+            required: true
+            description: "Permanent lowercase identifier used in the event detail link, such as portfolio-night. Avoid changing this after the event link has been shared."
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: "Use lowercase letters, numbers, and hyphens only."
+            options:
+              minlength: 2
+              maxlength: 80
           - name: date
             label: Event date
             type: date
@@ -231,12 +242,12 @@ content:
             options:
               maxlength: 120
           - name: summary
-            label: Description
+            label: Short event summary
             type: text
             required: true
-            description: "Keep this concise enough to scan on an event card."
+            description: "Brief description shown on event cards and beneath the event title."
             options:
-              maxlength: 700
+              maxlength: 500
           - name: image
             label: Event image
             type: image
@@ -246,9 +257,18 @@ content:
           - name: image_alt
             label: Event image description
             type: string
-            description: "Optional accessibility description. If blank, the site uses the event name as a fallback."
+            description: "Describe meaningful image content for screen-reader users. If blank, the site uses the event name as a fallback."
             options:
               maxlength: 180
+          - name: details
+            label: Full event details
+            type: rich-text
+            required: true
+            description: "Expanded event information shown after a visitor opens the event. Use headings, paragraphs, and lists for agenda, what to bring, transportation, speakers, or other useful details."
+            options:
+              format: markdown
+              switcher: true
+              rename: safe
           - name: registration_url
             label: Registration URL
             type: string

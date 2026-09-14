@@ -269,10 +269,14 @@ content:
               format: markdown
               switcher: true
               rename: safe
+          - name: registration_enabled
+            label: Show RSVP button
+            type: boolean
+            description: "Turn this on only when the event should display a Register / RSVP button. If it is off, the RSVP button stays hidden even if a URL is saved below."
           - name: registration_url
             label: Registration URL
             type: string
-            description: "Optional full https:// registration or RSVP link."
+            description: "Full https:// registration or RSVP link used when Show RSVP button is enabled."
             pattern:
               regex: "^$|^https://.+$"
               message: "Use a full https:// URL or leave this field blank."

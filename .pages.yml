@@ -53,37 +53,54 @@ content:
             label: Homepage headline
             type: string
             required: true
+            description: "Main headline at the top of the homepage."
             options:
               maxlength: 120
           - name: hero_text
             label: Homepage introduction
             type: text
             required: true
+            options:
+              maxlength: 500
           - name: about_text
             label: Chapter description
             type: text
             required: true
             description: "Main chapter description on the About page."
+            options:
+              maxlength: 1200
           - name: contact_email
             label: Public contact email
             type: string
-            description: "Public chapter email shown in the footer."
+            description: "Public chapter email shown on the site. Leave blank if the chapter does not want to publish one."
+            pattern:
+              regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
+              message: "Enter a valid email address or leave this field blank."
           - name: instagram_url
             label: Instagram URL
             type: string
             description: "Full https:// link to the chapter Instagram account."
+            pattern:
+              regex: "^$|^https://.+$"
+              message: "Use a full https:// URL or leave this field blank."
           - name: membership_url
             label: AIAS membership URL
             type: string
             description: "Destination for the Join AIAS button."
+            pattern:
+              regex: "^$|^https://.+$"
+              message: "Use a full https:// URL or leave this field blank."
           - name: department_url
             label: UofM Architecture URL
             type: string
             description: "Link to the University of Memphis Architecture department."
+            pattern:
+              regex: "^$|^https://.+$"
+              message: "Use a full https:// URL or leave this field blank."
           - name: demo_notice
             label: Announcement banner
             type: string
-            description: "Optional message shown above the navigation. Clear it to hide the banner."
+            description: "Optional message shown above the navigation. Clear it completely to hide the banner."
             options:
               maxlength: 160
 
@@ -93,6 +110,8 @@ content:
         path: data/pages.json
         format: json
         list: true
+        operations:
+          delete: false
         fields:
           - name: title
             label: Page title
@@ -104,10 +123,13 @@ content:
             label: Page URL name
             type: string
             required: true
-            description: "Lowercase URL name such as resources, scholarships, or competitions."
+            description: "Lowercase URL name such as resources, scholarships, or competitions. Do not change a slug casually after sharing the page link."
             pattern:
               regex: "^[a-z0-9-]+$"
               message: "Use lowercase letters, numbers, and hyphens only."
+            options:
+              minlength: 2
+              maxlength: 60
           - name: nav_label
             label: Navigation label
             type: string
@@ -117,13 +139,24 @@ content:
           - name: show_in_nav
             label: Show in main navigation
             type: boolean
+            description: "Turn this off for pages that should only be reached through a direct link."
           - name: summary
             label: Page introduction
             type: text
+            options:
+              maxlength: 350
           - name: hero_image
             label: Hero image
             type: image
             description: "Optional image displayed near the top of the page."
+            options:
+              rename: safe
+          - name: hero_image_alt
+            label: Hero image description
+            type: string
+            description: "Briefly describe meaningful image content for screen-reader users."
+            options:
+              maxlength: 180
           - name: body
             label: Page content
             type: rich-text
@@ -138,6 +171,8 @@ content:
         path: data/leadership.json
         format: json
         list: true
+        operations:
+          delete: false
         fields:
           - name: name
             label: Name
@@ -156,6 +191,9 @@ content:
             label: Public email
             type: string
             description: "Leave blank if this address should not be published."
+            pattern:
+              regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
+              message: "Enter a valid email address or leave this field blank."
 
   - name: chapter_content
     label: Chapter content
@@ -167,6 +205,8 @@ content:
         path: data/events.json
         format: json
         list: true
+        operations:
+          delete: false
         fields:
           - name: title
             label: Event name
@@ -194,17 +234,32 @@ content:
             label: Description
             type: text
             required: true
+            description: "Keep this concise enough to scan on an event card."
+            options:
+              maxlength: 700
           - name: image
             label: Event image
             type: image
-            description: "Optional event image or graphic."
+            description: "Optional event image or graphic. Landscape images work best."
+            options:
+              rename: safe
+          - name: image_alt
+            label: Event image description
+            type: string
+            description: "Optional accessibility description. If blank, the site uses the event name as a fallback."
+            options:
+              maxlength: 180
           - name: registration_url
             label: Registration URL
             type: string
             description: "Optional full https:// registration or RSVP link."
+            pattern:
+              regex: "^$|^https://.+$"
+              message: "Use a full https:// URL or leave this field blank."
           - name: featured
             label: Feature on homepage
             type: boolean
+            description: "Featured upcoming events are prioritized on the homepage."
 
       - name: projects
         label: Student projects
@@ -212,6 +267,8 @@ content:
         path: data/projects.json
         format: json
         list: true
+        operations:
+          delete: false
         fields:
           - name: title
             label: Project title
@@ -241,13 +298,25 @@ content:
             label: Project description
             type: text
             required: true
+            options:
+              maxlength: 800
           - name: image
             label: Project image
             type: image
             required: true
+            description: "Landscape images work best on project cards."
+            options:
+              rename: safe
+          - name: image_alt
+            label: Project image description
+            type: string
+            description: "Describe the drawing, model, rendering, or other work shown."
+            options:
+              maxlength: 180
           - name: featured
             label: Feature on homepage
             type: boolean
+            description: "Featured projects are shown first on the homepage."
 
       - name: jobs
         label: Jobs & internships
@@ -255,6 +324,8 @@ content:
         path: data/jobs.json
         format: json
         list: true
+        operations:
+          delete: false
         fields:
           - name: title
             label: Position title
@@ -286,14 +357,21 @@ content:
           - name: deadline
             label: Application deadline
             type: date
+            description: "If a deadline is provided, the public site automatically stops showing the listing after that date."
           - name: summary
             label: Description
             type: text
             required: true
+            options:
+              maxlength: 900
           - name: apply_url
             label: Application URL
             type: string
-            description: "Full https:// link to the application or job posting."
+            description: "Full https:// link to the application or original job posting."
+            pattern:
+              regex: "^$|^https://.+$"
+              message: "Use a full https:// URL or leave this field blank."
           - name: active
             label: Show on website
             type: boolean
+            description: "Turn this off to hide a listing immediately, even if its deadline has not passed."

@@ -3,31 +3,120 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
   <title>Leadership Admin | AIAS Memphis</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <style>
-    .admin-shell{max-width:860px;margin:0 auto;padding:5rem 1.25rem}.admin-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:2rem;box-shadow:var(--shadow)}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}.admin-step{padding:1rem;border:1px solid var(--border);border-radius:14px}.admin-step strong{display:block;color:var(--memphis-blue);margin-bottom:.35rem}@media(max-width:650px){.admin-grid{grid-template-columns:1fr}}
+    body{background:#f5f7fa}
+    .admin-shell{max-width:1120px;margin:0 auto;padding:2rem 1.25rem 5rem}
+    .admin-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:2rem}
+    .admin-brand{display:flex;align-items:center;gap:.75rem;font-weight:800;text-decoration:none;color:var(--text)}
+    .admin-brand-mark{display:grid;place-items:center;width:48px;height:48px;background:var(--memphis-blue);color:#fff;border-radius:12px;font-weight:900}
+    .admin-hero{display:grid;grid-template-columns:1.35fr .65fr;gap:1.25rem;margin-bottom:1.25rem}
+    .admin-panel{background:#fff;border:1px solid var(--border);border-radius:20px;padding:1.5rem;box-shadow:var(--shadow)}
+    .admin-hero h1{font-size:clamp(2.2rem,5vw,4.4rem);line-height:.96;margin:.4rem 0 1rem}
+    .admin-hero p{max-width:720px}
+    .admin-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+    .admin-status{display:grid;gap:.75rem;align-content:start}
+    .status-row{display:flex;justify-content:space-between;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border)}
+    .status-row:last-child{border-bottom:0}
+    .status-value{font-weight:800;text-align:right}
+    .admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1rem 0}
+    .admin-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:1.25rem;box-shadow:var(--shadow)}
+    .admin-card h2{font-size:1.2rem;margin:.35rem 0 .5rem}
+    .admin-icon{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--memphis-blue)}
+    .admin-count{font-size:2rem;font-weight:900;line-height:1;margin-top:1rem}
+    .admin-note{margin-top:1rem;background:#edf5ff;border-left:4px solid var(--memphis-blue);padding:1rem 1.1rem;border-radius:0 12px 12px 0}
+    .admin-help{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+    .admin-help ol{padding-left:1.2rem;margin-bottom:0}
+    .admin-help li{margin:.55rem 0}
+    .small{font-size:.9rem}
+    @media(max-width:850px){.admin-hero,.admin-help{grid-template-columns:1fr}.admin-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.admin-top{align-items:flex-start;flex-direction:column}.admin-grid{grid-template-columns:1fr}.admin-shell{padding-top:1rem}}
   </style>
 </head>
 <body>
   <main class="admin-shell">
-    <p class="eyebrow">Leadership access</p>
-    <h1 style="font-size:clamp(2.5rem,7vw,5rem)">Content manager</h1>
-    <div class="admin-card">
-      <h2 style="font-size:2rem">Update the website without editing code.</h2>
-      <p class="muted">This prototype uses Pages CMS as the editing interface. Authentication is handled with GitHub; authorized chapter leaders can edit site text, events, jobs, student projects, leadership information, images, and custom pages.</p>
-      <div class="admin-grid">
-        <div class="admin-step"><strong>1. Sign in</strong><span>Use the GitHub account that has access to the chapter website repository.</span></div>
-        <div class="admin-step"><strong>2. Select the repository</strong><span>Open the AIAS Memphis website repository in Pages CMS.</span></div>
-        <div class="admin-step"><strong>3. Edit content</strong><span>Choose Events, Projects, Jobs, Custom Pages, Leadership, or Site Settings.</span></div>
-        <div class="admin-step"><strong>4. Save</strong><span>The CMS commits the change to GitHub. GitHub Pages serves the updated files.</span></div>
-      </div>
-      <div class="button-row">
-        <a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open content manager</a>
-        <a class="button button-outline" href="../index.html">Return to site</a>
-      </div>
-      <p class="muted" style="margin-top:1.5rem;font-size:.9rem">Do not store passwords, private student records, API secrets, or other sensitive information in the website repository.</p>
+    <div class="admin-top">
+      <a class="admin-brand" href="../index.html">
+        <span class="admin-brand-mark">AIAS</span>
+        <span>Memphis Leadership</span>
+      </a>
+      <a class="button button-outline" href="../index.html">View public site</a>
     </div>
+
+    <section class="admin-hero">
+      <div class="admin-panel">
+        <p class="eyebrow">Leadership control panel</p>
+        <h1>Manage the chapter website.</h1>
+        <p class="muted">Events, student work, opportunities, officers, page content, and uploaded images are managed through the chapter's authenticated Pages CMS workspace.</p>
+        <div class="admin-actions">
+          <a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open website editor</a>
+          <a class="button button-outline" href="https://github.com/AIASTest/aias-memphis" target="_blank" rel="noopener">Open GitHub repository</a>
+        </div>
+        <div class="admin-note small"><strong>Editing access:</strong> Only people authorized for this repository or invited through Pages CMS should be able to save changes. Do not put passwords, private student information, or API secrets in website content.</div>
+      </div>
+
+      <aside class="admin-panel admin-status" aria-label="Website status">
+        <div>
+          <p class="eyebrow">Content status</p>
+          <h2 style="margin:.35rem 0 0">Current website</h2>
+        </div>
+        <div class="status-row"><span>Events</span><span class="status-value" id="event-count">—</span></div>
+        <div class="status-row"><span>Projects</span><span class="status-value" id="project-count">—</span></div>
+        <div class="status-row"><span>Active jobs</span><span class="status-value" id="job-count">—</span></div>
+        <div class="status-row"><span>Leadership</span><span class="status-value" id="leader-count">—</span></div>
+        <div class="status-row"><span>Custom pages</span><span class="status-value" id="page-count">—</span></div>
+      </aside>
+    </section>
+
+    <section class="admin-grid" aria-label="Editable website sections">
+      <article class="admin-card"><div class="admin-icon">Calendar</div><h2>Events</h2><p class="muted small">Add meetings, firm visits, portfolio reviews, workshops, lectures, and registration links.</p><div class="admin-count" id="event-count-card">—</div></article>
+      <article class="admin-card"><div class="admin-icon">Portfolio</div><h2>Student projects</h2><p class="muted small">Publish student work with project title, studio, year, description, image, and featured status.</p><div class="admin-count" id="project-count-card">—</div></article>
+      <article class="admin-card"><div class="admin-icon">Career</div><h2>Jobs & internships</h2><p class="muted small">Post architecture internships, part-time work, fellowships, competitions, and application links.</p><div class="admin-count" id="job-count-card">—</div></article>
+      <article class="admin-card"><div class="admin-icon">People</div><h2>Leadership</h2><p class="muted small">Keep chapter officers, faculty advisor information, and public contact addresses current.</p><div class="admin-count" id="leader-count-card">—</div></article>
+      <article class="admin-card"><div class="admin-icon">Pages</div><h2>Custom pages</h2><p class="muted small">Create resources, scholarships, competitions, committees, or other chapter information pages.</p><div class="admin-count" id="page-count-card">—</div></article>
+      <article class="admin-card"><div class="admin-icon">Settings</div><h2>Site settings</h2><p class="muted small">Edit the homepage headline, chapter description, contact information, membership link, and social links.</p><div class="admin-count">Global</div></article>
+    </section>
+
+    <section class="admin-help">
+      <div class="admin-panel">
+        <p class="eyebrow">How editing works</p>
+        <h2>Publishing a change</h2>
+        <ol>
+          <li>Open the website editor and sign in.</li>
+          <li>Select <strong>AIASTest / aias-memphis</strong>.</li>
+          <li>Choose the section you want to edit.</li>
+          <li>Make the change and save it.</li>
+          <li>Pages CMS commits the update to GitHub; GitHub Pages republishes the site.</li>
+        </ol>
+      </div>
+      <div class="admin-panel">
+        <p class="eyebrow">Recommended workflow</p>
+        <h2>For chapter leadership</h2>
+        <p class="muted">Use the CMS for routine website changes. GitHub should only be needed for structural changes to the website itself. Uploaded website images are stored with the site so future officers inherit the complete content library.</p>
+        <p class="small"><strong>Public website:</strong> <a href="../index.html">AIAS Memphis</a><br><strong>CMS:</strong> <a href="https://app.pagescms.org/" target="_blank" rel="noopener">app.pagescms.org</a></p>
+      </div>
+    </section>
   </main>
+
+  <script>
+    async function getJSON(path){
+      const response=await fetch(`../${path}`,{cache:'no-store'});
+      if(!response.ok)throw new Error(path);
+      return response.json();
+    }
+    function setCount(id,value){const el=document.getElementById(id);if(el)el.textContent=value;}
+    async function loadDashboard(){
+      try{
+        const [events,projects,jobs,leaders,pages]=await Promise.all([
+          getJSON('data/events.json'),getJSON('data/projects.json'),getJSON('data/jobs.json'),getJSON('data/leadership.json'),getJSON('data/pages.json')
+        ]);
+        const activeJobs=jobs.filter(job=>job.active).length;
+        [['event-count',events.length],['event-count-card',events.length],['project-count',projects.length],['project-count-card',projects.length],['job-count',activeJobs],['job-count-card',activeJobs],['leader-count',leaders.length],['leader-count-card',leaders.length],['page-count',pages.length],['page-count-card',pages.length]].forEach(([id,value])=>setCount(id,value));
+      }catch(error){console.error('Admin dashboard counts could not be loaded.',error);}
+    }
+    loadDashboard();
+  </script>
 </body>
 </html>

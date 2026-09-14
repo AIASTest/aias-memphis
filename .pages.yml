@@ -1,0 +1,192 @@
+media:
+  input: assets/uploads
+  output: assets/uploads
+  categories: [image]
+  rename: true
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: user
+
+content:
+  - name: site
+    label: Site settings
+    type: file
+    path: data/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - name: chapter_name
+        label: Chapter name
+        type: string
+        required: true
+      - name: short_name
+        label: Short name
+        type: string
+        required: true
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: hero_title
+        label: Home hero title
+        type: string
+      - name: hero_text
+        label: Home hero text
+        type: text
+      - name: about_text
+        label: About text
+        type: text
+      - name: contact_email
+        label: Contact email
+        type: string
+      - name: instagram_url
+        label: Instagram URL
+        type: string
+      - name: membership_url
+        label: Membership URL
+        type: string
+      - name: department_url
+        label: Department URL
+        type: string
+      - name: demo_notice
+        label: Top notice
+        type: string
+        description: Clear this field when the prototype becomes the live site.
+
+  - name: events
+    label: Events
+    type: file
+    path: data/events.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: date
+        type: date
+        required: true
+      - name: time
+        type: string
+        description: "Example: 6:00 PM"
+      - name: location
+        type: string
+      - name: summary
+        type: text
+      - name: image
+        type: image
+      - name: registration_url
+        label: Registration URL
+        type: string
+      - name: featured
+        type: boolean
+
+  - name: projects
+    label: Student projects
+    type: file
+    path: data/projects.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: student
+        label: Student name
+        type: string
+      - name: studio
+        type: string
+      - name: year
+        type: string
+      - name: summary
+        type: text
+      - name: image
+        type: image
+      - name: featured
+        type: boolean
+
+  - name: jobs
+    label: Jobs & internships
+    type: file
+    path: data/jobs.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: company
+        type: string
+      - name: location
+        type: string
+      - name: type
+        label: Opportunity type
+        type: select
+        options:
+          values: [Internship, Part-time, Full-time, Fellowship, Competition, Other]
+      - name: posted
+        label: Posted date
+        type: date
+      - name: deadline
+        type: date
+      - name: summary
+        type: text
+      - name: apply_url
+        label: Application URL
+        type: string
+      - name: active
+        type: boolean
+
+  - name: pages
+    label: Custom pages
+    type: file
+    path: data/pages.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: slug
+        type: string
+        required: true
+        description: Lowercase URL name such as resources or scholarships.
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: Use lowercase letters, numbers, and hyphens only.
+      - name: nav_label
+        label: Navigation label
+        type: string
+      - name: show_in_nav
+        label: Show in navigation
+        type: boolean
+      - name: summary
+        type: text
+      - name: hero_image
+        label: Hero image
+        type: image
+      - name: body
+        type: rich-text
+        options:
+          format: markdown
+          rename: true
+
+  - name: leadership
+    label: Leadership
+    type: file
+    path: data/leadership.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        type: string
+        required: true
+      - name: role
+        type: string
+        required: true
+      - name: email
+        type: string

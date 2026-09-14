@@ -86,10 +86,16 @@
       qs('#receipt-note').textContent = payments.receipt_note || '';
       qs('#donation-disclaimer').textContent = payments.donation_disclaimer || '';
 
+      const firmVisible = payments.firm_section_enabled !== false;
+      const donationVisible = payments.donation_section_enabled !== false;
       const firmSection = qs('#firm-payments');
-      if (firmSection) firmSection.hidden = payments.firm_section_enabled === false;
       const donationSection = qs('#donations');
-      if (donationSection) donationSection.hidden = payments.donation_section_enabled === false;
+      const firmHeroButton = qs('a[href="#firm-payments"]');
+      const donationHeroButton = qs('a[href="#donations"]');
+      if (firmSection) firmSection.hidden = !firmVisible;
+      if (donationSection) donationSection.hidden = !donationVisible;
+      if (firmHeroButton) firmHeroButton.hidden = !firmVisible;
+      if (donationHeroButton) donationHeroButton.hidden = !donationVisible;
 
       renderFees(payments.firm_fees);
       renderMethods(payments.payment_methods);

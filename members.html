@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en" data-root="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meet the student members of AIAS at the University of Memphis and explore their architecture work, interests, and chapter contributions.">
+  <title>Chapter Members | AIAS Memphis</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/members.css">
+</head>
+<body data-page="members">
+<a class="skip-link" href="#main">Skip to content</a>
+<header id="site-header"></header>
+<main id="main">
+  <section class="page-hero members-hero">
+    <div class="container">
+      <p class="eyebrow" style="color:#fff">The people behind the chapter</p>
+      <h1>Chapter members</h1>
+      <p>AIAS is shaped by the students who participate in it. Meet the members contributing to chapter life, learn what they are interested in, and explore the work they have chosen to share.</p>
+      <div class="hero-actions">
+        <a class="button button-light" href="#member-directory">Meet the members</a>
+        <a class="button button-primary" id="members-join-link" href="#" target="_blank" rel="noopener" hidden>Join AIAS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section members-intro">
+    <div class="container members-intro-grid">
+      <div>
+        <p class="eyebrow">Member directory</p>
+        <h2>Everyone contributes in a different way.</h2>
+        <p class="muted" style="font-size:1.08rem">Formal officer titles are only part of chapter leadership. Members help shape events, studio culture, outreach, professional connections, design conversations, and the community students experience every day.</p>
+      </div>
+      <aside class="info-panel">
+        <h3>Why create a profile?</h3>
+        <p>A public member profile gives students a place to introduce themselves, show their role in AIAS, and connect their published student work to one portfolio-style page.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="member-directory" style="background:#fff">
+    <div class="container">
+      <div class="member-directory-head">
+        <div><p class="eyebrow">Directory</p><h2>Meet AIAS Memphis</h2></div>
+        <label class="member-search-wrap" for="member-search">
+          <span>Find a member</span>
+          <input id="member-search" type="search" placeholder="Search name, role, program, interests…" autocomplete="off">
+        </label>
+      </div>
+      <p class="member-result-count" id="member-result-count" aria-live="polite"></p>
+      <div class="members-grid" id="members-grid"></div>
+    </div>
+  </section>
+
+  <section class="cta-band section-tight">
+    <div class="container cta-layout">
+      <div><p class="eyebrow" style="color:#fff">Be part of it</p><h2>Your work and perspective belong here too.</h2><p>Join the chapter, contribute to the community, and build a public member profile that can grow with your projects and involvement.</p></div>
+      <a class="button button-light" id="members-bottom-join-link" href="#" target="_blank" rel="noopener" hidden>Join AIAS</a>
+    </div>
+  </section>
+
+  <dialog class="member-dialog" id="member-dialog" aria-labelledby="member-dialog-name">
+    <button class="member-dialog-close" id="member-dialog-close" type="button" aria-label="Close member profile">×</button>
+    <div id="member-dialog-content"></div>
+  </dialog>
+</main>
+<footer id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/members.js"></script>
+<script src="assets/js/site-extras.js"></script>
+</body>
+</html>

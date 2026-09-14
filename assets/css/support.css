@@ -12,8 +12,7 @@
 .support-hero h1 { margin-bottom: 1rem; }
 .support-lede { max-width: 760px; color: #e2ebf5; font-size: clamp(1.05rem, 2vw, 1.32rem); }
 .support-trust-card,
-.support-info-panel,
-.support-impact-card {
+.support-purpose-card {
   background: var(--white);
   color: var(--ink);
   border: 1px solid var(--border);
@@ -23,46 +22,45 @@
 }
 .support-trust-card { background: rgba(255,255,255,.97); }
 .support-trust-card h2 { font-size: 1.8rem; }
-.support-trust-card ul,
-.support-info-panel ol { margin: 1rem 0 0; padding-left: 1.25rem; }
-.support-trust-card li,
-.support-info-panel li { margin: .55rem 0; }
-.support-two-column {
+.support-purpose-section { background: var(--paper); }
+.support-purpose-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
-  gap: 3rem;
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
 }
-.support-copy { max-width: 760px; font-size: 1.08rem; color: var(--muted); }
-.fee-grid { display: grid; gap: .8rem; margin-top: 1.4rem; }
-.fee-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 1.1rem 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  gap: 1.25rem;
-  align-items: start;
+.support-purpose-card h2 { margin-bottom: .65rem; }
+.support-purpose-card > p:not(.eyebrow):not(.support-note) { color: var(--muted); font-size: 1.05rem; }
+.support-note {
+  margin: 1.2rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-weight: 700;
 }
-.fee-card h3 { margin: 0 0 .35rem; }
-.fee-amount { font-weight: 850; color: var(--memphis-blue); white-space: nowrap; }
-.support-donation-section { background: var(--white); }
-.impact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; }
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .7rem;
+  margin-top: 1.2rem;
+}
 .impact-grid span {
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: .9rem;
+  padding: .85rem;
   font-weight: 750;
   background: var(--paper);
 }
-.payment-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
+.support-payment-wrap { max-width: 980px; }
+.payment-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 1rem;
+}
 .payment-method {
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.35rem;
-  min-height: 220px;
+  min-height: 175px;
   display: flex;
   flex-direction: column;
   box-shadow: 0 1px 0 rgba(25,48,89,.03);
@@ -80,16 +78,8 @@
   letter-spacing: .03em;
   margin-bottom: 1rem;
 }
-.payment-method h3 { margin-bottom: .4rem; }
-.payment-handle { color: var(--muted); margin-bottom: 1rem; word-break: break-word; }
-.payment-method .button-row { margin-top: auto; }
-.copy-handle {
-  border: 1px solid var(--border);
-  background: var(--white);
-  color: var(--ink);
-  cursor: pointer;
-}
-.copy-handle:hover { border-color: var(--memphis-blue); color: var(--memphis-blue); }
+.payment-method h3 { margin-bottom: 1rem; }
+.payment-method .button { margin-top: auto; width: 100%; justify-content: center; }
 .payment-notes {
   margin-top: 1.5rem;
   padding: 1.2rem 1.3rem;
@@ -104,13 +94,11 @@
 
 @media (max-width: 900px) {
   .support-hero-grid,
-  .support-two-column { grid-template-columns: 1fr; }
+  .support-purpose-grid { grid-template-columns: 1fr; }
   .payment-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 @media (max-width: 650px) {
   .support-hero { padding: 5.25rem 0 3.75rem; }
   .payment-grid,
   .impact-grid { grid-template-columns: 1fr; }
-  .fee-card { display: block; }
-  .fee-amount { margin-top: .65rem; display: block; }
 }

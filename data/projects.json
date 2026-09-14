@@ -1,29 +1,98 @@
 [
   {
     "title": "River Threshold",
+    "slug": "river-threshold",
     "student": "Sample Student",
     "studio": "Third-Year Design Studio",
+    "semester": "Fall 2026",
     "year": "2026",
+    "project_type": "Civic / Waterfront",
     "summary": "A speculative civic threshold exploring movement, shade, and changing water conditions along the Mississippi River.",
-    "image": "assets/images/project-river.svg",
+    "cover_image": "assets/images/project-river.svg",
+    "cover_image_alt": "Abstract blue architectural study representing the River Threshold project.",
+    "gallery": [
+      {
+        "image": "assets/images/project-river.svg",
+        "alt": "Primary concept rendering for River Threshold.",
+        "caption": "Primary concept view exploring a layered public threshold at the river edge."
+      },
+      {
+        "image": "assets/images/project-river-plan.svg",
+        "alt": "Plan diagram showing the river edge, circulation bands, and program blocks.",
+        "caption": "Site and circulation study."
+      },
+      {
+        "image": "assets/images/project-river-section.svg",
+        "alt": "Section drawing showing stepped platforms and shade structures along the river edge.",
+        "caption": "Section study focused on shade, movement, and changing water levels."
+      }
+    ],
+    "body": "## Project overview\nRiver Threshold studies how a civic space can respond to the changing edge of the Mississippi River. The proposal treats circulation, shade, occupation, and water as parts of one adaptable public system rather than separate site elements.\n\n## Design approach\nThe project develops a sequence of elevated and stepped spaces that move visitors between the city and the river. Large shaded zones create places to gather during hot weather while lower platforms allow the public realm to change as river conditions shift.\n\nThe design process focused on **movement, environmental response, and sectional experience**. Plan and section studies were used together to test how circulation could remain legible while the relationship between land and water changes over time.\n\n## Key ideas\n- Create a strong pedestrian connection between the city and river.\n- Use shade as an architectural element rather than an afterthought.\n- Allow portions of the public realm to adapt to changing water conditions.\n- Build a sequence of spaces with different levels of enclosure and exposure.",
+    "external_url": "",
     "featured": true
   },
   {
     "title": "Adaptive Courtyard",
+    "slug": "adaptive-courtyard",
     "student": "Sample Student",
     "studio": "Environmental Design Studio",
+    "semester": "Spring 2026",
     "year": "2026",
+    "project_type": "Mixed-use / Environmental Design",
     "summary": "A mixed-use courtyard study centered on passive cooling, daylight, and flexible community space.",
-    "image": "assets/images/project-courtyard.svg",
+    "cover_image": "assets/images/project-courtyard.svg",
+    "cover_image_alt": "Abstract architectural rendering representing the Adaptive Courtyard project.",
+    "gallery": [
+      {
+        "image": "assets/images/project-courtyard.svg",
+        "alt": "Primary concept image for the Adaptive Courtyard project.",
+        "caption": "Concept view of the shared courtyard and surrounding program."
+      },
+      {
+        "image": "assets/images/project-courtyard-plan.svg",
+        "alt": "Plan study showing the courtyard, surrounding program bars, planting, and circulation.",
+        "caption": "Plan study organizing circulation and passive environmental zones around the courtyard."
+      },
+      {
+        "image": "assets/images/project-courtyard-section.svg",
+        "alt": "Section study showing daylight, shade, planting, and occupied levels around a central courtyard.",
+        "caption": "Section study testing daylight and shade within the central shared space."
+      }
+    ],
+    "body": "## Project overview\nAdaptive Courtyard explores a mixed-use building organized around a shared environmental core. Rather than treating the courtyard as leftover open space, the proposal uses it as the primary device for daylight, passive cooling, circulation, and social activity.\n\n## Environmental strategy\nThe surrounding program is arranged to maintain access to the courtyard while controlling direct solar exposure. Openings, shaded edges, vegetation, and circulation paths are coordinated to create a more comfortable microclimate and reduce dependence on fully conditioned interior circulation.\n\n## Spatial goals\nThe project is intended to support both everyday use and changing community programs. Edges of the courtyard can shift between circulation, informal gathering, exhibition, and event space without changing the overall organization of the building.\n\n## Key ideas\n- Make passive environmental performance visible in the architecture.\n- Use the courtyard as both infrastructure and social space.\n- Bring daylight deeper into the building.\n- Create flexible edges that can support multiple uses over time.",
+    "external_url": "",
     "featured": true
   },
   {
     "title": "Material Commons",
+    "slug": "material-commons",
     "student": "Sample Student",
     "studio": "Fabrication Seminar",
+    "semester": "Fall 2026",
     "year": "2026",
+    "project_type": "Pavilion / Fabrication",
     "summary": "A small-scale pavilion proposal testing repeatable assemblies and reclaimed material systems.",
-    "image": "assets/images/project-material.svg",
+    "cover_image": "assets/images/project-material.svg",
+    "cover_image_alt": "Abstract pavilion study representing the Material Commons project.",
+    "gallery": [
+      {
+        "image": "assets/images/project-material.svg",
+        "alt": "Primary pavilion concept image for Material Commons.",
+        "caption": "Overall pavilion concept based on a repeatable structural rhythm."
+      },
+      {
+        "image": "assets/images/project-material-detail.svg",
+        "alt": "Construction detail showing repeated modules and connection points.",
+        "caption": "Connection study designed around repeatable parts and reversible assembly."
+      },
+      {
+        "image": "assets/images/project-material-assembly.svg",
+        "alt": "Axonometric diagram showing modular frames and panels coming together.",
+        "caption": "Assembly study showing the relationship between frame, panel, and repeated bay."
+      }
+    ],
+    "body": "## Project overview\nMaterial Commons is a small pavilion study centered on one question: how much spatial variety can be produced from a limited set of repeatable parts? The proposal uses a simple structural rhythm and reclaimed material panels to create an assembly that can be built, taken apart, repaired, and reconfigured.\n\n## Fabrication logic\nThe system reduces the number of unique components so that fabrication can remain understandable and economical. Repeated connections are treated as a design opportunity, allowing the construction logic to become part of the visual identity of the pavilion.\n\n## Material strategy\nReclaimed or surplus sheet material can be cut into a limited family of infill panels. Because the primary frame is independent from the panel system, damaged or changed pieces can be replaced without rebuilding the entire structure.\n\n## Key ideas\n- Reduce the number of unique fabricated parts.\n- Make connections accessible and reversible.\n- Design for repair, reuse, and changing configurations.\n- Allow construction logic to contribute to the architectural expression.",
+    "external_url": "",
     "featured": false
   }
 ]

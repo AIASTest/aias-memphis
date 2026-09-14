@@ -278,8 +278,8 @@ content:
               switcher: true
               rename: safe
 
-      - name: leadership
-        label: Leadership
+      - name: members
+        label: Chapter members
         type: file
         path: data/leadership.json
         format: json
@@ -287,6 +287,17 @@ content:
         operations:
           delete: false
         fields:
+          - name: slug
+            label: Member URL name
+            type: string
+            required: true
+            description: "Permanent lowercase identifier used by this member profile, such as jordan-smith. Use the same value in Student projects → Member profile URL name to link projects to this person."
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: "Use lowercase letters, numbers, and hyphens only."
+            options:
+              minlength: 2
+              maxlength: 70
           - name: name
             label: Name
             type: string
@@ -294,12 +305,18 @@ content:
             options:
               maxlength: 80
           - name: role
-            label: Position
+            label: Chapter role / contribution
             type: string
             required: true
-            description: "Example: President, Vice President, Faculty Advisor."
+            description: "Examples: President, Treasurer, Member, Events Committee, Professional Outreach, Faculty Advisor."
             options:
-              maxlength: 80
+              maxlength: 100
+          - name: program
+            label: Program / year
+            type: string
+            description: "Optional public academic context, such as Fourth-year Architecture or Interior Architecture."
+            options:
+              maxlength: 100
           - name: photo
             label: Profile photo
             type: image
@@ -313,11 +330,25 @@ content:
             options:
               maxlength: 180
           - name: bio
-            label: Introduction / bio
+            label: Short introduction / blurb
             type: text
-            description: "A short first-person or third-person introduction: who they are, what they do in AIAS, interests, studio focus, or what they hope to contribute to the chapter."
+            description: "A short introduction shown on cards and in the profile popout: who they are, how they contribute to AIAS, or what they care about."
             options:
-              maxlength: 900
+              maxlength: 500
+          - name: description
+            label: Full profile description
+            type: rich-text
+            description: "Optional longer profile shown in the popout and full member page. Use this for background, goals, studio interests, involvement, or a more personal introduction."
+            options:
+              format: markdown
+              switcher: true
+              rename: safe
+          - name: interests
+            label: Design / professional interests
+            type: string
+            description: "Optional short list such as Adaptive reuse, housing, visualization, fabrication."
+            options:
+              maxlength: 180
           - name: email
             label: Public email
             type: string
@@ -325,6 +356,10 @@ content:
             pattern:
               regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
               message: "Enter a valid email address or leave this field blank."
+          - name: public_profile
+            label: Show public member profile
+            type: boolean
+            description: "Turn this off to keep the member in the data file without listing a public profile."
 
   - name: chapter_content
     label: Chapter content
@@ -449,6 +484,15 @@ content:
             required: true
             options:
               maxlength: 80
+          - name: member_slug
+            label: Member profile URL name
+            type: string
+            description: "Optional. To show this project on a chapter member's profile, copy that person's Member URL name from Website → Chapter members. Example: jordan-smith."
+            pattern:
+              regex: "^$|^[a-z0-9-]+$"
+              message: "Use the member's lowercase URL name, or leave this blank."
+            options:
+              maxlength: 70
           - name: studio
             label: Studio / course
             type: string

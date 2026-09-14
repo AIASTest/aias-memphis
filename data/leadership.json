@@ -1,6 +1,34 @@
 [
-  {"name": "Chapter President", "role": "President", "email": ""},
-  {"name": "Chapter Vice President", "role": "Vice President", "email": ""},
-  {"name": "Chapter Treasurer", "role": "Treasurer", "email": ""},
-  {"name": "Faculty Advisor", "role": "Faculty Advisor", "email": ""}
+  {
+    "name": "Chapter President",
+    "role": "President",
+    "photo": "",
+    "photo_alt": "",
+    "bio": "",
+    "email": ""
+  },
+  {
+    "name": "Chapter Vice President",
+    "role": "Vice President",
+    "photo": "",
+    "photo_alt": "",
+    "bio": "",
+    "email": ""
+  },
+  {
+    "name": "Chapter Treasurer",
+    "role": "Treasurer",
+    "photo": "",
+    "photo_alt": "",
+    "bio": "",
+    "email": ""
+  },
+  {
+    "name": "Faculty Advisor",
+    "role": "Faculty Advisor",
+    "photo": "",
+    "photo_alt": "",
+    "bio": "",
+    "email": ""
+  }
 ]

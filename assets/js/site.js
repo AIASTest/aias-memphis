@@ -124,6 +124,38 @@ function pageName() {
   return document.body.dataset.page || 'home';
 }
 
+function projectUrl(project = {}) {
+  const slug = String(project.slug || '').trim();
+  return slug ? path(`project.html?slug=${encodeURIComponent(slug)}`) : path('projects.html');
+}
+
+function projectCover(project = {}) {
+  return safeMediaUrl(project.cover_image || project.image || '');
+}
+
+function projectGallery(project = {}) {
+  const gallery = asArray(project.gallery)
+    .map((item) => {
+      if (!item || typeof item !== 'object') return null;
+      const image = safeMediaUrl(item.image);
+      if (!image) return null;
+      return {
+        image,
+        alt: String(item.alt || project.cover_image_alt || `${project.title || 'Student project'} image`),
+        caption: String(item.caption || '')
+      };
+    })
+    .filter(Boolean);
+
+  if (gallery.length) return gallery;
+  const cover = projectCover(project);
+  return cover ? [{
+    image: cover,
+    alt: String(project.cover_image_alt || project.image_alt || `${project.title || 'Student project'} image`),
+    caption: ''
+  }] : [];
+}
+
 async function buildChrome() {
   const [siteRaw, pagesRaw] = await Promise.all([
     loadJSON('data/site.json'),
@@ -157,7 +189,7 @@ async function buildChrome() {
           <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
           <nav class="nav-links" id="main-nav" aria-label="Primary navigation">
             <a href="${path('events.html')}" ${current === 'events' ? 'aria-current="page"' : ''}>Events</a>
-            <a href="${path('projects.html')}" ${current === 'projects' ? 'aria-current="page"' : ''}>Student Work</a>
+            <a href="${path('projects.html')}" ${(current === 'projects' || current === 'project') ? 'aria-current="page"' : ''}>Student Work</a>
             <a href="${path('jobs.html')}" ${current === 'jobs' ? 'aria-current="page"' : ''}>Jobs</a>
             <a href="${path('about.html')}" ${current === 'about' ? 'aria-current="page"' : ''}>About</a>
             ${customLinks}
@@ -230,17 +262,21 @@ function eventCard(event = {}) {
 }
 
 function projectCard(project = {}) {
-  const image = safeMediaUrl(project.image);
-  const meta = [project.studio, project.year].filter(Boolean).map(escapeHTML).join(' · ');
+  const image = projectCover(project);
+  const meta = [project.project_type, project.studio, project.year].filter(Boolean).map(escapeHTML).join(' · ');
+  const href = projectUrl(project);
   return `
-    <article class="card">
-      ${image ? `<img class="card-media" src="${escapeHTML(image)}" alt="${escapeHTML(project.image_alt || `${project.title || 'Student project'} by ${project.student || 'a student'}`)}" loading="lazy">` : ''}
-      <div class="card-body">
-        ${meta ? `<div class="card-meta">${meta}</div>` : ''}
-        <h3>${escapeHTML(project.title || 'Untitled project')}</h3>
-        ${project.student ? `<p class="muted">${escapeHTML(project.student)}</p>` : ''}
-        ${project.summary ? `<p>${escapeHTML(project.summary)}</p>` : ''}
-      </div>
+    <article class="card project-card">
+      <a class="project-card-link" href="${escapeHTML(href)}" aria-label="View project: ${escapeHTML(project.title || 'Untitled project')}">
+        ${image ? `<img class="card-media" src="${escapeHTML(image)}" alt="${escapeHTML(project.cover_image_alt || project.image_alt || `${project.title || 'Student project'} by ${project.student || 'a student'}`)}" loading="lazy">` : ''}
+        <div class="card-body">
+          ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+          <h3>${escapeHTML(project.title || 'Untitled project')}</h3>
+          ${project.student ? `<p class="muted">${escapeHTML(project.student)}</p>` : ''}
+          ${project.summary ? `<p>${escapeHTML(project.summary)}</p>` : ''}
+          <span class="card-link">View project →</span>
+        </div>
+      </a>
     </article>`;
 }
 
@@ -309,7 +345,132 @@ async function initEvents() {
 
 async function initProjects() {
   const projects = asArray(await loadJSON('data/projects.json'));
-  setHTML('#projects-list', projects.length ? projects.map(projectCard).join('') : '<div class="empty-state">No student projects have been posted yet.</div>');
+  const sorted = [...projects].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || String(b.year || '').localeCompare(String(a.year || '')));
+  setHTML('#projects-list', sorted.length ? sorted.map(projectCard).join('') : '<div class="empty-state">No student projects have been posted yet.</div>');
+}
+
+function renderProjectGallery(project) {
+  const items = projectGallery(project);
+  const stage = document.getElementById('project-gallery-stage');
+  const image = document.getElementById('project-gallery-image');
+  const caption = document.getElementById('project-gallery-caption');
+  const count = document.getElementById('project-gallery-count');
+  const thumbs = document.getElementById('project-gallery-thumbs');
+  const previous = document.getElementById('project-gallery-prev');
+  const next = document.getElementById('project-gallery-next');
+  const clickNext = document.getElementById('project-gallery-click-next');
+
+  if (!stage || !image || !caption || !count || !thumbs || !previous || !next || !clickNext) return;
+  if (!items.length) {
+    stage.innerHTML = '<div class="empty-state">No project images have been published yet.</div>';
+    thumbs.innerHTML = '';
+    return;
+  }
+
+  let activeIndex = 0;
+  const draw = () => {
+    const item = items[activeIndex];
+    image.src = item.image;
+    image.alt = item.alt;
+    caption.textContent = item.caption || '';
+    caption.hidden = !item.caption;
+    count.textContent = `${activeIndex + 1} / ${items.length}`;
+    clickNext.setAttribute('aria-label', items.length > 1 ? `Show next project image. Current image ${activeIndex + 1} of ${items.length}.` : 'Project image');
+    previous.disabled = items.length <= 1;
+    next.disabled = items.length <= 1;
+    thumbs.querySelectorAll('button').forEach((button, index) => {
+      button.classList.toggle('active', index === activeIndex);
+      button.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+    });
+  };
+
+  const go = (offset) => {
+    if (items.length <= 1) return;
+    activeIndex = (activeIndex + offset + items.length) % items.length;
+    draw();
+  };
+
+  thumbs.innerHTML = items.map((item, index) => `
+    <button type="button" class="project-gallery-thumb" data-gallery-index="${index}" aria-label="Show image ${index + 1}${item.caption ? `: ${escapeHTML(item.caption)}` : ''}">
+      <img src="${escapeHTML(item.image)}" alt="" loading="lazy">
+    </button>`).join('');
+
+  thumbs.querySelectorAll('button').forEach((button) => {
+    button.addEventListener('click', () => {
+      activeIndex = Number(button.dataset.galleryIndex) || 0;
+      draw();
+    });
+  });
+  previous.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  clickNext.addEventListener('click', () => go(1));
+  document.addEventListener('keydown', (event) => {
+    const tag = document.activeElement?.tagName?.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+    if (event.key === 'ArrowLeft') go(-1);
+    if (event.key === 'ArrowRight') go(1);
+  });
+  draw();
+}
+
+function projectMetaRows(project = {}) {
+  const rows = [
+    ['Student', project.student],
+    ['Studio / course', project.studio],
+    ['Semester', project.semester],
+    ['Year', project.year],
+    ['Project type', project.project_type]
+  ].filter(([, value]) => value);
+  return rows.map(([label, value]) => `<div class="project-meta-row"><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('');
+}
+
+async function initProject() {
+  const slug = new URLSearchParams(window.location.search).get('slug') || '';
+  const projects = asArray(await loadJSON('data/projects.json'));
+  const project = projects.find(p => p?.slug === slug);
+  const shell = document.getElementById('project-detail-shell');
+
+  if (!project) {
+    document.title = 'Project not found | AIAS Memphis';
+    if (shell) shell.innerHTML = '<section class="section"><div class="container"><div class="empty-state"><strong>Project not found.</strong><p style="margin:.5rem 0 1rem">This project may have been renamed or removed.</p><a class="button button-primary" href="projects.html">Back to student work</a></div></div></section>';
+    return;
+  }
+
+  document.title = `${project.title || 'Student project'} | AIAS Memphis`;
+  const metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription && project.summary) metaDescription.content = project.summary;
+
+  setText('#project-title', project.title || 'Untitled project');
+  setText('#project-summary', project.summary || '');
+  setText('#project-student', project.student ? `By ${project.student}` : '');
+  setText('#project-kicker', project.project_type || project.studio || 'Student project');
+  setHTML('#project-meta', projectMetaRows(project));
+  setHTML('#project-body', simpleMarkdown(project.body || project.summary || ''));
+
+  const external = safeUrl(project.external_url);
+  const externalLink = document.getElementById('project-external-link');
+  if (externalLink && external) {
+    externalLink.hidden = false;
+    externalLink.href = external;
+  }
+
+  renderProjectGallery(project);
+
+  const currentIndex = projects.indexOf(project);
+  const previousProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+  const nextProject = currentIndex >= 0 && currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+  const prevLink = document.getElementById('project-prev-project');
+  const nextLink = document.getElementById('project-next-project');
+  if (prevLink && previousProject?.slug) {
+    prevLink.hidden = false;
+    prevLink.href = projectUrl(previousProject);
+    prevLink.querySelector('strong').textContent = previousProject.title || 'Previous project';
+  }
+  if (nextLink && nextProject?.slug) {
+    nextLink.hidden = false;
+    nextLink.href = projectUrl(nextProject);
+    nextLink.querySelector('strong').textContent = nextProject.title || 'Next project';
+  }
 }
 
 async function initJobs() {
@@ -382,6 +543,7 @@ async function main() {
     if (page === 'home') await initHome(site);
     if (page === 'events') await initEvents();
     if (page === 'projects') await initProjects();
+    if (page === 'project') await initProject();
     if (page === 'jobs') await initJobs();
     if (page === 'about') await initAbout(site);
     if (page === 'custom') await initCustomPage();

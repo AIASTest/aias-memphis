@@ -22,7 +22,7 @@ function safeUrl(url = '') {
   if (!text) return '';
   try {
     const parsed = new URL(text);
-    return ['http:', 'https:', 'mailto:'].includes(parsed.protocol) ? text : '';
+    return ['http:', 'https:', 'mailto:'].includes(parsed.protocol) ? parsed.href : '';
   } catch {
     return '';
   }
@@ -58,13 +58,13 @@ function simpleMarkdown(markdown = '') {
   const inline = (text) => text
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt, url) => {
       const src = safeMediaUrl(url);
-      return src ? `<img src="${src}" alt="${alt}">` : '';
+      return src ? `<img src="${escapeHTML(src)}" alt="${alt}">` : '';
     })
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
       const href = safeContentLink(url);
       if (!href) return label;
       const external = /^https?:/i.test(href);
-      return `<a href="${href}"${external ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
+      return `<a href="${escapeHTML(href)}"${external ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
     })
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>');
@@ -161,7 +161,7 @@ async function buildChrome() {
             <a href="${path('jobs.html')}" ${current === 'jobs' ? 'aria-current="page"' : ''}>Jobs</a>
             <a href="${path('about.html')}" ${current === 'about' ? 'aria-current="page"' : ''}>About</a>
             ${customLinks}
-            ${membershipUrl ? `<a class="nav-cta" href="${membershipUrl}" target="_blank" rel="noopener">Join AIAS</a>` : ''}
+            ${membershipUrl ? `<a class="nav-cta" href="${escapeHTML(membershipUrl)}" target="_blank" rel="noopener">Join AIAS</a>` : ''}
           </nav>
         </div>
       </div>`;
@@ -182,8 +182,8 @@ async function buildChrome() {
 
   if (footer) {
     const resourceLinks = [
-      departmentUrl ? `<a href="${departmentUrl}" target="_blank" rel="noopener">UofM Architecture</a>` : '',
-      instagramUrl ? `<a href="${instagramUrl}" target="_blank" rel="noopener">Instagram</a>` : '',
+      departmentUrl ? `<a href="${escapeHTML(departmentUrl)}" target="_blank" rel="noopener">UofM Architecture</a>` : '',
+      instagramUrl ? `<a href="${escapeHTML(instagramUrl)}" target="_blank" rel="noopener">Instagram</a>` : '',
       `<a href="${path('admin/')}">Leadership Admin</a>`
     ].filter(Boolean).join('');
 
@@ -218,13 +218,13 @@ function eventCard(event = {}) {
   const meta = [formatDate(event.date), event.time ? escapeHTML(event.time) : ''].filter(Boolean).join(' · ');
   return `
     <article class="card">
-      ${image ? `<img class="card-media" src="${image}" alt="${escapeHTML(event.image_alt || `${event.title || 'Event'} graphic`)}" loading="lazy">` : ''}
+      ${image ? `<img class="card-media" src="${escapeHTML(image)}" alt="${escapeHTML(event.image_alt || `${event.title || 'Event'} graphic`)}" loading="lazy">` : ''}
       <div class="card-body">
         ${meta ? `<div class="card-meta">${meta}</div>` : ''}
         <h3>${escapeHTML(event.title || 'Untitled event')}</h3>
         ${event.location ? `<p class="muted">${escapeHTML(event.location)}</p>` : ''}
         ${event.summary ? `<p>${escapeHTML(event.summary)}</p>` : ''}
-        ${register ? `<a class="card-link" href="${register}" target="_blank" rel="noopener">Register / RSVP →</a>` : ''}
+        ${register ? `<a class="card-link" href="${escapeHTML(register)}" target="_blank" rel="noopener">Register / RSVP →</a>` : ''}
       </div>
     </article>`;
 }
@@ -234,7 +234,7 @@ function projectCard(project = {}) {
   const meta = [project.studio, project.year].filter(Boolean).map(escapeHTML).join(' · ');
   return `
     <article class="card">
-      ${image ? `<img class="card-media" src="${image}" alt="${escapeHTML(project.image_alt || `${project.title || 'Student project'} by ${project.student || 'a student'}`)}" loading="lazy">` : ''}
+      ${image ? `<img class="card-media" src="${escapeHTML(image)}" alt="${escapeHTML(project.image_alt || `${project.title || 'Student project'} by ${project.student || 'a student'}`)}" loading="lazy">` : ''}
       <div class="card-body">
         ${meta ? `<div class="card-meta">${meta}</div>` : ''}
         <h3>${escapeHTML(project.title || 'Untitled project')}</h3>
@@ -260,7 +260,7 @@ function jobCard(job = {}) {
       ${job.location ? `<p class="muted">${escapeHTML(job.location)}</p>` : ''}
       ${job.summary ? `<p>${escapeHTML(job.summary)}</p>` : ''}
       ${(posted || deadline) ? `<p class="job-dates muted">${posted ? `<span><strong>Posted:</strong> ${posted}</span>` : ''}${deadline ? `<span><strong>Deadline:</strong> ${deadline}</span>` : ''}</p>` : ''}
-      ${apply ? `<a class="button button-outline" href="${apply}" target="_blank" rel="noopener">View / Apply</a>` : '<span class="muted small-text">Application link not provided.</span>'}
+      ${apply ? `<a class="button button-outline" href="${escapeHTML(apply)}" target="_blank" rel="noopener">View / Apply</a>` : '<span class="muted small-text">Application link not provided.</span>'}
     </article>`;
 }
 

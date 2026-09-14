@@ -25,10 +25,17 @@
     const enhanceContainer = (container) => {
       if (!container) return;
       qsa('.card', container).forEach(card => {
-        if (card.dataset.eventEnhanced === 'true') return;
         const title = qs('h3', card)?.textContent?.trim() || '';
         const event = byTitle.get(title);
         if (!event?.slug) return;
+
+        if (!event.registration_enabled) {
+          qsa('a.card-link', card).forEach(link => {
+            if (/register|rsvp/i.test(link.textContent || '')) link.remove();
+          });
+        }
+
+        if (card.dataset.eventEnhanced === 'true') return;
         card.dataset.eventEnhanced = 'true';
         card.style.cursor = 'pointer';
         const body = qs('.card-body', card);
@@ -109,10 +116,11 @@
       imageSection.hidden = false;
     }
 
-    const registration = safeHttps(event.registration_url);
+    const registration = event.registration_enabled ? safeHttps(event.registration_url) : '';
     ['event-register-top','event-register-side'].forEach(id => {
       const link = document.getElementById(id);
       if (link && registration) { link.href = registration; link.hidden = false; }
+      else if (link) link.hidden = true;
     });
     const noRegistration = qs('#event-no-registration');
     if (noRegistration) noRegistration.hidden = Boolean(registration);

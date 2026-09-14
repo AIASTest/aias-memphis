@@ -54,7 +54,16 @@
   margin-bottom: 1rem;
   font-size: clamp(3rem, 7vw, 6.8rem);
 }
-.project-detail-student { font-size: 1rem; color: #b9d6ef; font-weight: 750; margin-bottom: 1.15rem; }
+.project-detail-student { font-size: 1rem; color: #b9d6ef; font-weight: 750; margin-bottom: .35rem; }
+.project-member-profile-link {
+  display: inline-flex;
+  margin-bottom: 1.15rem;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: .92rem;
+  font-weight: 800;
+}
+.project-member-profile-link:hover { text-decoration: underline; }
 .project-detail-summary { max-width: 820px; color: #edf4fa; font-size: clamp(1.1rem, 2vw, 1.38rem); }
 
 .project-gallery-section { padding: 3rem 0 1rem; background: #0d1728; }

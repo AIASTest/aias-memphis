@@ -7,6 +7,7 @@
   <title>About | AIAS Memphis</title>
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/leadership.css">
+  <link rel="stylesheet" href="assets/css/members.css">
 </head>
 <body data-page="about">
 <a class="skip-link" href="#main">Skip to content</a>
@@ -52,13 +53,18 @@
         <div>
           <p class="eyebrow">Chapter members</p>
           <h2>Meet the people shaping AIAS Memphis.</h2>
-          <p class="leadership-heading-copy">Every member contributes to the chapter in a different way. Explore member profiles to learn about their involvement, interests, and published student work.</p>
+          <p class="leadership-heading-copy">Every member contributes to the chapter in a different way. Select a profile for a quick introduction, or explore the full directory to see members and their published student work.</p>
         </div>
         <a class="button button-outline" href="members.html">View all members</a>
       </div>
       <div class="leadership-profiles" id="leadership-profiles"></div>
     </div>
   </section>
+
+  <dialog class="member-dialog" id="about-member-dialog" aria-labelledby="about-member-dialog-name">
+    <button class="member-dialog-close" id="about-member-dialog-close" type="button" aria-label="Close member profile">×</button>
+    <div id="about-member-dialog-content"></div>
+  </dialog>
 </main>
 <footer id="site-footer"></footer>
 <script src="assets/js/site.js"></script>

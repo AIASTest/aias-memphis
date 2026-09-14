@@ -6,7 +6,6 @@
     "location": "Architecture Studio — University of Memphis",
     "summary": "Bring a draft portfolio and get feedback from peers and local professionals.",
     "image": "assets/images/event-portfolio.svg",
-    "registration_url": "",
     "featured": true
   },
   {
@@ -16,7 +15,6 @@
     "location": "Downtown Memphis",
     "summary": "A sample chapter event visiting architecture and design offices around Memphis.",
     "image": "assets/images/event-firm-crawl.svg",
-    "registration_url": "",
     "featured": true
   },
   {
@@ -26,7 +24,15 @@
     "location": "Architecture Building",
     "summary": "Monthly chapter updates, upcoming opportunities, committee work, and open discussion.",
     "image": "assets/images/event-meeting.svg",
-    "registration_url": "",
+    "featured": false
+  },
+  {
+    "title": "Christmas Party",
+    "date": "2026-12-27",
+    "time": "1:00-5:00 PM",
+    "location": "Example Location",
+    "summary": "Christmas party!!! Snacks, Movies, Karaoke, and much more!",
+    "registration_url": "exampleregistration/rsvplink.com",
     "featured": false
   }
 ]

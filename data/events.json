@@ -1,37 +1,51 @@
 [
   {
     "title": "Portfolio Night",
+    "slug": "portfolio-night",
     "date": "2026-09-24",
     "time": "6:00 PM",
     "location": "Architecture Studio — University of Memphis",
     "summary": "Bring a draft portfolio and get feedback from peers and local professionals.",
     "image": "assets/images/event-portfolio.svg",
+    "image_alt": "Portfolio Night event graphic",
+    "details": "## About Portfolio Night\nBring a draft portfolio, selected work, or presentation boards and get feedback in a relaxed review setting. The goal is to help students strengthen how they communicate their design process and prepare work for internships, scholarships, reviews, and future applications.\n\n## What to bring\n- A digital or printed portfolio draft\n- Projects or spreads you want feedback on\n- Questions about layout, storytelling, or presentation\n\nStudents are welcome even if their portfolio is still early in development.",
+    "registration_url": "",
     "featured": true
   },
   {
     "title": "Memphis Firm Crawl",
+    "slug": "memphis-firm-crawl",
     "date": "2026-10-09",
     "time": "1:00 PM",
     "location": "Downtown Memphis",
     "summary": "A sample chapter event visiting architecture and design offices around Memphis.",
     "image": "assets/images/event-firm-crawl.svg",
+    "image_alt": "Memphis Firm Crawl event graphic",
+    "details": "## About the Firm Crawl\nSpend an afternoon visiting architecture and design offices around Memphis. The event is intended to give students a closer look at professional practice, workplace culture, project types, and career paths available locally.\n\n## What to expect\n- Office and studio tours\n- Conversations with architects and designers\n- Questions about internships and early-career roles\n- Opportunities to connect with local professionals\n\nFinal participating firms, meeting instructions, and transportation details can be added here as they are confirmed.",
+    "registration_url": "",
     "featured": true
   },
   {
     "title": "AIAS Chapter Meeting",
+    "slug": "aias-chapter-meeting-october-2026",
     "date": "2026-10-15",
     "time": "5:30 PM",
     "location": "Architecture Building",
     "summary": "Monthly chapter updates, upcoming opportunities, committee work, and open discussion.",
     "image": "assets/images/event-meeting.svg",
+    "image_alt": "AIAS Chapter Meeting event graphic",
+    "details": "## Monthly chapter meeting\nJoin the chapter for updates on upcoming programming, professional opportunities, committees, and current initiatives. Meetings are also a place for members to bring ideas forward and help shape what the chapter does next.\n\n## Agenda\n- Chapter announcements\n- Upcoming events and deadlines\n- Committee and project updates\n- Open discussion and member ideas\n\nStudents interested in getting more involved are encouraged to attend.",
+    "registration_url": "",
     "featured": false
   },
   {
     "title": "Christmas Party",
+    "slug": "christmas-party-2026",
     "date": "2026-12-27",
     "time": "1:00-5:00 PM",
     "location": "Example Location",
     "summary": "Christmas party!!! Snacks, Movies, Karaoke, and much more!",
+    "details": "## Christmas Party\nA casual chapter social with snacks, movies, karaoke, and time to hang out outside the studio.\n\nAdditional location details, attendance information, and anything students should bring can be added here once the event is finalized.",
     "registration_url": "",
     "featured": false
   }

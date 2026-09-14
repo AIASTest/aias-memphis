@@ -2,7 +2,7 @@ media:
   input: assets/uploads
   output: assets/uploads
   categories: [image]
-  rename: true
+  rename: safe
 
 settings:
   hide: true
@@ -10,183 +10,290 @@ settings:
     merge: true
   commit:
     identity: user
+    templates:
+      create: "Website content: add {name}"
+      update: "Website content: update {name}"
+      delete: "Website content: remove {name}"
+      rename: "Website content: rename {name}"
 
 content:
-  - name: site
-    label: Site settings
-    type: file
-    path: data/site.json
-    format: json
-    operations:
-      delete: false
-    fields:
-      - name: chapter_name
-        label: Chapter name
-        type: string
-        required: true
-      - name: short_name
-        label: Short name
-        type: string
-        required: true
-      - name: tagline
-        label: Tagline
-        type: string
-      - name: hero_title
-        label: Home hero title
-        type: string
-      - name: hero_text
-        label: Home hero text
-        type: text
-      - name: about_text
-        label: About text
-        type: text
-      - name: contact_email
-        label: Contact email
-        type: string
-      - name: instagram_url
-        label: Instagram URL
-        type: string
-      - name: membership_url
-        label: Membership URL
-        type: string
-      - name: department_url
-        label: Department URL
-        type: string
-      - name: demo_notice
-        label: Top notice
-        type: string
-        description: Clear this field when the prototype becomes the live site.
+  - name: website
+    label: Website
+    type: group
+    items:
+      - name: site
+        label: Site settings
+        type: file
+        path: data/site.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: chapter_name
+            label: Full chapter name
+            type: string
+            required: true
+            description: Used in the footer and chapter identification.
+            options:
+              maxlength: 100
+          - name: short_name
+            label: Header name
+            type: string
+            required: true
+            description: Short chapter name shown in the site header.
+            options:
+              maxlength: 50
+          - name: tagline
+            label: Tagline
+            type: string
+            description: Short supporting line used in the footer.
+            options:
+              maxlength: 140
+          - name: hero_title
+            label: Homepage headline
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: hero_text
+            label: Homepage introduction
+            type: text
+            required: true
+          - name: about_text
+            label: Chapter description
+            type: text
+            required: true
+            description: Main chapter description on the About page.
+          - name: contact_email
+            label: Public contact email
+            type: string
+            description: Public chapter email shown in the footer.
+          - name: instagram_url
+            label: Instagram URL
+            type: string
+            description: Full https:// link to the chapter Instagram account.
+          - name: membership_url
+            label: AIAS membership URL
+            type: string
+            description: Destination for the Join AIAS button.
+          - name: department_url
+            label: UofM Architecture URL
+            type: string
+            description: Link to the University of Memphis Architecture department.
+          - name: demo_notice
+            label: Announcement banner
+            type: string
+            description: Optional message shown above the navigation. Clear it to hide the banner.
+            options:
+              maxlength: 160
 
-  - name: events
-    label: Events
-    type: file
-    path: data/events.json
-    format: json
-    list: true
-    fields:
-      - name: title
-        type: string
-        required: true
-      - name: date
-        type: date
-        required: true
-      - name: time
-        type: string
-        description: "Example: 6:00 PM"
-      - name: location
-        type: string
-      - name: summary
-        type: text
-      - name: image
-        type: image
-      - name: registration_url
-        label: Registration URL
-        type: string
-      - name: featured
-        type: boolean
+      - name: pages
+        label: Custom pages
+        type: file
+        path: data/pages.json
+        format: json
+        list: true
+        fields:
+          - name: title
+            label: Page title
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: slug
+            label: Page URL name
+            type: string
+            required: true
+            description: Lowercase URL name such as resources, scholarships, or competitions.
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: Use lowercase letters, numbers, and hyphens only.
+          - name: nav_label
+            label: Navigation label
+            type: string
+            description: Optional shorter label for the main navigation.
+            options:
+              maxlength: 30
+          - name: show_in_nav
+            label: Show in main navigation
+            type: boolean
+          - name: summary
+            label: Page introduction
+            type: text
+          - name: hero_image
+            label: Hero image
+            type: image
+            description: Optional image displayed near the top of the page.
+          - name: body
+            label: Page content
+            type: rich-text
+            options:
+              format: markdown
+              switcher: true
+              rename: safe
 
-  - name: projects
-    label: Student projects
-    type: file
-    path: data/projects.json
-    format: json
-    list: true
-    fields:
-      - name: title
-        type: string
-        required: true
-      - name: student
-        label: Student name
-        type: string
-      - name: studio
-        type: string
-      - name: year
-        type: string
-      - name: summary
-        type: text
-      - name: image
-        type: image
-      - name: featured
-        type: boolean
+      - name: leadership
+        label: Leadership
+        type: file
+        path: data/leadership.json
+        format: json
+        list: true
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: role
+            label: Position
+            type: string
+            required: true
+            description: Example: President, Vice President, Faculty Advisor.
+            options:
+              maxlength: 80
+          - name: email
+            label: Public email
+            type: string
+            description: Leave blank if this address should not be published.
 
-  - name: jobs
-    label: Jobs & internships
-    type: file
-    path: data/jobs.json
-    format: json
-    list: true
-    fields:
-      - name: title
-        type: string
-        required: true
-      - name: company
-        type: string
-      - name: location
-        type: string
-      - name: type
-        label: Opportunity type
-        type: select
-        options:
-          values: [Internship, Part-time, Full-time, Fellowship, Competition, Other]
-      - name: posted
-        label: Posted date
-        type: date
-      - name: deadline
-        type: date
-      - name: summary
-        type: text
-      - name: apply_url
-        label: Application URL
-        type: string
-      - name: active
-        type: boolean
+  - name: chapter_content
+    label: Chapter content
+    type: group
+    items:
+      - name: events
+        label: Events
+        type: file
+        path: data/events.json
+        format: json
+        list: true
+        fields:
+          - name: title
+            label: Event name
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: date
+            label: Event date
+            type: date
+            required: true
+          - name: time
+            label: Time
+            type: string
+            description: Example: 6:00 PM or 1:00–3:00 PM.
+            options:
+              maxlength: 40
+          - name: location
+            label: Location
+            type: string
+            description: Building, room, firm, or general meeting location.
+            options:
+              maxlength: 120
+          - name: summary
+            label: Description
+            type: text
+            required: true
+          - name: image
+            label: Event image
+            type: image
+            description: Optional event image or graphic.
+          - name: registration_url
+            label: Registration URL
+            type: string
+            description: Optional full https:// registration or RSVP link.
+          - name: featured
+            label: Feature on homepage
+            type: boolean
 
-  - name: pages
-    label: Custom pages
-    type: file
-    path: data/pages.json
-    format: json
-    list: true
-    fields:
-      - name: title
-        type: string
-        required: true
-      - name: slug
-        type: string
-        required: true
-        description: Lowercase URL name such as resources or scholarships.
-        pattern:
-          regex: "^[a-z0-9-]+$"
-          message: Use lowercase letters, numbers, and hyphens only.
-      - name: nav_label
-        label: Navigation label
-        type: string
-      - name: show_in_nav
-        label: Show in navigation
-        type: boolean
-      - name: summary
-        type: text
-      - name: hero_image
-        label: Hero image
-        type: image
-      - name: body
-        type: rich-text
-        options:
-          format: markdown
-          rename: true
+      - name: projects
+        label: Student projects
+        type: file
+        path: data/projects.json
+        format: json
+        list: true
+        fields:
+          - name: title
+            label: Project title
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: student
+            label: Student name
+            type: string
+            required: true
+            options:
+              maxlength: 80
+          - name: studio
+            label: Studio / course
+            type: string
+            description: Example: Third-Year Design Studio.
+            options:
+              maxlength: 100
+          - name: year
+            label: Year
+            type: string
+            description: Academic or project year, such as 2026.
+            options:
+              maxlength: 20
+          - name: summary
+            label: Project description
+            type: text
+            required: true
+          - name: image
+            label: Project image
+            type: image
+            required: true
+          - name: featured
+            label: Feature on homepage
+            type: boolean
 
-  - name: leadership
-    label: Leadership
-    type: file
-    path: data/leadership.json
-    format: json
-    list: true
-    fields:
-      - name: name
-        type: string
-        required: true
-      - name: role
-        type: string
-        required: true
-      - name: email
-        type: string
+      - name: jobs
+        label: Jobs & internships
+        type: file
+        path: data/jobs.json
+        format: json
+        list: true
+        fields:
+          - name: title
+            label: Position title
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: company
+            label: Organization / firm
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: location
+            label: Location
+            type: string
+            description: Example: Memphis, TN; Remote; Hybrid.
+            options:
+              maxlength: 100
+          - name: type
+            label: Opportunity type
+            type: select
+            required: true
+            options:
+              values: [Internship, Part-time, Full-time, Fellowship, Competition, Other]
+          - name: posted
+            label: Posted date
+            type: date
+          - name: deadline
+            label: Application deadline
+            type: date
+          - name: summary
+            label: Description
+            type: text
+            required: true
+          - name: apply_url
+            label: Application URL
+            type: string
+            description: Full https:// link to the application or job posting.
+          - name: active
+            label: Show on website
+            type: boolean

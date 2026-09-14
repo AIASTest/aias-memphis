@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-root="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Student architecture project from the AIAS University of Memphis chapter showcase.">
+  <title>Student Project | AIAS Memphis</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body data-page="project">
+<a class="skip-link" href="#main">Skip to content</a>
+<header id="site-header"></header>
+<main id="main">
+  <div id="project-detail-shell">
+    <section class="project-detail-hero">
+      <div class="container">
+        <a class="project-back-link" href="projects.html">← Back to student work</a>
+        <p class="eyebrow project-detail-eyebrow" id="project-kicker">Student project</p>
+        <h1 id="project-title">Project</h1>
+        <p class="project-detail-student" id="project-student"></p>
+        <p class="project-detail-summary" id="project-summary"></p>
+      </div>
+    </section>
+
+    <section class="project-gallery-section" aria-label="Project image gallery">
+      <div class="container">
+        <div class="project-gallery-shell" id="project-gallery-stage">
+          <div class="project-gallery-main-wrap">
+            <button class="project-gallery-main" id="project-gallery-click-next" type="button" aria-label="Show next project image">
+              <img id="project-gallery-image" src="" alt="">
+            </button>
+            <div class="project-gallery-overlay">
+              <button class="project-gallery-arrow" id="project-gallery-prev" type="button" aria-label="Previous project image">←</button>
+              <span class="project-gallery-count" id="project-gallery-count" aria-live="polite">1 / 1</span>
+              <button class="project-gallery-arrow" id="project-gallery-next" type="button" aria-label="Next project image">→</button>
+            </div>
+          </div>
+          <p class="project-gallery-caption" id="project-gallery-caption" hidden></p>
+          <div class="project-gallery-thumbs" id="project-gallery-thumbs" aria-label="Choose a project image"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section project-story-section">
+      <div class="container project-detail-layout">
+        <article class="project-story">
+          <p class="eyebrow">Project narrative</p>
+          <h2>About the project</h2>
+          <div class="content-prose project-body" id="project-body"></div>
+        </article>
+        <aside class="project-meta-panel" aria-label="Project information">
+          <p class="eyebrow">Project details</p>
+          <dl id="project-meta"></dl>
+          <a class="button button-primary project-external-link" id="project-external-link" href="#" target="_blank" rel="noopener" hidden>View external project page ↗</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="project-more-section">
+      <div class="container">
+        <div class="project-more-head"><p class="eyebrow">Keep exploring</p><h2>More student work</h2></div>
+        <nav class="project-project-nav" aria-label="Adjacent projects">
+          <a class="project-project-link project-project-prev" id="project-prev-project" href="#" hidden><span>← Previous project</span><strong></strong></a>
+          <a class="project-project-link project-project-next" id="project-next-project" href="#" hidden><span>Next project →</span><strong></strong></a>
+        </nav>
+        <a class="button button-outline" href="projects.html">View all projects</a>
+      </div>
+    </section>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script src="assets/js/site.js"></script>
+</body>
+</html>

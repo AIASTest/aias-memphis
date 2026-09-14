@@ -104,6 +104,155 @@ content:
             options:
               maxlength: 160
 
+      - name: payments
+        label: Support & payments
+        type: file
+        path: data/payments.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: page_title
+            label: Page title
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: page_intro
+            label: Page introduction
+            type: text
+            required: true
+            description: "Introductory text explaining firm payments and donations."
+            options:
+              maxlength: 700
+          - name: firm_section_enabled
+            label: Show firm payment section
+            type: boolean
+            description: "Turn this off if firms should not currently be directed to this page for payments."
+          - name: firm_heading
+            label: Firm payment heading
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: firm_intro
+            label: Firm payment instructions
+            type: text
+            required: true
+            description: "Explain what firms may pay for and remind them to confirm the amount first."
+            options:
+              maxlength: 1000
+          - name: firm_fees
+            label: Published firm fees
+            type: object
+            list:
+              max: 20
+              collapsible:
+                collapsed: true
+                summary: "{title} — {amount}"
+            description: "Optional list of current fees, such as career fair registration. Leave the list empty if amounts should only be provided directly by leadership."
+            fields:
+              - name: title
+                label: Fee title
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: amount
+                label: Amount
+                type: string
+                description: "Display text such as $250, $500 per table, or Contact chapter leadership."
+                options:
+                  maxlength: 80
+              - name: description
+                label: Description
+                type: text
+                options:
+                  maxlength: 500
+              - name: enabled
+                label: Show this fee
+                type: boolean
+                description: "Only enabled fee items appear publicly."
+          - name: donation_section_enabled
+            label: Show donation section
+            type: boolean
+          - name: donation_heading
+            label: Donation heading
+            type: string
+            required: true
+            options:
+              maxlength: 100
+          - name: donation_intro
+            label: Donation description
+            type: text
+            required: true
+            options:
+              maxlength: 900
+          - name: payment_methods
+            label: Payment methods
+            type: object
+            list:
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{provider}: {label}"
+            description: "Add the chapter's approved payment accounts. A method only appears publicly when enabled and it has either a valid link or a handle."
+            fields:
+              - name: provider
+                label: Provider
+                type: select
+                required: true
+                options:
+                  values: [PayPal, Venmo, Cash App, Zelle, Other]
+              - name: label
+                label: Public label
+                type: string
+                required: true
+                description: "Example: AIAS Memphis Venmo."
+                options:
+                  maxlength: 80
+              - name: handle
+                label: Account handle
+                type: string
+                description: "Optional public username, handle, phone, or payment identifier. Visitors can copy this value."
+                options:
+                  maxlength: 120
+              - name: url
+                label: Payment account URL
+                type: string
+                description: "Optional full https:// link to the chapter's payment account or payment page."
+                pattern:
+                  regex: "^$|^https://.+$"
+                  message: "Use a full https:// URL or leave this field blank."
+              - name: enabled
+                label: Show this payment method
+                type: boolean
+                description: "Turn this off to remove the account from the public page without deleting its saved information."
+          - name: payment_memo_instructions
+            label: Payment memo instructions
+            type: text
+            description: "What firms should put in the payment note so leadership can match the payment."
+            options:
+              maxlength: 500
+          - name: receipt_note
+            label: Receipt instructions
+            type: text
+            options:
+              maxlength: 500
+          - name: donation_disclaimer
+            label: Donation / receipt note
+            type: text
+            description: "Use cautious language about receipts, sponsorship recognition, or tax treatment. Do not state that donations are tax-deductible unless that status has been confirmed."
+            options:
+              maxlength: 700
+          - name: contact_email
+            label: Payment contact email
+            type: string
+            description: "Optional payment-specific contact. If blank, the page uses the main chapter contact email from Site settings."
+            pattern:
+              regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
+              message: "Enter a valid email address or leave this field blank."
+
       - name: pages
         label: Custom pages
         type: file

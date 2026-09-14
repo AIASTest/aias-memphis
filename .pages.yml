@@ -79,7 +79,7 @@ content:
           - name: instagram_url
             label: Instagram URL
             type: string
-            description: "Full https:// link to the chapter Instagram account."
+            description: "Full https:// link to the chapter Instagram account. Used on the homepage, About page, and footer."
             pattern:
               regex: "^$|^https://.+$"
               message: "Use a full https:// URL or leave this field blank."
@@ -122,13 +122,13 @@ content:
             label: Page introduction
             type: text
             required: true
-            description: "Introductory text explaining firm payments and donations."
+            description: "Short introduction for the Support & Payments page."
             options:
               maxlength: 700
           - name: firm_section_enabled
             label: Show firm payment section
             type: boolean
-            description: "Turn this off if firms should not currently be directed to this page for payments."
+            description: "Turn this off to hide the firm/partner explanation."
           - name: firm_heading
             label: Firm payment heading
             type: string
@@ -139,40 +139,9 @@ content:
             label: Firm payment instructions
             type: text
             required: true
-            description: "Explain what firms may pay for and remind them to confirm the amount first."
+            description: "Explain what firms may be paying for and remind them to confirm the amount with leadership."
             options:
               maxlength: 1000
-          - name: firm_fees
-            label: Published firm fees
-            type: object
-            list:
-              max: 20
-              collapsible:
-                collapsed: true
-                summary: "{title} — {amount}"
-            description: "Optional list of current fees, such as career fair registration. Leave the list empty if amounts should only be provided directly by leadership."
-            fields:
-              - name: title
-                label: Fee title
-                type: string
-                required: true
-                options:
-                  maxlength: 100
-              - name: amount
-                label: Amount
-                type: string
-                description: "Display text such as $250, $500 per table, or Contact chapter leadership."
-                options:
-                  maxlength: 80
-              - name: description
-                label: Description
-                type: text
-                options:
-                  maxlength: 500
-              - name: enabled
-                label: Show this fee
-                type: boolean
-                description: "Only enabled fee items appear publicly."
           - name: donation_section_enabled
             label: Show donation section
             type: boolean
@@ -189,14 +158,14 @@ content:
             options:
               maxlength: 900
           - name: payment_methods
-            label: Payment methods
+            label: Payment buttons
             type: object
             list:
               max: 12
               collapsible:
                 collapsed: true
                 summary: "{provider}: {label}"
-            description: "Add the chapter's approved payment accounts. A method only appears publicly when enabled and it has either a valid link or a handle."
+            description: "Add the chapter's approved payment accounts. Only enabled entries with a valid https:// link appear publicly."
             fields:
               - name: provider
                 label: Provider
@@ -205,31 +174,26 @@ content:
                 options:
                   values: [PayPal, Venmo, Cash App, Zelle, Other]
               - name: label
-                label: Public label
+                label: Button label
                 type: string
                 required: true
-                description: "Example: AIAS Memphis Venmo."
+                description: "Example: Pay with Venmo."
                 options:
                   maxlength: 80
-              - name: handle
-                label: Account handle
-                type: string
-                description: "Optional public username, handle, phone, or payment identifier. Visitors can copy this value."
-                options:
-                  maxlength: 120
               - name: url
                 label: Payment account URL
                 type: string
-                description: "Optional full https:// link to the chapter's payment account or payment page."
+                required: true
+                description: "Full https:// link to the chapter's payment account or payment page."
                 pattern:
-                  regex: "^$|^https://.+$"
-                  message: "Use a full https:// URL or leave this field blank."
+                  regex: "^https://.+$"
+                  message: "Use a full https:// URL."
               - name: enabled
-                label: Show this payment method
+                label: Show this payment button
                 type: boolean
-                description: "Turn this off to remove the account from the public page without deleting its saved information."
+                description: "Turn this off to hide the button without deleting the saved account."
           - name: payment_memo_instructions
-            label: Payment memo instructions
+            label: Firm payment memo instructions
             type: text
             description: "What firms should put in the payment note so leadership can match the payment."
             options:
@@ -242,7 +206,7 @@ content:
           - name: donation_disclaimer
             label: Donation / receipt note
             type: text
-            description: "Use cautious language about receipts, sponsorship recognition, or tax treatment. Do not state that donations are tax-deductible unless that status has been confirmed."
+            description: "Optional cautious language about receipts or sponsorship recognition."
             options:
               maxlength: 700
           - name: contact_email

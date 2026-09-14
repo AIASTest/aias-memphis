@@ -1,4 +1,13 @@
 (() => {
+  const safeHttps = (value = '') => {
+    try {
+      const url = new URL(String(value).trim());
+      return url.protocol === 'https:' ? url.href : '';
+    } catch {
+      return '';
+    }
+  };
+
   function addSupportLinks() {
     const nav = document.getElementById('main-nav');
     if (nav && !nav.querySelector('[data-support-nav]')) {
@@ -22,8 +31,27 @@
     }
   }
 
+  async function addInstagramLinks() {
+    try {
+      const response = await fetch('data/site.json', { cache: 'no-store' });
+      if (!response.ok) return;
+      const site = await response.json();
+      const instagram = safeHttps(site?.instagram_url);
+      if (!instagram) return;
+
+      const homeLink = document.getElementById('home-instagram-link');
+      if (homeLink) {
+        homeLink.href = instagram;
+        homeLink.hidden = false;
+      }
+    } catch (error) {
+      console.warn('Instagram link could not be loaded.', error);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     addSupportLinks();
+    addInstagramLinks();
     const header = document.getElementById('site-header');
     const footer = document.getElementById('site-footer');
     if (header) new MutationObserver(addSupportLinks).observe(header, { childList: true, subtree: true });

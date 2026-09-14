@@ -300,6 +300,24 @@ content:
             description: "Example: President, Vice President, Faculty Advisor."
             options:
               maxlength: 80
+          - name: photo
+            label: Profile photo
+            type: image
+            description: "Optional headshot or profile photo. A clear portrait works best; initials are shown automatically when no photo is uploaded."
+            options:
+              rename: safe
+          - name: photo_alt
+            label: Photo description
+            type: string
+            description: "Briefly describe the photo for visitors using screen readers."
+            options:
+              maxlength: 180
+          - name: bio
+            label: Introduction / bio
+            type: text
+            description: "A short first-person or third-person introduction: who they are, what they do in AIAS, interests, studio focus, or what they hope to contribute to the chapter."
+            options:
+              maxlength: 900
           - name: email
             label: Public email
             type: string

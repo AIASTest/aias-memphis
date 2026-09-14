@@ -1,6 +1,6 @@
 const ROOT = document.documentElement.dataset.root || '';
-
-const path = (file) => `${ROOT}${file}`;
+const path = (file = '') => `${ROOT}${file}`;
+const asArray = (value) => Array.isArray(value) ? value : [];
 
 async function loadJSON(file) {
   const response = await fetch(path(file), { cache: 'no-store' });
@@ -20,14 +20,33 @@ function escapeHTML(value = '') {
 function safeUrl(url = '') {
   const text = String(url).trim();
   if (!text) return '';
-  if (text.startsWith('http://') || text.startsWith('https://') || text.startsWith('mailto:')) return text;
-  return '';
+  try {
+    const parsed = new URL(text);
+    return ['http:', 'https:', 'mailto:'].includes(parsed.protocol) ? text : '';
+  } catch {
+    return '';
+  }
 }
 
-function safeContentUrl(url = '') {
+function safeEmail(email = '') {
+  const value = String(email).trim();
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value) ? value : '';
+}
+
+function safeMediaUrl(url = '') {
   const value = String(url).trim();
+  if (!value) return '';
   if (value.startsWith('assets/')) return path(value);
-  if (value.startsWith('http://') || value.startsWith('https://')) return value;
+  const external = safeUrl(value);
+  return external && !external.startsWith('mailto:') ? external : '';
+}
+
+function safeContentLink(url = '') {
+  const value = String(url).trim();
+  if (!value) return '';
+  const external = safeUrl(value);
+  if (external) return external;
+  if (/^[a-zA-Z0-9][a-zA-Z0-9._/?#=&%+-]*$/.test(value)) return path(value);
   return '';
 }
 
@@ -38,12 +57,14 @@ function simpleMarkdown(markdown = '') {
 
   const inline = (text) => text
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt, url) => {
-      const src = safeContentUrl(url);
-      return src ? `<img src=\"${src}\" alt=\"${alt}\">` : '';
+      const src = safeMediaUrl(url);
+      return src ? `<img src="${src}" alt="${alt}">` : '';
     })
     .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, url) => {
-      const href = safeContentUrl(url);
-      return href ? `<a href=\"${href}\" target=\"_blank\" rel=\"noopener\">${label}</a>` : label;
+      const href = safeContentLink(url);
+      if (!href) return label;
+      const external = /^https?:/i.test(href);
+      return `<a href="${href}"${external ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
     })
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>');
@@ -66,39 +87,72 @@ function simpleMarkdown(markdown = '') {
   return html;
 }
 
+function validDateString(value = '') {
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(value));
+}
+
 function formatDate(dateString) {
-  if (!dateString) return '';
+  if (!validDateString(dateString)) return '';
   const date = new Date(`${dateString}T12:00:00`);
+  if (Number.isNaN(date.getTime())) return '';
   return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(date);
 }
 
+function todayISO() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function dateSort(a, b) {
+  return String(a?.date || '9999-12-31').localeCompare(String(b?.date || '9999-12-31'));
+}
+
+function setText(selector, value = '') {
+  const el = document.querySelector(selector);
+  if (el) el.textContent = value || '';
+}
+
+function setHTML(selector, html = '') {
+  const el = document.querySelector(selector);
+  if (el) el.innerHTML = html;
+}
+
 function pageName() {
-  const current = document.body.dataset.page || 'home';
-  return current;
+  return document.body.dataset.page || 'home';
 }
 
 async function buildChrome() {
-  const [site, pages] = await Promise.all([
+  const [siteRaw, pagesRaw] = await Promise.all([
     loadJSON('data/site.json'),
     loadJSON('data/pages.json').catch(() => [])
   ]);
-
+  const site = siteRaw && typeof siteRaw === 'object' && !Array.isArray(siteRaw) ? siteRaw : {};
+  const pages = asArray(pagesRaw);
   const header = document.querySelector('#site-header');
   const footer = document.querySelector('#site-footer');
   const current = pageName();
+  const activeSlug = current === 'custom' ? new URLSearchParams(window.location.search).get('slug') : '';
+  const membershipUrl = safeUrl(site.membership_url);
+  const departmentUrl = safeUrl(site.department_url);
+  const instagramUrl = safeUrl(site.instagram_url);
+  const email = safeEmail(site.contact_email);
+
   const customLinks = pages
-    .filter(p => p.show_in_nav)
-    .map(p => `<a href="${path(`page.html?slug=${encodeURIComponent(p.slug)}`)}">${escapeHTML(p.nav_label || p.title)}</a>`)
+    .filter(p => p && p.show_in_nav && p.slug && p.title)
+    .map(p => `<a href="${path(`page.html?slug=${encodeURIComponent(p.slug)}`)}" ${activeSlug === p.slug ? 'aria-current="page"' : ''}>${escapeHTML(p.nav_label || p.title)}</a>`)
     .join('');
 
   if (header) {
     header.innerHTML = `
-      ${site.demo_notice ? `<div class="demo-banner">${escapeHTML(site.demo_notice)}</div>` : ''}
+      ${site.demo_notice ? `<div class="demo-banner" role="status">${escapeHTML(site.demo_notice)}</div>` : ''}
       <div class="site-header">
         <div class="nav-shell">
-          <a class="brand" href="${path('index.html')}">
+          <a class="brand" href="${path('index.html')}" aria-label="${escapeHTML(site.short_name || 'AIAS Memphis')} home">
             <span class="brand-mark" aria-hidden="true">AIAS</span>
-            <span>${escapeHTML(site.short_name)}</span>
+            <span>${escapeHTML(site.short_name || 'AIAS Memphis')}</span>
           </a>
           <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
           <nav class="nav-links" id="main-nav" aria-label="Primary navigation">
@@ -107,40 +161,50 @@ async function buildChrome() {
             <a href="${path('jobs.html')}" ${current === 'jobs' ? 'aria-current="page"' : ''}>Jobs</a>
             <a href="${path('about.html')}" ${current === 'about' ? 'aria-current="page"' : ''}>About</a>
             ${customLinks}
-            <a class="nav-cta" href="${safeUrl(site.membership_url)}" target="_blank" rel="noopener">Join AIAS</a>
+            ${membershipUrl ? `<a class="nav-cta" href="${membershipUrl}" target="_blank" rel="noopener">Join AIAS</a>` : ''}
           </nav>
         </div>
       </div>`;
 
     const toggle = header.querySelector('.nav-toggle');
     const nav = header.querySelector('#main-nav');
+    const closeMenu = () => {
+      nav?.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    };
     toggle?.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(open));
+      const open = nav?.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(Boolean(open)));
     });
+    nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
   }
 
   if (footer) {
-    const email = escapeHTML(site.contact_email || '');
+    const resourceLinks = [
+      departmentUrl ? `<a href="${departmentUrl}" target="_blank" rel="noopener">UofM Architecture</a>` : '',
+      instagramUrl ? `<a href="${instagramUrl}" target="_blank" rel="noopener">Instagram</a>` : '',
+      `<a href="${path('admin/')}">Leadership Admin</a>`
+    ].filter(Boolean).join('');
+
     footer.innerHTML = `
       <div class="site-footer">
         <div class="container">
           <div class="footer-grid">
             <div>
-              <h3>${escapeHTML(site.chapter_name)}</h3>
-              <p>${escapeHTML(site.tagline)}</p>
-              ${email ? `<p><a href="mailto:${email}">${email}</a></p>` : ''}
+              <h3>${escapeHTML(site.chapter_name || 'AIAS at the University of Memphis')}</h3>
+              <p>${escapeHTML(site.tagline || '')}</p>
+              ${email ? `<p><a href="mailto:${escapeHTML(email)}">${escapeHTML(email)}</a></p>` : ''}
             </div>
             <div class="footer-links">
               <a href="${path('events.html')}">Events</a>
               <a href="${path('projects.html')}">Student Work</a>
               <a href="${path('jobs.html')}">Jobs</a>
               <a href="${path('about.html')}">About</a>
-              <a href="${path('admin/')}">Leadership Admin</a>
-              <a href="${safeUrl(site.department_url)}" target="_blank" rel="noopener">UofM Architecture</a>
+              ${resourceLinks}
             </div>
           </div>
-          <div class="footer-bottom">Student-led chapter prototype. University and AIAS marks should be added only in accordance with their current brand standards.</div>
+          <div class="footer-bottom">Student-led chapter website. External opportunities and links are provided for convenience; verify details with the original source.</div>
         </div>
       </div>`;
   }
@@ -148,126 +212,167 @@ async function buildChrome() {
   return site;
 }
 
-function eventCard(event) {
+function eventCard(event = {}) {
   const register = safeUrl(event.registration_url);
+  const image = safeMediaUrl(event.image);
+  const meta = [formatDate(event.date), event.time ? escapeHTML(event.time) : ''].filter(Boolean).join(' · ');
   return `
     <article class="card">
-      ${event.image ? `<img class="card-media" src="${path(escapeHTML(event.image))}" alt="">` : ''}
+      ${image ? `<img class="card-media" src="${image}" alt="${escapeHTML(event.image_alt || `${event.title || 'Event'} graphic`)}" loading="lazy">` : ''}
       <div class="card-body">
-        <div class="card-meta">${formatDate(event.date)}${event.time ? ` · ${escapeHTML(event.time)}` : ''}</div>
-        <h3>${escapeHTML(event.title)}</h3>
-        <p class="muted">${escapeHTML(event.location)}</p>
-        <p>${escapeHTML(event.summary)}</p>
-        ${register ? `<a class="card-link" href="${register}" target="_blank" rel="noopener">Register →</a>` : ''}
+        ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+        <h3>${escapeHTML(event.title || 'Untitled event')}</h3>
+        ${event.location ? `<p class="muted">${escapeHTML(event.location)}</p>` : ''}
+        ${event.summary ? `<p>${escapeHTML(event.summary)}</p>` : ''}
+        ${register ? `<a class="card-link" href="${register}" target="_blank" rel="noopener">Register / RSVP →</a>` : ''}
       </div>
     </article>`;
 }
 
-function projectCard(project) {
+function projectCard(project = {}) {
+  const image = safeMediaUrl(project.image);
+  const meta = [project.studio, project.year].filter(Boolean).map(escapeHTML).join(' · ');
   return `
     <article class="card">
-      ${project.image ? `<img class="card-media" src="${path(escapeHTML(project.image))}" alt="">` : ''}
+      ${image ? `<img class="card-media" src="${image}" alt="${escapeHTML(project.image_alt || `${project.title || 'Student project'} by ${project.student || 'a student'}`)}" loading="lazy">` : ''}
       <div class="card-body">
-        <div class="card-meta">${escapeHTML(project.studio)} · ${escapeHTML(project.year)}</div>
-        <h3>${escapeHTML(project.title)}</h3>
-        <p class="muted">${escapeHTML(project.student)}</p>
-        <p>${escapeHTML(project.summary)}</p>
+        ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+        <h3>${escapeHTML(project.title || 'Untitled project')}</h3>
+        ${project.student ? `<p class="muted">${escapeHTML(project.student)}</p>` : ''}
+        ${project.summary ? `<p>${escapeHTML(project.summary)}</p>` : ''}
       </div>
     </article>`;
 }
 
-function jobCard(job) {
+function jobCard(job = {}) {
   const apply = safeUrl(job.apply_url);
+  const posted = formatDate(job.posted);
+  const deadline = formatDate(job.deadline);
   return `
     <article class="job-card">
       <div class="job-top">
         <div>
-          <div class="card-meta">${escapeHTML(job.company)}</div>
-          <h3>${escapeHTML(job.title)}</h3>
+          ${job.company ? `<div class="card-meta">${escapeHTML(job.company)}</div>` : ''}
+          <h3>${escapeHTML(job.title || 'Opportunity')}</h3>
         </div>
-        <span class="badge">${escapeHTML(job.type)}</span>
+        ${job.type ? `<span class="badge">${escapeHTML(job.type)}</span>` : ''}
       </div>
-      <p class="muted">${escapeHTML(job.location)}</p>
-      <p>${escapeHTML(job.summary)}</p>
-      <p class="muted"><strong>Deadline:</strong> ${formatDate(job.deadline)}</p>
-      ${apply ? `<a class="button button-outline" href="${apply}" target="_blank" rel="noopener">View / Apply</a>` : '<span class="muted">Sample listing — add an application link in the admin.</span>'}
+      ${job.location ? `<p class="muted">${escapeHTML(job.location)}</p>` : ''}
+      ${job.summary ? `<p>${escapeHTML(job.summary)}</p>` : ''}
+      ${(posted || deadline) ? `<p class="job-dates muted">${posted ? `<span><strong>Posted:</strong> ${posted}</span>` : ''}${deadline ? `<span><strong>Deadline:</strong> ${deadline}</span>` : ''}</p>` : ''}
+      ${apply ? `<a class="button button-outline" href="${apply}" target="_blank" rel="noopener">View / Apply</a>` : '<span class="muted small-text">Application link not provided.</span>'}
     </article>`;
 }
 
 async function initHome(site) {
-  document.querySelector('#hero-title').textContent = site.hero_title;
-  document.querySelector('#hero-text').textContent = site.hero_text;
-
-  const [events, projects, jobs] = await Promise.all([
+  setText('#hero-title', site.hero_title || 'Built by architecture students, for architecture students.');
+  setText('#hero-text', site.hero_text || '');
+  const [eventsRaw, projectsRaw, jobsRaw] = await Promise.all([
     loadJSON('data/events.json'), loadJSON('data/projects.json'), loadJSON('data/jobs.json')
   ]);
+  const events = asArray(eventsRaw);
+  const projects = asArray(projectsRaw);
+  const jobs = asArray(jobsRaw);
+  const today = todayISO();
 
-  const today = new Date().toISOString().slice(0, 10);
-  const upcoming = events.filter(e => e.date >= today).sort((a,b) => a.date.localeCompare(b.date)).slice(0, 3);
-  const featuredProjects = projects.filter(p => p.featured).slice(0, 3);
-  const activeJobs = jobs.filter(j => j.active).slice(0, 2);
+  const upcoming = events
+    .filter(e => validDateString(e?.date) && e.date >= today)
+    .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)) || dateSort(a, b))
+    .slice(0, 3);
+  const featured = projects.filter(p => p?.featured);
+  const featuredProjects = (featured.length ? featured : projects).slice(0, 3);
+  const activeJobs = jobs
+    .filter(j => j?.active && (!validDateString(j.deadline) || j.deadline >= today))
+    .sort((a, b) => String(a.deadline || '9999-12-31').localeCompare(String(b.deadline || '9999-12-31')))
+    .slice(0, 2);
 
-  document.querySelector('#home-events').innerHTML = upcoming.length ? upcoming.map(eventCard).join('') : '<div class="empty-state">No upcoming events posted yet.</div>';
-  document.querySelector('#home-projects').innerHTML = featuredProjects.length ? featuredProjects.map(projectCard).join('') : '<div class="empty-state">No featured projects posted yet.</div>';
-  document.querySelector('#home-jobs').innerHTML = activeJobs.length ? activeJobs.map(jobCard).join('') : '<div class="empty-state">No active opportunities posted yet.</div>';
+  setHTML('#home-events', upcoming.length ? upcoming.map(eventCard).join('') : '<div class="empty-state">No upcoming events posted yet.</div>');
+  setHTML('#home-projects', featuredProjects.length ? featuredProjects.map(projectCard).join('') : '<div class="empty-state">No student projects posted yet.</div>');
+  setHTML('#home-jobs', activeJobs.length ? activeJobs.map(jobCard).join('') : '<div class="empty-state">No active opportunities posted right now.</div>');
 }
 
 async function initEvents() {
-  const events = await loadJSON('data/events.json');
-  events.sort((a,b) => a.date.localeCompare(b.date));
-  const today = new Date().toISOString().slice(0, 10);
-  const upcoming = events.filter(e => e.date >= today);
-  const past = events.filter(e => e.date < today).reverse();
-  document.querySelector('#events-list').innerHTML = upcoming.length ? upcoming.map(eventCard).join('') : '<div class="empty-state">No upcoming events are posted.</div>';
+  const events = asArray(await loadJSON('data/events.json'));
+  const today = todayISO();
+  const dated = events.filter(e => validDateString(e?.date)).sort(dateSort);
+  const upcoming = dated.filter(e => e.date >= today);
+  const past = dated.filter(e => e.date < today).reverse();
+  const undated = events.filter(e => !validDateString(e?.date));
+  setHTML('#events-list', upcoming.length ? upcoming.map(eventCard).join('') : '<div class="empty-state">No upcoming events are posted.</div>');
   const pastWrap = document.querySelector('#past-events-wrap');
-  if (past.length) {
+  if (pastWrap && past.length) {
     pastWrap.hidden = false;
-    document.querySelector('#past-events').innerHTML = past.map(eventCard).join('');
+    setHTML('#past-events', past.map(eventCard).join(''));
   }
+  if (undated.length) console.warn('Some events have invalid or missing dates and are hidden.', undated);
 }
 
 async function initProjects() {
-  const projects = await loadJSON('data/projects.json');
-  document.querySelector('#projects-list').innerHTML = projects.length ? projects.map(projectCard).join('') : '<div class="empty-state">No student projects have been posted yet.</div>';
+  const projects = asArray(await loadJSON('data/projects.json'));
+  setHTML('#projects-list', projects.length ? projects.map(projectCard).join('') : '<div class="empty-state">No student projects have been posted yet.</div>');
 }
 
 async function initJobs() {
-  const jobs = await loadJSON('data/jobs.json');
-  const active = jobs.filter(j => j.active).sort((a,b) => (a.deadline || '9999').localeCompare(b.deadline || '9999'));
-  document.querySelector('#jobs-list').innerHTML = active.length ? active.map(jobCard).join('') : '<div class="empty-state">No active jobs or internships are posted right now.</div>';
+  const jobs = asArray(await loadJSON('data/jobs.json'));
+  const today = todayISO();
+  const active = jobs
+    .filter(j => j?.active && (!validDateString(j.deadline) || j.deadline >= today))
+    .sort((a, b) => String(a.deadline || '9999-12-31').localeCompare(String(b.deadline || '9999-12-31')));
+  setHTML('#jobs-list', active.length ? active.map(jobCard).join('') : '<div class="empty-state">No active jobs or internships are posted right now.</div>');
+}
+
+function setOptionalLink(id, url, label) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const safe = safeUrl(url);
+  if (!safe) { el.hidden = true; return; }
+  el.hidden = false;
+  el.href = safe;
+  if (label) el.textContent = label;
 }
 
 async function initAbout(site) {
-  document.querySelector('#about-copy').textContent = site.about_text;
-  const leaders = await loadJSON('data/leadership.json');
-  document.querySelector('#leadership-list').innerHTML = leaders.map(person => `
-    <div class="person">
-      <strong>${escapeHTML(person.name)}</strong>
-      <span>${escapeHTML(person.role)}</span>
-      ${person.email ? `<div><a href="mailto:${escapeHTML(person.email)}">${escapeHTML(person.email)}</a></div>` : ''}
-    </div>`).join('');
+  setText('#about-copy', site.about_text || '');
+  setOptionalLink('membership-link', site.membership_url, 'AIAS membership');
+  setOptionalLink('department-link', site.department_url, 'UofM Architecture');
+  setOptionalLink('instagram-link', site.instagram_url, 'Instagram');
+  const email = safeEmail(site.contact_email);
+  const contact = document.getElementById('contact-link');
+  if (contact && email) {
+    contact.hidden = false;
+    contact.href = `mailto:${email}`;
+    contact.textContent = 'Email the chapter';
+  }
+
+  const leaders = asArray(await loadJSON('data/leadership.json'));
+  setHTML('#leadership-list', leaders.length ? leaders.map(person => {
+    const personEmail = safeEmail(person?.email);
+    return `<div class="person"><strong>${escapeHTML(person?.name || 'Leadership member')}</strong><span>${escapeHTML(person?.role || '')}</span>${personEmail ? `<div><a href="mailto:${escapeHTML(personEmail)}">${escapeHTML(personEmail)}</a></div>` : ''}</div>`;
+  }).join('') : '<div class="empty-state">Leadership information has not been published yet.</div>');
 }
 
 async function initCustomPage() {
   const slug = new URLSearchParams(window.location.search).get('slug') || '';
-  const pages = await loadJSON('data/pages.json');
-  const page = pages.find(p => p.slug === slug);
+  const pages = asArray(await loadJSON('data/pages.json'));
+  const page = pages.find(p => p?.slug === slug);
   if (!page) {
     document.title = 'Page not found | AIAS Memphis';
-    document.querySelector('#custom-title').textContent = 'Page not found';
-    document.querySelector('#custom-summary').textContent = 'This page may have been renamed or removed.';
+    setText('#custom-title', 'Page not found');
+    setText('#custom-summary', 'This page may have been renamed or removed.');
+    setHTML('#custom-body', '<p><a class="button button-primary" href="index.html">Return home</a></p>');
     return;
   }
-  document.title = `${page.title} | AIAS Memphis`;
-  document.querySelector('#custom-title').textContent = page.title;
-  document.querySelector('#custom-summary').textContent = page.summary || '';
+  document.title = `${page.title || 'Chapter page'} | AIAS Memphis`;
+  setText('#custom-title', page.title || 'Chapter page');
+  setText('#custom-summary', page.summary || '');
   const image = document.querySelector('#custom-image');
-  if (page.hero_image) {
-    image.src = path(page.hero_image);
-    image.alt = '';
+  const imageUrl = safeMediaUrl(page.hero_image);
+  if (image && imageUrl) {
+    image.src = imageUrl;
+    image.alt = page.hero_image_alt || `${page.title || 'Chapter page'} header image`;
     image.hidden = false;
   }
-  document.querySelector('#custom-body').innerHTML = simpleMarkdown(page.body || '');
+  setHTML('#custom-body', simpleMarkdown(page.body || ''));
 }
 
 async function main() {
@@ -283,7 +388,7 @@ async function main() {
   } catch (error) {
     console.error(error);
     const main = document.querySelector('main');
-    if (main) main.innerHTML = `<div class="container section"><div class="empty-state"><strong>Site content could not be loaded.</strong><br>Run the site through a web server rather than opening the HTML file directly.</div></div>`;
+    if (main) main.innerHTML = '<div class="container section"><div class="empty-state"><strong>Website content could not be loaded.</strong><br>Please refresh the page. If the problem continues, chapter leadership can check the Admin Help Center.</div></div>';
   }
 }
 

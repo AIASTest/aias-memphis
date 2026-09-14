@@ -27,16 +27,18 @@
   function cardMarkup(member, projects) {
     const linked = memberProjects(member, projects);
     const program = String(member.program || '').trim();
-    return `<button class="member-card-button" type="button" data-member-slug="${escapeHTML(member.slug)}" aria-label="Open profile for ${escapeHTML(member.name)}">
-      ${photoMarkup(member)}
-      <div class="member-card-body">
-        ${member.role ? `<p class="eyebrow member-card-role">${escapeHTML(member.role)}</p>` : ''}
-        <h3>${escapeHTML(member.name)}</h3>
-        ${program ? `<p class="member-card-program">${escapeHTML(program)}</p>` : ''}
-        ${member.bio ? `<p class="muted">${escapeHTML(member.bio.length > 150 ? `${member.bio.slice(0,147)}…` : member.bio)}</p>` : ''}
-        <span class="member-card-projects">${linked.length} published project${linked.length === 1 ? '' : 's'} · View profile →</span>
-      </div>
-    </button>`;
+    return `<article class="member-card">
+      <a class="member-card-button" href="${escapeHTML(memberUrl(member))}" data-member-slug="${escapeHTML(member.slug)}" aria-label="Open profile for ${escapeHTML(member.name)}">
+        ${photoMarkup(member)}
+        <div class="member-card-body">
+          ${member.role ? `<p class="eyebrow member-card-role">${escapeHTML(member.role)}</p>` : ''}
+          <h3>${escapeHTML(member.name)}</h3>
+          ${program ? `<p class="member-card-program">${escapeHTML(program)}</p>` : ''}
+          ${member.bio ? `<p class="muted">${escapeHTML(member.bio.length > 150 ? `${member.bio.slice(0,147)}…` : member.bio)}</p>` : ''}
+          <span class="member-card-projects">${linked.length} published project${linked.length === 1 ? '' : 's'} · Quick view →</span>
+        </div>
+      </a>
+    </article>`;
   }
 
   function modalMarkup(member, projects) {
@@ -82,19 +84,19 @@
       const filtered = members.filter(member => !q || [member.name, member.role, member.program, member.interests, member.bio].some(value => String(value || '').toLowerCase().includes(q)));
       grid.innerHTML = filtered.length ? filtered.map(member => cardMarkup(member, projects)).join('') : '<div class="empty-state">No member profiles matched that search.</div>';
       if (count) count.textContent = `${filtered.length} member profile${filtered.length === 1 ? '' : 's'}`;
-      grid.querySelectorAll('[data-member-slug]').forEach(button => button.addEventListener('click', () => {
-        const member = members.find(item => item.slug === button.dataset.memberSlug);
-        if (!member || !dialog || !dialogContent) return;
+      grid.querySelectorAll('[data-member-slug]').forEach(link => link.addEventListener('click', event => {
+        const member = members.find(item => item.slug === link.dataset.memberSlug);
+        if (!member || !dialog || !dialogContent || typeof dialog.showModal !== 'function') return;
+        event.preventDefault();
         dialogContent.innerHTML = modalMarkup(member, projects);
-        if (typeof dialog.showModal === 'function') dialog.showModal();
-        else dialog.setAttribute('open', '');
+        dialog.showModal();
       }));
     };
 
     search?.addEventListener('input', () => draw(search.value));
-    close?.addEventListener('click', () => dialog?.close ? dialog.close() : dialog?.removeAttribute('open'));
+    close?.addEventListener('click', () => dialog?.close());
     dialog?.addEventListener('click', event => {
-      if (event.target === dialog) dialog.close ? dialog.close() : dialog.removeAttribute('open');
+      if (event.target === dialog) dialog.close();
     });
     draw();
   }
@@ -130,7 +132,7 @@
     setText('#member-detail-program', member.program || '');
     setText('#member-detail-bio', member.bio || '');
     const photo = document.getElementById('member-detail-photo');
-    if (photo) photo.innerHTML = photoMarkup(member, 'member-detail-photo-inner').replace('member-detail-photo-inner','member-detail-photo-inner');
+    if (photo) photo.innerHTML = photoMarkup(member, 'member-detail-photo-inner');
     const description = member.description || member.bio || 'This member has not added a longer profile description yet.';
     setHTML('#member-detail-description', simpleMarkdown(description));
     setHTML('#member-detail-meta', metaRows(member));

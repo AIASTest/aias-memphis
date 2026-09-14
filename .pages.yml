@@ -274,8 +274,20 @@ content:
             label: Project title
             type: string
             required: true
+            description: "The public title shown on project cards and the project detail page."
             options:
               maxlength: 100
+          - name: slug
+            label: Project URL name
+            type: string
+            required: true
+            description: "Permanent lowercase identifier used in the project link, such as river-threshold. Avoid changing this after the project has been shared."
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: "Use lowercase letters, numbers, and hyphens only."
+            options:
+              minlength: 2
+              maxlength: 70
           - name: student
             label: Student name
             type: string
@@ -288,31 +300,91 @@ content:
             description: "Example: Third-Year Design Studio."
             options:
               maxlength: 100
+          - name: semester
+            label: Semester
+            type: string
+            description: "Example: Fall 2026."
+            options:
+              maxlength: 40
           - name: year
-            label: Year
+            label: Project year
             type: string
             description: "Academic or project year, such as 2026."
             options:
               maxlength: 20
+          - name: project_type
+            label: Project type
+            type: string
+            description: "Optional category such as Civic / Waterfront, Housing, Adaptive Reuse, or Fabrication."
+            options:
+              maxlength: 100
           - name: summary
-            label: Project description
+            label: Short project summary
             type: text
             required: true
+            description: "Short introduction used on project cards and beneath the project title."
             options:
-              maxlength: 800
-          - name: image
-            label: Project image
+              maxlength: 500
+          - name: cover_image
+            label: Cover image
             type: image
             required: true
-            description: "Landscape images work best on project cards."
+            description: "Primary image used on project cards and social previews. Landscape images work best."
             options:
               rename: safe
-          - name: image_alt
-            label: Project image description
+          - name: cover_image_alt
+            label: Cover image description
             type: string
-            description: "Describe the drawing, model, rendering, or other work shown."
+            description: "Describe the cover image for visitors using screen readers."
             options:
               maxlength: 180
+          - name: gallery
+            label: Project gallery
+            type: object
+            required: true
+            list:
+              min: 1
+              max: 20
+              collapsible:
+                collapsed: true
+                summary: "Image {index}: {caption}"
+            description: "Add drawings, renderings, photographs, diagrams, model photos, and process work in the order they should appear."
+            fields:
+              - name: image
+                label: Image
+                type: image
+                required: true
+                options:
+                  rename: safe
+              - name: alt
+                label: Image description
+                type: string
+                required: true
+                description: "Briefly describe what is visible in the image."
+                options:
+                  maxlength: 220
+              - name: caption
+                label: Caption
+                type: string
+                description: "Optional visible caption explaining the image or drawing."
+                options:
+                  maxlength: 240
+          - name: body
+            label: Full project description
+            type: rich-text
+            required: true
+            description: "Long-form project narrative. Use headings, paragraphs, lists, and emphasis to explain the project, process, design decisions, and outcomes."
+            options:
+              format: markdown
+              switcher: true
+              rename: safe
+          - name: external_url
+            label: External project link
+            type: string
+            description: "Optional full https:// link to the student's portfolio, publication, video, or other project page."
+            pattern:
+              regex: "^$|^https://.+$"
+              message: "Use a full https:// URL or leave this field blank."
           - name: featured
             label: Feature on homepage
             type: boolean

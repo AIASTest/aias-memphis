@@ -19,6 +19,7 @@
     shadowLayer.id = 'sun-shadow-layer';
     shadowLayer.classList.add('sun-shadow-layer');
     shadowLayer.setAttribute('pointer-events','none');
+    shadowLayer.setAttribute('opacity','.17');
     shapes.parentNode?.insertBefore(shadowLayer, shapes);
     return shadowLayer;
   }
@@ -29,6 +30,16 @@
     const dx = Math.cos(radians) * 48;
     const dy = 18 + Math.sin(radians) * 32;
     shadowLayer.setAttribute('transform',`translate(${dx.toFixed(1)} ${dy.toFixed(1)})`);
+  }
+
+  function makeShadowSerializable(root) {
+    root.setAttribute('opacity','.17');
+    root.querySelectorAll('*').forEach(node => {
+      if (node.hasAttribute('fill') && node.getAttribute('fill') !== 'none') node.setAttribute('fill','#071522');
+      if (node.hasAttribute('stroke')) node.setAttribute('stroke','none');
+      node.removeAttribute('filter');
+      node.removeAttribute('class');
+    });
   }
 
   function rebuildShadows() {
@@ -43,6 +54,7 @@
       clone.removeAttribute('data-shape-id');
       layer.appendChild(clone);
     });
+    makeShadowSerializable(layer);
     updateShadowTransform();
   }
 
@@ -110,6 +122,8 @@
     clone.querySelectorAll('.design-shape').forEach(node=>{
       node.removeAttribute('class');node.removeAttribute('role');node.removeAttribute('aria-label');node.removeAttribute('data-shape-id');
     });
+    const shadow=clone.querySelector('#sun-shadow-layer');
+    if(shadow) makeShadowSerializable(shadow);
     clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
     clone.setAttribute('width','800');clone.setAttribute('height','520');
     return clone;
@@ -117,7 +131,14 @@
 
   function roundedRect(ctx,x,y,w,h,r,fill,stroke='') {
     const radius=Math.min(r,w/2,h/2);
-    ctx.beginPath();ctx.roundRect(x,y,w,h,radius);
+    ctx.beginPath();
+    if(typeof ctx.roundRect==='function')ctx.roundRect(x,y,w,h,radius);
+    else{
+      ctx.moveTo(x+radius,y);ctx.lineTo(x+w-radius,y);ctx.quadraticCurveTo(x+w,y,x+w,y+radius);
+      ctx.lineTo(x+w,y+h-radius);ctx.quadraticCurveTo(x+w,y+h,x+w-radius,y+h);
+      ctx.lineTo(x+radius,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-radius);
+      ctx.lineTo(x,y+radius);ctx.quadraticCurveTo(x,y,x+radius,y);ctx.closePath();
+    }
     if(fill){ctx.fillStyle=fill;ctx.fill();}
     if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}
   }

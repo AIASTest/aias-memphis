@@ -1,0 +1,48 @@
+name: Validate static site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' file; do
+            echo "Checking $file"
+            node --check "$file"
+          done < <(find assets/js -type f -name '*.js' -print0)
+
+      - name: Check JSON content
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' file; do
+            echo "Checking $file"
+            python3 -m json.tool "$file" >/dev/null
+          done < <(find data -type f -name '*.json' -print0)
+
+      - name: Check Pages CMS YAML
+        run: ruby -e "require 'yaml'; YAML.load_file('.pages.yml'); puts 'Pages CMS YAML parsed successfully.'"
+
+      - name: Check required website files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f designer.html
+          test -f assets/js/designer.js
+          test -f assets/css/designer.css
+          test -f data/designs.json
+          test -f .pages.yml

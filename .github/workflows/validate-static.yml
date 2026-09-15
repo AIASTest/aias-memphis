@@ -33,8 +33,53 @@ jobs:
             python3 -m json.tool "$file" >/dev/null
           done < <(find data -type f -name '*.json' -print0)
 
+      - name: Validate Design Studio share codes
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import base64
+          import json
+          from pathlib import Path
+
+          allowed_types = {'rect', 'triangle', 'circle', 'arch', 'window', 'door', 'column', 'tree'}
+          allowed_backgrounds = {'grid', 'paper', 'blueprint', 'river', 'lawn', 'sunset', 'night'}
+          entries = json.loads(Path('data/designs.json').read_text())
+          assert isinstance(entries, list), 'data/designs.json must contain a JSON array'
+
+          for index, entry in enumerate(entries, 1):
+              code = str(entry.get('design_code', '')).strip()
+              if not code:
+                  raise AssertionError(f'Community design #{index} is missing design_code')
+              padded = code.replace('-', '+').replace('_', '/') + '=' * ((4 - len(code) % 4) % 4)
+              try:
+                  design = json.loads(base64.b64decode(padded).decode('utf-8'))
+              except Exception as exc:
+                  raise AssertionError(f'Community design #{index} has an invalid design code: {exc}') from exc
+              if design.get('background', 'grid') not in allowed_backgrounds:
+                  raise AssertionError(f'Community design #{index} uses an unsupported background')
+              shapes = design.get('shapes', [])
+              if not isinstance(shapes, list) or len(shapes) > 60:
+                  raise AssertionError(f'Community design #{index} has an invalid shapes list')
+              for shape_index, shape in enumerate(shapes, 1):
+                  if shape.get('type') not in allowed_types:
+                      raise AssertionError(f'Community design #{index}, shape #{shape_index} uses an unsupported type')
+                  for key in ('x', 'y', 'w', 'h'):
+                      if not isinstance(shape.get(key), (int, float)):
+                          raise AssertionError(f'Community design #{index}, shape #{shape_index} has invalid {key}')
+          print(f'Validated {len(entries)} community design codes.')
+          PY
+
       - name: Check Pages CMS YAML
         run: ruby -e "require 'yaml'; YAML.load_file('.pages.yml'); puts 'Pages CMS YAML parsed successfully.'"
+
+      - name: Check Design Studio loader
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f assets/js/designer-v2.js
+          grep -q "designer-v2.js" assets/js/designer.js
+          grep -q "assets/js/designer.js" designer.html
 
       - name: Check required website files
         shell: bash
@@ -43,6 +88,7 @@ jobs:
           test -f index.html
           test -f designer.html
           test -f assets/js/designer.js
+          test -f assets/js/designer-v2.js
           test -f assets/css/designer.css
           test -f data/designs.json
           test -f .pages.yml

@@ -19,6 +19,10 @@
   core.src = 'assets/js/designer-v2.js';
   core.defer = true;
 
+  const cleanup = document.createElement('script');
+  cleanup.src = 'assets/js/designer-core-cleanup.js';
+  cleanup.defer = true;
+
   const game = document.createElement('script');
   game.src = 'assets/js/designer-game.js';
   game.defer = true;
@@ -59,7 +63,7 @@
 
   views.addEventListener('load', () => {
     if (views.parentNode) views.parentNode.insertBefore(presentationplus, views.nextSibling);
-    else document.head.appendChild(presentationplus);
+    else document.head.appendChild(views);
   });
 
   onboarding.addEventListener('load', () => {
@@ -77,9 +81,14 @@
     else document.head.appendChild(finish);
   });
 
-  core.addEventListener('load', () => {
-    if (core.parentNode) core.parentNode.insertBefore(game, core.nextSibling);
+  cleanup.addEventListener('load', () => {
+    if (cleanup.parentNode) cleanup.parentNode.insertBefore(game, cleanup.nextSibling);
     else document.head.appendChild(game);
+  });
+
+  core.addEventListener('load', () => {
+    if (core.parentNode) core.parentNode.insertBefore(cleanup, core.nextSibling);
+    else document.head.appendChild(cleanup);
   });
 
   if (current?.parentNode) current.parentNode.insertBefore(core, current.nextSibling);

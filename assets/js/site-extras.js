@@ -86,9 +86,19 @@
     }
   }
 
+  function loadDesignerAddons() {
+    if (document.body.dataset.page !== 'designer' || document.querySelector('script[data-designer-addons]')) return;
+    const script = document.createElement('script');
+    script.src = 'assets/js/designer-addons.js';
+    script.defer = true;
+    script.dataset.designerAddons = 'true';
+    document.body.appendChild(script);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     addPersistentLinks();
     addInstagramLinks();
+    loadDesignerAddons();
     const header = document.getElementById('site-header');
     const footer = document.getElementById('site-footer');
     if (header) new MutationObserver(addPersistentLinks).observe(header, { childList: true, subtree: true });

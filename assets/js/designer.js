@@ -34,6 +34,15 @@
   community.src = 'assets/js/designer-community.js';
   community.defer = true;
 
+  const communityGuard = document.createElement('script');
+  communityGuard.src = 'assets/js/designer-community-guard.js';
+  communityGuard.defer = true;
+
+  community.addEventListener('load', () => {
+    if (community.parentNode) community.parentNode.insertBefore(communityGuard, community.nextSibling);
+    else document.head.appendChild(communityGuard);
+  });
+
   views.addEventListener('load', () => {
     if (views.parentNode) views.parentNode.insertBefore(community, views.nextSibling);
     else document.head.appendChild(community);

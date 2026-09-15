@@ -87,10 +87,11 @@ jobs:
           assert isinstance(cfg.get('allow_reports'), bool), 'allow_reports must be boolean'
           limit = int(cfg.get('feed_limit', 0))
           assert 12 <= limit <= 100, 'feed_limit must be between 12 and 100'
-          url = str(cfg.get('supabase_url', ''))
-          key = str(cfg.get('supabase_publishable_key', ''))
-          combined = f'{url} {key}'.lower()
-          assert 'service_role' not in combined, 'Never expose a Supabase service_role credential in public config'
+          url = str(cfg.get('supabase_url', '')).strip()
+          key = str(cfg.get('supabase_publishable_key', '')).strip()
+          lowered = key.lower()
+          assert 'service_role' not in lowered, 'Never expose a Supabase service_role credential in public config'
+          assert not lowered.startswith('sb_secret_'), 'Never expose a Supabase secret key in public config'
           if cfg['enabled']:
               assert re.fullmatch(r'https://[a-z0-9-]+\.supabase\.co/?', url, re.I), 'Enabled backend needs a valid Supabase project URL'
               assert len(key) > 20, 'Enabled backend needs a publishable/anon key'
@@ -99,7 +100,8 @@ jobs:
           print('Live community config validated.')
           PY
           grep -q "enable row level security" docs/design-studio-supabase.sql
-          grep -q "service_role" docs/design-studio-supabase.sql
+          grep -q "apply_community_publish_mode" docs/design-studio-supabase.sql
+          grep -q "revoke update on public.community_designs" docs/design-studio-supabase.sql
           grep -q "Anonymous Sign-Ins" docs/design-studio-supabase.sql
 
       - name: Check Pages CMS YAML
@@ -114,8 +116,8 @@ jobs:
           test -f assets/js/designer-onboarding.js
           test -f assets/js/designer-views.js
           test -f assets/js/designer-playplus.js
+          test -f assets/js/designer-community-bootstrap.js
           test -f assets/js/designer-community.js
-          test -f assets/js/designer-community-guard.js
           test -f assets/css/designer-fun.css
           test -f assets/css/designer-onboarding.css
           test -f assets/css/designer-views.css
@@ -126,10 +128,10 @@ jobs:
           grep -q "designer-onboarding.js" assets/js/designer.js
           grep -q "designer-views.js" assets/js/designer.js
           grep -q "designer-playplus.js" assets/js/designer.js
-          grep -q "designer-community.js" assets/js/designer.js
-          grep -q "designer-community-guard.js" assets/js/designer.js
-          grep -q "designer-playplus.css" assets/js/designer.js
-          grep -q "designer-community.css" assets/js/designer.js
+          grep -q "designer-community-bootstrap.js" assets/js/designer.js
+          grep -q "designer-community.js" assets/js/designer-community-bootstrap.js
+          grep -q "designer-community.css" assets/js/designer-community-bootstrap.js
+          grep -q "sb_secret_" assets/js/designer-community-bootstrap.js
           grep -q "assets/js/designer.js" designer.html
 
       - name: Check required website files
@@ -144,8 +146,8 @@ jobs:
           test -f assets/js/designer-onboarding.js
           test -f assets/js/designer-views.js
           test -f assets/js/designer-playplus.js
+          test -f assets/js/designer-community-bootstrap.js
           test -f assets/js/designer-community.js
-          test -f assets/js/designer-community-guard.js
           test -f assets/css/designer.css
           test -f assets/css/designer-fun.css
           test -f assets/css/designer-onboarding.css

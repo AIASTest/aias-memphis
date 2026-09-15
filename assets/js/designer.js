@@ -2,7 +2,11 @@
   'use strict';
   const current = document.currentScript;
 
-  for (const href of ['assets/css/designer-fun.css', 'assets/css/designer-onboarding.css']) {
+  for (const href of [
+    'assets/css/designer-fun.css',
+    'assets/css/designer-onboarding.css',
+    'assets/css/designer-views.css'
+  ]) {
     const style = document.createElement('link');
     style.rel = 'stylesheet';
     style.href = href;
@@ -20,6 +24,15 @@
   const onboarding = document.createElement('script');
   onboarding.src = 'assets/js/designer-onboarding.js';
   onboarding.defer = true;
+
+  const views = document.createElement('script');
+  views.src = 'assets/js/designer-views.js';
+  views.defer = true;
+
+  onboarding.addEventListener('load', () => {
+    if (onboarding.parentNode) onboarding.parentNode.insertBefore(views, onboarding.nextSibling);
+    else document.head.appendChild(views);
+  });
 
   fun.addEventListener('load', () => {
     if (fun.parentNode) fun.parentNode.insertBefore(onboarding, fun.nextSibling);

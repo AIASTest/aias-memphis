@@ -15,8 +15,8 @@
   panel.innerHTML = `
     <div class="game-finish-copy">
       <p class="eyebrow">Brief resolved</p>
-      <h3 id="game-finish-title">Nice. Now finish the project.</h3>
-      <p id="game-finish-message" class="muted">A finished idea is more useful when you save it, talk about it, and let somebody else respond.</p>
+      <h3 id="game-finish-title">Finish the project.</h3>
+      <p id="game-finish-message" class="muted">Save the work, get one final crit, or put it into circulation.</p>
     </div>
     <div class="game-finish-actions">
       <button type="button" class="button button-primary" data-finish-action="crit">Get final crit</button>
@@ -24,7 +24,6 @@
       <button type="button" class="button button-outline" data-finish-action="poster">Make pin-up</button>
       <button type="button" class="button button-outline" data-finish-action="share">Share link</button>
       <button type="button" class="button button-outline" data-finish-action="publish" hidden>Publish</button>
-      <button type="button" class="button button-outline" data-finish-action="compare">See interpretations</button>
       <button type="button" class="button button-outline" data-finish-action="next">Next brief</button>
     </div>`;
   gameBar.insertAdjacentElement('afterend', panel);
@@ -52,8 +51,8 @@
       visibleFor = title;
       $('game-finish-title').textContent = `${title} is resolved.`;
       $('game-finish-message').textContent = bonusDone
-        ? 'Required rules and the bonus are complete. Give the project one final edit, then keep it or put it into circulation.'
-        : 'The required rules are complete. You can chase the bonus, refine the idea, or finish it and move on.';
+        ? 'Required rules and the bonus are complete. Give it one final edit, then save or share the result.'
+        : 'The required rules are complete. Chase the bonus, refine the idea, or finish and move on.';
     }
     updatePublishButton();
     panel.hidden = false;
@@ -74,10 +73,6 @@
       $('share-panel')?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'nearest' });
     }
     if (action === 'publish') $('publish-community-design')?.click();
-    if (action === 'compare') {
-      const target = $('live-community') || $('showcase');
-      target?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-    }
     if (action === 'next') $('game-practice')?.click();
   });
 

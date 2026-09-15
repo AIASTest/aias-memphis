@@ -190,7 +190,7 @@ jobs:
           grep -q "designer-community-v2.js" assets/js/designer-community-bootstrap.js
           grep -q "designer-community.css" assets/js/designer-community-bootstrap.js
           grep -q "AIASCommunityConfig" assets/js/designer-community-bootstrap.js
-          grep -q "@supabase/supabase-js@2.116.0" assets/js/designer-community-v2.js
+          grep -q "SUPABASE_VERSION = '2.116.0'" assets/js/designer-community-v2.js
           grep -q "captchaToken" assets/js/designer-community-v2.js
           grep -q "get_community_design_metrics" assets/js/designer-community-v2.js
           grep -q "assets/js/designer.js" designer.html

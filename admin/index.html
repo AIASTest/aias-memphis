@@ -21,9 +21,9 @@
     <div class="admin-panel">
       <p class="eyebrow">Website control panel</p>
       <h1>Manage the chapter website.</h1>
-      <p class="muted">Routine content changes happen in Pages CMS. Use this dashboard for editing guidance, content counts, Site Health checks, community-design moderation, and handoff information.</p>
+      <p class="muted">Routine content changes happen in Pages CMS. Use this dashboard for editing guidance, content counts, Site Health checks, Design Studio status, and handoff information.</p>
       <div class="admin-actions"><a class="button button-primary" href="https://app.pagescms.org/" target="_blank" rel="noopener">Open website editor</a><a class="button button-outline" href="help.html">Read editing guides</a><a class="button button-outline" href="https://github.com/AIASTest/aias-memphis" target="_blank" rel="noopener">GitHub repository</a></div>
-      <div class="admin-note small"><strong>Use the CMS for normal updates.</strong> GitHub should only be necessary for structural/code changes. Never store passwords, private student records, payment credentials, API keys, or other secrets in the public repository.</div>
+      <div class="admin-note small"><strong>Use the CMS for normal updates.</strong> GitHub should only be necessary for structural/code changes. Never store passwords, private student records, payment credentials, or secret/private API keys in the public repository. The optional Live Community uses only a browser-safe Supabase publishable key with Row Level Security.</div>
     </div>
     <aside class="admin-panel admin-status" aria-label="Website content status">
       <div><p class="eyebrow">Content status</p><h2 style="margin:.35rem 0 0">Current website</h2></div>
@@ -31,7 +31,8 @@
       <div class="status-row"><span>Projects</span><span class="status-value" id="project-count">—</span></div>
       <div class="status-row"><span>Visible jobs</span><span class="status-value" id="job-count">—</span></div>
       <div class="status-row"><span>Members</span><span class="status-value" id="leader-count">—</span></div>
-      <div class="status-row"><span>Community designs</span><span class="status-value" id="design-count">—</span></div>
+      <div class="status-row"><span>Curated designs</span><span class="status-value" id="design-count">—</span></div>
+      <div class="status-row"><span>Live publishing</span><span class="status-value" id="community-backend-status">Checking…</span></div>
       <div class="status-row"><span>Custom pages</span><span class="status-value" id="page-count">—</span></div>
       <div class="status-row"><span>Site health</span><span class="status-value" id="health-count">Checking…</span></div>
     </aside>
@@ -43,7 +44,8 @@
       <a class="admin-card" href="help.html#events"><div class="admin-icon">Calendar</div><h2>Events</h2><p class="muted small">Meetings, tours, workshops, images, details, and RSVP controls.</p><div class="admin-count" id="event-count-card">—</div></a>
       <a class="admin-card" href="help.html#projects"><div class="admin-icon">Portfolio</div><h2>Student projects</h2><p class="muted small">Project pages, galleries, narratives, and member-profile links.</p><div class="admin-count" id="project-count-card">—</div></a>
       <a class="admin-card" href="help.html#members"><div class="admin-icon">People</div><h2>Chapter members</h2><p class="muted small">Public profiles with photos, bios, roles, interests, and linked work.</p><div class="admin-count" id="leader-count-card">—</div></a>
-      <a class="admin-card" href="help.html#design-studio"><div class="admin-icon">Studio</div><h2>Community designs</h2><p class="muted small">Moderate submitted Design Studio codes and public showcase entries.</p><div class="admin-count" id="design-count-card">—</div></a>
+      <a class="admin-card" href="help.html#design-studio"><div class="admin-icon">Studio</div><h2>Design Studio</h2><p class="muted small">Curated showcase, game features, share codes, and student publishing.</p><div class="admin-count" id="design-count-card">—</div></a>
+      <a class="admin-card" href="help.html#community-backend"><div class="admin-icon">Live</div><h2>Live Community</h2><p class="muted small">Optional self-publishing backend, moderation mode, reports, likes, and handoff.</p><div class="admin-count" id="community-backend-card">Checking…</div></a>
       <a class="admin-card" href="help.html#jobs"><div class="admin-icon">Career</div><h2>Jobs & internships</h2><p class="muted small">Opportunities, application links, deadlines, and visibility.</p><div class="admin-count" id="job-count-card">—</div></a>
       <a class="admin-card" href="help.html#support"><div class="admin-icon">Support</div><h2>Support & payments</h2><p class="muted small">Firm/donation messaging and approved third-party payment buttons.</p><div class="admin-count">Links</div></a>
       <a class="admin-card" href="help.html#pages"><div class="admin-icon">Pages</div><h2>Custom pages</h2><p class="muted small">Resources, scholarships, committees, and other information.</p><div class="admin-count" id="page-count-card">—</div></a>
@@ -59,8 +61,8 @@
   </section>
 
   <section class="admin-help-grid">
-    <div class="admin-panel"><p class="eyebrow">Publishing workflow</p><h2 style="font-size:2rem">Make a change safely</h2><ol><li>Open Pages CMS and select the chapter website repository.</li><li>Use Website, Chapter content, or Community as appropriate.</li><li>Save, then verify the relevant public page.</li><li>For member-linked work, verify the relationship in both directions.</li><li>For a Community Design, open the showcase card and verify View / remix recreates the submission.</li><li>Correct any problem in CMS; previous repository versions remain in Git history.</li></ol></div>
-    <div class="admin-panel"><p class="eyebrow">Need instructions?</p><h2 style="font-size:2rem">Admin Help Center</h2><p class="muted">The help center covers all current editable areas, member profiles, galleries, RSVP logic, payment links, Design Studio moderation, media, access, troubleshooting, privacy, and repository handoff.</p><div class="admin-actions"><a class="button button-primary" href="help.html">Open Help Center</a></div></div>
+    <div class="admin-panel"><p class="eyebrow">Publishing workflow</p><h2 style="font-size:2rem">Make a change safely</h2><ol><li>Open Pages CMS and select the chapter website repository.</li><li>Use Website, Chapter content, or Community as appropriate.</li><li>Save, then verify the relevant public page.</li><li>For member-linked work, verify the relationship in both directions.</li><li>For a curated Community Design, verify Remix recreates the submission.</li><li>If Live Community is enabled, periodically review reports in the chapter Supabase project.</li><li>Correct repository content in CMS; previous repository versions remain in Git history.</li></ol></div>
+    <div class="admin-panel"><p class="eyebrow">Need instructions?</p><h2 style="font-size:2rem">Admin Help Center</h2><p class="muted">The help center covers all current editable areas, member profiles, galleries, RSVP logic, payment links, Design Studio publishing/moderation, media, access, troubleshooting, privacy, and handoff.</p><div class="admin-actions"><a class="button button-primary" href="help.html">Open Help Center</a></div></div>
   </section>
 </main>
 
@@ -74,14 +76,14 @@
   const validDesignCode=value=>{
     try{
       const input=String(value||'').trim();
-      if(!/^[A-Za-z0-9_-]{40,12000}$/.test(input))return false;
+      if(!/^[A-Za-z0-9_-]{40,24000}$/.test(input))return false;
       const normalized=input.replaceAll('-','+').replaceAll('_','/');
       const padded=normalized+'='.repeat((4-normalized.length%4)%4);
       const binary=atob(padded);
       const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
       const parsed=JSON.parse(new TextDecoder().decode(bytes));
       const validTypes=new Set(['rect','triangle','circle','arch','window','door','column','tree']);
-      return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)&&Array.isArray(parsed.shapes)&&parsed.shapes.length<=40&&parsed.shapes.every(s=>s&&typeof s==='object'&&validTypes.has(s.type));
+      return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)&&Array.isArray(parsed.shapes)&&parsed.shapes.length<=60&&parsed.shapes.every(s=>s&&typeof s==='object'&&validTypes.has(s.type));
     }catch{return false}
   };
   const sampleLike=value=>/\b(sample|example|prototype|aias demo)\b/i.test(String(value||''));
@@ -93,8 +95,8 @@
   async function loadDashboard(){
     const healthList=document.getElementById('health-list');
     try{
-      const [site,eventsRaw,projectsRaw,jobsRaw,leadersRaw,pagesRaw,designsRaw]=await Promise.all([
-        getJSON('data/site.json'),getJSON('data/events.json'),getJSON('data/projects.json'),getJSON('data/jobs.json'),getJSON('data/leadership.json'),getJSON('data/pages.json'),getJSON('data/designs.json').catch(()=>[])
+      const [site,eventsRaw,projectsRaw,jobsRaw,leadersRaw,pagesRaw,designsRaw,backend]=await Promise.all([
+        getJSON('data/site.json'),getJSON('data/events.json'),getJSON('data/projects.json'),getJSON('data/jobs.json'),getJSON('data/leadership.json'),getJSON('data/pages.json'),getJSON('data/designs.json').catch(()=>[]),getJSON('data/community-backend.json').catch(()=>null)
       ]);
       const events=asArray(eventsRaw),projects=asArray(projectsRaw),jobs=asArray(jobsRaw),leaders=asArray(leadersRaw),pages=asArray(pagesRaw),designs=asArray(designsRaw),now=today();
       const visibleJobs=jobs.filter(j=>j&&j.active&&(!validDate(j.deadline)||j.deadline>=now));
@@ -102,11 +104,27 @@
       const publishedDesigns=designs.filter(d=>d?.published!==false);
       [['event-count',events.length],['event-count-card',events.length],['project-count',projects.length],['project-count-card',projects.length],['job-count',visibleJobs.length],['job-count-card',visibleJobs.length],['leader-count',visibleMembers.length],['leader-count-card',visibleMembers.length],['design-count',publishedDesigns.length],['design-count-card',publishedDesigns.length],['page-count',pages.length],['page-count-card',pages.length]].forEach(([id,value])=>setCount(id,value));
 
+      const backendEnabled=backend?.enabled===true;
+      const backendMode=['auto','moderated'].includes(backend?.mode)?backend.mode:'unknown';
+      const backendLabel=backendEnabled?(backendMode==='auto'?'Auto publish':'Moderated'):'Disabled';
+      setCount('community-backend-status',backendLabel);
+      setCount('community-backend-card',backendLabel);
+
       const issues=[];
       if(!validEmail(site.contact_email))issues.push(issue('Public contact email is invalid.',site.contact_email,'error'));
       if(sampleLike(site.contact_email))issues.push(issue('The public contact email still looks like placeholder content.',site.contact_email));
       if(site.demo_notice&&sampleLike(site.demo_notice))issues.push(issue('The announcement banner still identifies the site as a prototype/sample.',site.demo_notice));
       [['Membership URL',site.membership_url],['Department URL',site.department_url],['Instagram URL',site.instagram_url]].forEach(([name,url])=>{if(!validHttps(url))issues.push(issue(`${name} is not a full https:// link.`,url,'error'))});
+
+      if(!backend)issues.push(issue('Live Community configuration could not be loaded.','data/community-backend.json is missing or unreadable.','error'));
+      else{
+        const backendKey=String(backend.supabase_publishable_key||'');
+        const backendUrl=String(backend.supabase_url||'');
+        if(!['auto','moderated'].includes(backend.mode))issues.push(issue('Live Community mode is invalid.','Use auto or moderated.','error'));
+        if(/service_role/i.test(backendKey)||/^sb_secret_/i.test(backendKey))issues.push(issue('A privileged Supabase key appears to be exposed in public configuration.','Disable Live Community and remove/rotate the secret immediately.','error'));
+        if(backendEnabled&&!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(backendUrl))issues.push(issue('Live Community is enabled but the Supabase project URL is invalid.',backendUrl||'Missing URL','error'));
+        if(backendEnabled&&backendKey.length<=20)issues.push(issue('Live Community is enabled but no usable publishable key is configured.','Use a browser-safe publishable key only.','error'));
+      }
 
       events.forEach((e,i)=>{
         if(!validDate(e?.date))issues.push(issue(`Event ${i+1} has a missing or invalid date.`,e?.title||'Untitled event','error'));
@@ -176,6 +194,8 @@
     }catch(error){
       console.error(error);
       setCount('health-count','Unavailable');
+      setCount('community-backend-status','Unavailable');
+      setCount('community-backend-card','Unavailable');
       document.getElementById('health-badge').textContent='Could not run checks';
       healthList.innerHTML='<li class="health-item error"><span class="health-dot"></span><div><strong>Site-health checks could not load the content files.</strong><span class="muted small">Refresh this page. If it continues, use the Help Center troubleshooting article.</span></div></li>';
     }

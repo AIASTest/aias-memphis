@@ -5,6 +5,14 @@
   const status = document.getElementById('studio-status');
 
   if (repeatButton && duplicateButton) {
+    const syncRepeatState = () => {
+      repeatButton.disabled = duplicateButton.disabled;
+      repeatButton.setAttribute('aria-disabled', String(duplicateButton.disabled));
+    };
+
+    syncRepeatState();
+    new MutationObserver(syncRepeatState).observe(duplicateButton, { attributes: true, attributeFilter: ['disabled'] });
+
     repeatButton.addEventListener('click', () => {
       if (repeatButton.disabled || duplicateButton.disabled) return;
       let count = 0;
@@ -21,8 +29,8 @@
     });
   }
 
-  // Ground positioning needs access to the designer's internal transformed geometry.
-  // Keep the unfinished control out of the public UI rather than exposing a button
-  // that could behave unpredictably for rotated parts.
+  // Baseline positioning needs access to transformed designer geometry.
+  // Keep the unfinished control out of the public UI rather than exposing a
+  // button that could behave unpredictably for rotated parts.
   if (groundButton) groundButton.hidden = true;
 })();

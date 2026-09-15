@@ -124,6 +124,9 @@ jobs:
           assert isinstance(cfg.get('enabled'), bool), 'Community backend enabled must be boolean'
           assert isinstance(cfg.get('allow_likes'), bool), 'allow_likes must be boolean'
           assert isinstance(cfg.get('allow_reports'), bool), 'allow_reports must be boolean'
+          assert cfg.get('captcha_provider') in {'none', 'turnstile'}, 'captcha_provider must be none or turnstile'
+          if cfg.get('captcha_provider') == 'turnstile':
+              assert len(str(cfg.get('captcha_site_key','')).strip()) > 10, 'Turnstile requires a public site key'
           limit = int(cfg.get('feed_limit', 0))
           assert 12 <= limit <= 100, 'feed_limit must be between 12 and 100'
           url = str(cfg.get('supabase_url', '')).strip()
@@ -140,6 +143,11 @@ jobs:
           PY
           grep -q "enable row level security" docs/design-studio-supabase.sql
           grep -q "apply_community_publish_mode" docs/design-studio-supabase.sql
+          grep -q "get_community_design_metrics" docs/design-studio-supabase.sql
+          grep -q "revoke select on public.community_design_likes from anon" docs/design-studio-supabase.sql
+          grep -q "community_designs_parent_idx" docs/design-studio-supabase.sql
+          grep -q "community_design_likes_user_idx" docs/design-studio-supabase.sql
+          grep -q "community_reports_rate_limit" docs/design-studio-supabase.sql
           grep -q "revoke update on public.community_designs" docs/design-studio-supabase.sql
           grep -q "Anonymous Sign-Ins" docs/design-studio-supabase.sql
 
@@ -157,7 +165,7 @@ jobs:
           test -f assets/js/designer-presentationplus.js
           test -f assets/js/designer-sketchbook.js
           test -f assets/js/designer-community-bootstrap.js
-          test -f assets/js/designer-community.js
+          test -f assets/js/designer-community-v2.js
           test -f assets/css/designer.css
           test -f assets/css/designer-fun.css
           test -f assets/css/designer-game.css
@@ -177,10 +185,14 @@ jobs:
           grep -q "designer-game.css" assets/js/designer.js
           ! grep -q "designer-playplus.js" assets/js/designer.js
           ! grep -q "designer-fun.js';" assets/js/designer.js
-          grep -q "designer-community.js" assets/js/designer-community-bootstrap.js
+          grep -q "designer-community-v2.js" assets/js/designer-community-bootstrap.js
           grep -q "designer-community.css" assets/js/designer-community-bootstrap.js
-          grep -q "sb_secret_" assets/js/designer-community-bootstrap.js
+          grep -q "AIASCommunityConfig" assets/js/designer-community-bootstrap.js
+          grep -q "@supabase/supabase-js@2.116.0" assets/js/designer-community-v2.js
+          grep -q "captchaToken" assets/js/designer-community-v2.js
+          grep -q "get_community_design_metrics" assets/js/designer-community-v2.js
           grep -q "assets/js/designer.js" designer.html
+          ! grep -q "designer-addons.js" assets/js/site-extras.js
 
       - name: Check required website files
         shell: bash
@@ -196,7 +208,7 @@ jobs:
           test -f assets/js/designer-presentationplus.js
           test -f assets/js/designer-sketchbook.js
           test -f assets/js/designer-community-bootstrap.js
-          test -f assets/js/designer-community.js
+          test -f assets/js/designer-community-v2.js
           test -f data/designs.json
           test -f data/designer-briefs.json
           test -f data/community-backend.json

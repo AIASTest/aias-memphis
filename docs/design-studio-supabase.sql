@@ -11,7 +11,10 @@ create table if not exists public.community_designs (
   title text not null check (char_length(title) between 1 and 80),
   designer text not null check (char_length(designer) between 1 and 80),
   caption text not null default '' check (char_length(caption) <= 280),
-  design_code text not null check (char_length(design_code) between 8 and 24000),
+  design_code text not null check (
+    char_length(design_code) between 8 and 24000
+    and design_code ~ '^[A-Za-z0-9_-]+$'
+  ),
   status text not null default 'published' check (status in ('pending','published','hidden')),
   featured boolean not null default false,
   parent_id uuid references public.community_designs(id) on delete set null,
@@ -47,6 +50,7 @@ alter table public.community_design_likes enable row level security;
 alter table public.community_design_reports enable row level security;
 
 -- New Supabase projects may not expose new tables to the Data API automatically.
+-- These are the minimum browser permissions; RLS policies below still decide which rows are allowed.
 grant select on public.community_designs to anon, authenticated;
 grant insert, update, delete on public.community_designs to authenticated;
 grant select on public.community_design_likes to anon, authenticated;
@@ -117,7 +121,35 @@ on public.community_design_reports for insert
 to authenticated
 with check (reporter_id = (select auth.uid()));
 
--- Optional helper trigger for updated_at.
+-- Prevent one anonymous browser identity from flooding the live wall.
+-- This is intentionally generous for a student design game while still creating a server-side ceiling.
+create or replace function public.enforce_community_design_post_limit()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+begin
+  if (
+    select count(*)
+    from public.community_designs
+    where owner_id = new.owner_id
+      and created_at > now() - interval '24 hours'
+  ) >= 10 then
+    raise exception 'Community post limit reached: maximum 10 designs per 24 hours';
+  end if;
+  return new;
+end;
+$$;
+
+revoke all on function public.enforce_community_design_post_limit() from public;
+
+drop trigger if exists community_designs_post_limit on public.community_designs;
+create trigger community_designs_post_limit
+before insert on public.community_designs
+for each row execute function public.enforce_community_design_post_limit();
+
+-- Keep updated_at current automatically.
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -141,3 +173,4 @@ for each row execute function public.set_updated_at();
 -- 3. Set enabled=true.
 -- 4. mode="auto" publishes immediately; mode="moderated" inserts as pending.
 -- 5. Never expose service_role credentials in GitHub or browser code.
+-- 6. For a public launch, consider enabling Supabase CAPTCHA protection for anonymous sign-ins as an additional abuse-control layer.

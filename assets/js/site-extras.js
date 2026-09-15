@@ -8,6 +8,11 @@
     }
   };
 
+  function insertBeforeAbout(container, link) {
+    const about = [...container.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
+    container.insertBefore(link, about || null);
+  }
+
   function addPersistentLinks() {
     const nav = document.getElementById('main-nav');
     if (nav && !nav.querySelector('[data-members-nav]')) {
@@ -16,8 +21,16 @@
       link.textContent = 'Members';
       link.dataset.membersNav = 'true';
       if (['members', 'member'].includes(document.body.dataset.page)) link.setAttribute('aria-current', 'page');
-      const about = [...nav.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
-      nav.insertBefore(link, about || null);
+      insertBeforeAbout(nav, link);
+    }
+
+    if (nav && !nav.querySelector('[data-designer-nav]')) {
+      const link = document.createElement('a');
+      link.href = 'designer.html';
+      link.textContent = 'Design Studio';
+      link.dataset.designerNav = 'true';
+      if (document.body.dataset.page === 'designer') link.setAttribute('aria-current', 'page');
+      insertBeforeAbout(nav, link);
     }
 
     if (nav && !nav.querySelector('[data-support-nav]')) {
@@ -26,8 +39,7 @@
       link.textContent = 'Support';
       link.dataset.supportNav = 'true';
       if (document.body.dataset.page === 'support') link.setAttribute('aria-current', 'page');
-      const about = [...nav.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
-      nav.insertBefore(link, about || null);
+      insertBeforeAbout(nav, link);
     }
 
     const footerLinks = document.querySelector('.footer-links');
@@ -36,8 +48,15 @@
       link.href = 'members.html';
       link.textContent = 'Chapter Members';
       link.dataset.membersFooter = 'true';
-      const about = [...footerLinks.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
-      footerLinks.insertBefore(link, about || null);
+      insertBeforeAbout(footerLinks, link);
+    }
+
+    if (footerLinks && !footerLinks.querySelector('[data-designer-footer]')) {
+      const link = document.createElement('a');
+      link.href = 'designer.html';
+      link.textContent = 'Design Studio';
+      link.dataset.designerFooter = 'true';
+      insertBeforeAbout(footerLinks, link);
     }
 
     if (footerLinks && !footerLinks.querySelector('[data-support-footer]')) {
@@ -45,8 +64,7 @@
       link.href = 'support.html';
       link.textContent = 'Support & Payments';
       link.dataset.supportFooter = 'true';
-      const about = [...footerLinks.querySelectorAll('a')].find(a => a.textContent.trim() === 'About');
-      footerLinks.insertBefore(link, about || null);
+      insertBeforeAbout(footerLinks, link);
     }
   }
 

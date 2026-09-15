@@ -25,8 +25,7 @@ test('core game loop is playable', async ({ page }) => {
   const dailyTitle = await page.locator('#challenge-heading').textContent();
   await page.locator('#game-practice').click();
   await expect(page.locator('#game-brief-kicker')).toHaveText('Practice brief');
-  await expect(page.locator('#challenge-heading')).not.toHaveText(dailyTitle || '');
-  await expect(page.locator('#game-rule-list .game-rule')).toHaveCount(await page.locator('#game-rule-list .game-rule').count());
+  if (dailyTitle) await expect(page.locator('#challenge-heading')).not.toHaveText(dailyTitle);
   expect(await page.locator('#game-rule-list .game-rule').count()).toBeGreaterThanOrEqual(2);
 
   const beforeArray = Number(await parts.textContent());
@@ -46,7 +45,8 @@ test('core game loop is playable', async ({ page }) => {
   await expect(page.locator('#game-crit-dialog')).toBeVisible();
   await expect(page.locator('#game-crit-positive')).not.toHaveText('');
   await expect(page.locator('#game-crit-push')).not.toHaveText('');
-  await page.locator('#game-crit-dialog button[value="close"]').click();
+  await page.getByRole('button', { name: 'Back to building' }).click();
+  await expect(page.locator('#game-crit-dialog')).not.toBeVisible();
 
   await page.locator('#create-share').click();
   await expect(page.locator('#share-panel')).toBeVisible();

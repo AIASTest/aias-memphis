@@ -71,7 +71,19 @@
   const validHttps=value=>!value||/^https:\/\/.+/i.test(String(value).trim());
   const validEmail=value=>!value||/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(value).trim());
   const validSlug=value=>/^[a-z0-9-]+$/.test(String(value||''));
-  const validDesignCode=value=>/^[A-Za-z0-9_-]{40,12000}$/.test(String(value||'').trim());
+  const validDesignCode=value=>{
+    try{
+      const input=String(value||'').trim();
+      if(!/^[A-Za-z0-9_-]{40,12000}$/.test(input))return false;
+      const normalized=input.replaceAll('-','+').replaceAll('_','/');
+      const padded=normalized+'='.repeat((4-normalized.length%4)%4);
+      const binary=atob(padded);
+      const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+      const parsed=JSON.parse(new TextDecoder().decode(bytes));
+      const validTypes=new Set(['rect','triangle','circle','arch','window','door','column','tree']);
+      return parsed&&typeof parsed==='object'&&!Array.isArray(parsed)&&Array.isArray(parsed.shapes)&&parsed.shapes.length<=40&&parsed.shapes.every(s=>s&&typeof s==='object'&&validTypes.has(s.type));
+    }catch{return false}
+  };
   const sampleLike=value=>/\b(sample|example|prototype|aias demo)\b/i.test(String(value||''));
   const escapeHTML=value=>String(value||'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');
   async function getJSON(file){const r=await fetch(`../${file}`,{cache:'no-store'});if(!r.ok)throw new Error(file);return r.json()}
@@ -123,7 +135,7 @@
         else if(projectSlugs.has(p.slug))issues.push(issue(`Duplicate project URL name: ${p.slug}`,'Each student project slug must be unique.','error'));
         if(p?.slug)projectSlugs.add(p.slug);
         if(p?.member_slug&&!memberSlugs.has(p.member_slug))issues.push(issue(`Project “${label}” links to an unknown member profile.`,p.member_slug,'error'));
-        if(!cover)issues.push(issue(`Project “${label}” is missing a cover image.`,'Add a cover image so the project displays correctly.','error'));
+        if(!cover)issues.push(issue(`Project “${label}” is missing a cover image.`,'Add a cover image so the project displays correctly on cards.','error'));
         const gallery=asArray(p?.gallery);
         if(!gallery.length)issues.push(issue(`Project “${label}” has no gallery images.`,'Add at least one gallery item.','error'));
         gallery.forEach((item,galleryIndex)=>{

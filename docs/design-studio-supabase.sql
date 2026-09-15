@@ -1,9 +1,17 @@
 -- AIAS Memphis Design Studio community backend
 -- Run this once in a chapter-owned Supabase project.
--- IMPORTANT: use only the browser-safe publishable/anon key in the website config.
--- Never place a service_role key in this repository.
+-- IMPORTANT: use only the browser-safe publishable key in the website config.
+-- Never place a secret/service_role key in this repository.
 
 create extension if not exists pgcrypto;
+
+create table if not exists public.community_settings (
+  id boolean primary key default true check (id = true),
+  mode text not null default 'auto' check (mode in ('auto','moderated'))
+);
+insert into public.community_settings (id, mode)
+values (true, 'auto')
+on conflict (id) do nothing;
 
 create table if not exists public.community_designs (
   id uuid primary key default gen_random_uuid(),
@@ -45,28 +53,69 @@ create index if not exists community_designs_owner_idx
 create index if not exists community_design_likes_design_idx
   on public.community_design_likes(design_id);
 
+alter table public.community_settings enable row level security;
 alter table public.community_designs enable row level security;
 alter table public.community_design_likes enable row level security;
 alter table public.community_design_reports enable row level security;
 
 -- New Supabase projects may not expose new tables to the Data API automatically.
--- These are the minimum browser permissions; RLS policies below still decide which rows are allowed.
+-- These are the minimum browser permissions; RLS still decides which rows are allowed.
+grant select on public.community_settings to anon, authenticated;
 grant select on public.community_designs to anon, authenticated;
-grant insert, update, delete on public.community_designs to authenticated;
+grant insert, delete on public.community_designs to authenticated;
+revoke update on public.community_designs from authenticated;
 grant select on public.community_design_likes to anon, authenticated;
 grant insert, delete on public.community_design_likes to authenticated;
 grant insert on public.community_design_reports to authenticated;
 grant usage, select on sequence public.community_design_reports_id_seq to authenticated;
 
--- Everyone may see only published community designs.
+-- Visitors may read the active community mode, but cannot change it from the browser.
+drop policy if exists "Public can read community mode" on public.community_settings;
+create policy "Public can read community mode"
+on public.community_settings for select
+to anon, authenticated
+using (id = true);
+
+-- Published designs are visible to everyone. A signed-in anonymous owner can also read
+-- their own pending row so the insert can return its final database-enforced status.
 drop policy if exists "Public can view published community designs" on public.community_designs;
 create policy "Public can view published community designs"
 on public.community_designs for select
 to anon, authenticated
-using (status = 'published');
+using (
+  status = 'published'
+  or owner_id = (select auth.uid())
+);
 
--- Anonymous-authenticated visitors may publish only rows they own.
--- featured is reserved for chapter administrators in the Supabase dashboard.
+-- The database, not browser JavaScript, chooses published vs pending.
+create or replace function public.apply_community_publish_mode()
+returns trigger
+language plpgsql
+security definer
+set search_path = ''
+as $$
+declare
+  publish_mode text;
+begin
+  select mode into publish_mode
+  from public.community_settings
+  where id = true;
+
+  new.featured := false;
+  new.status := case when publish_mode = 'moderated' then 'pending' else 'published' end;
+  return new;
+end;
+$$;
+
+revoke all on function public.apply_community_publish_mode() from public;
+
+drop trigger if exists community_designs_apply_mode on public.community_designs;
+create trigger community_designs_apply_mode
+before insert on public.community_designs
+for each row execute function public.apply_community_publish_mode();
+
+-- Anonymous-authenticated visitors may insert only rows they own. The BEFORE trigger above
+-- has already normalized status and featured values before this WITH CHECK is evaluated.
 drop policy if exists "Users can publish their own designs" on public.community_designs;
 create policy "Users can publish their own designs"
 on public.community_designs for insert
@@ -77,18 +126,8 @@ with check (
   and status in ('pending','published')
 );
 
--- A visitor can edit/hide/delete only designs created by the same anonymous auth identity.
+-- Browser users do not need UPDATE permission. They may delete only their own posts.
 drop policy if exists "Users can update their own designs" on public.community_designs;
-create policy "Users can update their own designs"
-on public.community_designs for update
-to authenticated
-using (owner_id = (select auth.uid()))
-with check (
-  owner_id = (select auth.uid())
-  and featured = false
-  and status in ('pending','published','hidden')
-);
-
 drop policy if exists "Users can delete their own designs" on public.community_designs;
 create policy "Users can delete their own designs"
 on public.community_designs for delete
@@ -122,7 +161,6 @@ to authenticated
 with check (reporter_id = (select auth.uid()));
 
 -- Prevent one anonymous browser identity from flooding the live wall.
--- This is intentionally generous for a student design game while still creating a server-side ceiling.
 create or replace function public.enforce_community_design_post_limit()
 returns trigger
 language plpgsql
@@ -149,7 +187,7 @@ create trigger community_designs_post_limit
 before insert on public.community_designs
 for each row execute function public.enforce_community_design_post_limit();
 
--- Keep updated_at current automatically.
+-- Keep updated_at current for administrator edits in the dashboard.
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -169,8 +207,13 @@ for each row execute function public.set_updated_at();
 
 -- After running this file:
 -- 1. In Supabase Auth settings, enable Anonymous Sign-Ins.
--- 2. Copy Project URL + publishable key into data/community-backend.json.
+-- 2. Copy Project URL + PUBLISHABLE key into data/community-backend.json.
 -- 3. Set enabled=true.
--- 4. mode="auto" publishes immediately; mode="moderated" inserts as pending.
--- 5. Never expose service_role credentials in GitHub or browser code.
--- 6. For a public launch, consider enabling Supabase CAPTCHA protection for anonymous sign-ins as an additional abuse-control layer.
+-- 4. Keep data/community-backend.json mode aligned with community_settings.mode for UI wording.
+--    Database enforcement comes from community_settings, not the browser.
+-- 5. To switch modes later, run one of these in Supabase SQL editor:
+--      update public.community_settings set mode = 'auto' where id = true;
+--      update public.community_settings set mode = 'moderated' where id = true;
+-- 6. Never expose a Supabase secret/service_role credential in GitHub or browser code.
+-- 7. CAPTCHA can be added later, but do not enable it until the browser flow is configured
+--    to supply captchaToken during signInAnonymously().

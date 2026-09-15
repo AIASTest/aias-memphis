@@ -5,7 +5,8 @@
   for (const href of [
     'assets/css/designer-fun.css',
     'assets/css/designer-onboarding.css',
-    'assets/css/designer-views.css'
+    'assets/css/designer-views.css',
+    'assets/css/designer-community.css'
   ]) {
     const style = document.createElement('link');
     style.rel = 'stylesheet';
@@ -28,6 +29,15 @@
   const views = document.createElement('script');
   views.src = 'assets/js/designer-views.js';
   views.defer = true;
+
+  const community = document.createElement('script');
+  community.src = 'assets/js/designer-community.js';
+  community.defer = true;
+
+  views.addEventListener('load', () => {
+    if (views.parentNode) views.parentNode.insertBefore(community, views.nextSibling);
+    else document.head.appendChild(community);
+  });
 
   onboarding.addEventListener('load', () => {
     if (onboarding.parentNode) onboarding.parentNode.insertBefore(views, onboarding.nextSibling);

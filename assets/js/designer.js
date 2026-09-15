@@ -24,6 +24,10 @@
   game.src = 'assets/js/designer-game.js';
   game.defer = true;
 
+  const finish = document.createElement('script');
+  finish.src = 'assets/js/designer-finish.js';
+  finish.defer = true;
+
   const onboarding = document.createElement('script');
   onboarding.src = 'assets/js/designer-onboarding.js';
   onboarding.defer = true;
@@ -64,9 +68,14 @@
     else document.head.appendChild(views);
   });
 
-  game.addEventListener('load', () => {
-    if (game.parentNode) game.parentNode.insertBefore(onboarding, game.nextSibling);
+  finish.addEventListener('load', () => {
+    if (finish.parentNode) finish.parentNode.insertBefore(onboarding, finish.nextSibling);
     else document.head.appendChild(onboarding);
+  });
+
+  game.addEventListener('load', () => {
+    if (game.parentNode) game.parentNode.insertBefore(finish, game.nextSibling);
+    else document.head.appendChild(finish);
   });
 
   core.addEventListener('load', () => {

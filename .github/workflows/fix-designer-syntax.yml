@@ -1,0 +1,49 @@
+name: Fix Design Studio syntax
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Repair malformed pointer handler and verify JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('assets/js/designer.js')
+          text = path.read_text()
+          bad = "if(!s||s.locked)return,p=point(e);"
+          good = "if(!s||s.locked)return;const p=point(e);"
+          if bad not in text:
+              print('Malformed pattern is not present; no repair needed.')
+          else:
+              text = text.replace(bad, good, 1)
+              path.write_text(text)
+              print('Repaired malformed pointer handler.')
+          PY
+          node --check assets/js/designer.js
+
+      - name: Commit repair when needed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- assets/js/designer.js; then
+            echo "No repair commit needed."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/designer.js
+          git commit -m "Fix Design Studio pointer handler syntax"
+          git push

@@ -70,6 +70,38 @@ jobs:
           print(f'Validated {len(entries)} community design codes.')
           PY
 
+      - name: Validate live community config
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import re
+          from pathlib import Path
+
+          cfg = json.loads(Path('data/community-backend.json').read_text())
+          assert cfg.get('provider') == 'supabase', 'Community backend provider must be supabase'
+          assert cfg.get('mode') in {'auto', 'moderated'}, 'Community backend mode must be auto or moderated'
+          assert isinstance(cfg.get('enabled'), bool), 'Community backend enabled must be boolean'
+          assert isinstance(cfg.get('allow_likes'), bool), 'allow_likes must be boolean'
+          assert isinstance(cfg.get('allow_reports'), bool), 'allow_reports must be boolean'
+          limit = int(cfg.get('feed_limit', 0))
+          assert 12 <= limit <= 100, 'feed_limit must be between 12 and 100'
+          url = str(cfg.get('supabase_url', ''))
+          key = str(cfg.get('supabase_publishable_key', ''))
+          combined = f'{url} {key}'.lower()
+          assert 'service_role' not in combined, 'Never expose a Supabase service_role credential in public config'
+          if cfg['enabled']:
+              assert re.fullmatch(r'https://[a-z0-9-]+\.supabase\.co/?', url, re.I), 'Enabled backend needs a valid Supabase project URL'
+              assert len(key) > 20, 'Enabled backend needs a publishable/anon key'
+          else:
+              assert not key or len(key) > 20, 'Placeholder backend key should be blank or structurally valid'
+          print('Live community config validated.')
+          PY
+          grep -q "enable row level security" docs/design-studio-supabase.sql
+          grep -q "service_role" docs/design-studio-supabase.sql
+          grep -q "Anonymous Sign-Ins" docs/design-studio-supabase.sql
+
       - name: Check Pages CMS YAML
         run: ruby -e "require 'yaml'; YAML.load_file('.pages.yml'); puts 'Pages CMS YAML parsed successfully.'"
 
@@ -81,16 +113,23 @@ jobs:
           test -f assets/js/designer-fun.js
           test -f assets/js/designer-onboarding.js
           test -f assets/js/designer-views.js
+          test -f assets/js/designer-playplus.js
+          test -f assets/js/designer-community.js
+          test -f assets/js/designer-community-guard.js
           test -f assets/css/designer-fun.css
           test -f assets/css/designer-onboarding.css
           test -f assets/css/designer-views.css
+          test -f assets/css/designer-playplus.css
+          test -f assets/css/designer-community.css
           grep -q "designer-v2.js" assets/js/designer.js
           grep -q "designer-fun.js" assets/js/designer.js
           grep -q "designer-onboarding.js" assets/js/designer.js
           grep -q "designer-views.js" assets/js/designer.js
-          grep -q "designer-fun.css" assets/js/designer.js
-          grep -q "designer-onboarding.css" assets/js/designer.js
-          grep -q "designer-views.css" assets/js/designer.js
+          grep -q "designer-playplus.js" assets/js/designer.js
+          grep -q "designer-community.js" assets/js/designer.js
+          grep -q "designer-community-guard.js" assets/js/designer.js
+          grep -q "designer-playplus.css" assets/js/designer.js
+          grep -q "designer-community.css" assets/js/designer.js
           grep -q "assets/js/designer.js" designer.html
 
       - name: Check required website files
@@ -104,9 +143,16 @@ jobs:
           test -f assets/js/designer-fun.js
           test -f assets/js/designer-onboarding.js
           test -f assets/js/designer-views.js
+          test -f assets/js/designer-playplus.js
+          test -f assets/js/designer-community.js
+          test -f assets/js/designer-community-guard.js
           test -f assets/css/designer.css
           test -f assets/css/designer-fun.css
           test -f assets/css/designer-onboarding.css
           test -f assets/css/designer-views.css
+          test -f assets/css/designer-playplus.css
+          test -f assets/css/designer-community.css
           test -f data/designs.json
+          test -f data/community-backend.json
+          test -f docs/design-studio-supabase.sql
           test -f .pages.yml

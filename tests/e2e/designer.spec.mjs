@@ -14,6 +14,13 @@ test('core game loop is playable', async ({ page }) => {
   const initial = Number(await parts.textContent());
 
   await expect(page.locator('link[href="assets/css/designer-fun.css"]')).toHaveCount(0);
+  await expect(page.locator('#name-building')).toHaveCount(0);
+  await expect(page.locator('#sprint-toggle')).toHaveCount(0);
+  await expect(page.locator('#shape-repeat')).toHaveCount(0);
+  await expect(page.locator('#stat-vibe')).toHaveCount(0);
+  await expect(page.locator('#designer-badges')).toHaveCount(0);
+  await expect(page.locator('#new-challenge')).toHaveCount(0);
+  await expect(page.locator('#surprise-building')).toHaveCount(0);
 
   await page.locator('[data-add-shape="window"]').click();
   await expect(parts).toHaveText(String(initial + 1));
@@ -64,6 +71,15 @@ test('core game loop is playable', async ({ page }) => {
   await expect(page.locator('[data-finish-action="save"]')).toBeVisible();
   await expect(page.locator('[data-finish-action="next"]')).toBeVisible();
   await expect(page.locator('[data-finish-action="compare"]')).toHaveCount(0);
+});
+
+test('meaningful part interactions remain', async ({ page }) => {
+  await page.locator('[data-add-shape="window"]').click();
+  await expect(page.locator('#shape-interact')).toBeVisible();
+  await expect(page.locator('#shape-ground')).toBeVisible();
+  await expect(page.locator('#shape-interact')).toHaveText('Lights on');
+  await page.locator('#shape-interact').click();
+  await expect(page.locator('#shape-interact')).toHaveText('Lights off');
 });
 
 test('touch-friendly controls are available', async ({ page, isMobile }) => {

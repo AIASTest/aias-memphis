@@ -1,0 +1,48 @@
+name: Test Design Studio gameplay
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'designer.html'
+      - 'assets/js/designer*.js'
+      - 'assets/css/designer*.css'
+      - 'data/designer-briefs.json'
+      - 'data/designs.json'
+      - 'data/community-backend.json'
+      - 'tests/e2e/**'
+      - 'playwright.config.mjs'
+      - 'package.json'
+      - '.github/workflows/design-studio-e2e.yml'
+  pull_request:
+    paths:
+      - 'designer.html'
+      - 'assets/js/designer*.js'
+      - 'assets/css/designer*.css'
+      - 'data/designer-briefs.json'
+      - 'data/designs.json'
+      - 'data/community-backend.json'
+      - 'tests/e2e/**'
+      - 'playwright.config.mjs'
+      - 'package.json'
+
+permissions:
+  contents: read
+
+jobs:
+  gameplay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install test dependency
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run desktop and mobile playthrough tests
+        run: npm run test:e2e

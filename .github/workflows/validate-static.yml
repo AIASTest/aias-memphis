@@ -78,7 +78,15 @@ jobs:
         run: |
           set -euo pipefail
           test -f assets/js/designer-v2.js
+          test -f assets/js/designer-fun.js
+          test -f assets/js/designer-onboarding.js
+          test -f assets/css/designer-fun.css
+          test -f assets/css/designer-onboarding.css
           grep -q "designer-v2.js" assets/js/designer.js
+          grep -q "designer-fun.js" assets/js/designer.js
+          grep -q "designer-onboarding.js" assets/js/designer.js
+          grep -q "designer-fun.css" assets/js/designer.js
+          grep -q "designer-onboarding.css" assets/js/designer.js
           grep -q "assets/js/designer.js" designer.html
 
       - name: Check required website files
@@ -89,6 +97,10 @@ jobs:
           test -f designer.html
           test -f assets/js/designer.js
           test -f assets/js/designer-v2.js
+          test -f assets/js/designer-fun.js
+          test -f assets/js/designer-onboarding.js
           test -f assets/css/designer.css
+          test -f assets/css/designer-fun.css
+          test -f assets/css/designer-onboarding.css
           test -f data/designs.json
           test -f .pages.yml

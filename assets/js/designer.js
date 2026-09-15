@@ -2,10 +2,12 @@
   'use strict';
   const current = document.currentScript;
 
-  const style = document.createElement('link');
-  style.rel = 'stylesheet';
-  style.href = 'assets/css/designer-fun.css';
-  document.head.appendChild(style);
+  for (const href of ['assets/css/designer-fun.css', 'assets/css/designer-onboarding.css']) {
+    const style = document.createElement('link');
+    style.rel = 'stylesheet';
+    style.href = href;
+    document.head.appendChild(style);
+  }
 
   const core = document.createElement('script');
   core.src = 'assets/js/designer-v2.js';
@@ -14,6 +16,15 @@
   const fun = document.createElement('script');
   fun.src = 'assets/js/designer-fun.js';
   fun.defer = true;
+
+  const onboarding = document.createElement('script');
+  onboarding.src = 'assets/js/designer-onboarding.js';
+  onboarding.defer = true;
+
+  fun.addEventListener('load', () => {
+    if (fun.parentNode) fun.parentNode.insertBefore(onboarding, fun.nextSibling);
+    else document.head.appendChild(onboarding);
+  });
 
   core.addEventListener('load', () => {
     if (core.parentNode) core.parentNode.insertBefore(fun, core.nextSibling);

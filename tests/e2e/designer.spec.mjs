@@ -13,6 +13,8 @@ test('core game loop is playable', async ({ page }) => {
   const parts = page.locator('#stat-shapes');
   const initial = Number(await parts.textContent());
 
+  await expect(page.locator('link[href="assets/css/designer-fun.css"]')).toHaveCount(0);
+
   await page.locator('[data-add-shape="window"]').click();
   await expect(parts).toHaveText(String(initial + 1));
 
@@ -52,6 +54,16 @@ test('core game loop is playable', async ({ page }) => {
   await expect(page.locator('#share-panel')).toBeVisible();
   await expect(page.locator('#share-url')).toHaveValue(/#design=/);
   await expect(page.locator('#design-code')).not.toHaveValue('');
+
+  await page.evaluate(() => {
+    const meter = document.getElementById('game-brief-meter-text');
+    if (meter) meter.textContent = '100%';
+  });
+  await expect(page.locator('#game-finish-panel')).toBeVisible();
+  await expect(page.locator('[data-finish-action="crit"]')).toBeVisible();
+  await expect(page.locator('[data-finish-action="save"]')).toBeVisible();
+  await expect(page.locator('[data-finish-action="next"]')).toBeVisible();
+  await expect(page.locator('[data-finish-action="compare"]')).toHaveCount(0);
 });
 
 test('touch-friendly controls are available', async ({ page, isMobile }) => {

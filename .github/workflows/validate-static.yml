@@ -117,6 +117,7 @@ jobs:
           test -f assets/js/designer-views.js
           test -f assets/js/designer-playplus.js
           test -f assets/js/designer-presentationplus.js
+          test -f assets/js/designer-sketchbook.js
           test -f assets/js/designer-community-bootstrap.js
           test -f assets/js/designer-community.js
           test -f assets/css/designer-fun.css
@@ -124,6 +125,7 @@ jobs:
           test -f assets/css/designer-views.css
           test -f assets/css/designer-playplus.css
           test -f assets/css/designer-presentationplus.css
+          test -f assets/css/designer-sketchbook.css
           test -f assets/css/designer-community.css
           grep -q "designer-v2.js" assets/js/designer.js
           grep -q "designer-fun.js" assets/js/designer.js
@@ -131,7 +133,9 @@ jobs:
           grep -q "designer-views.js" assets/js/designer.js
           grep -q "designer-playplus.js" assets/js/designer.js
           grep -q "designer-presentationplus.js" assets/js/designer.js
+          grep -q "designer-sketchbook.js" assets/js/designer.js
           grep -q "designer-presentationplus.css" assets/js/designer.js
+          grep -q "designer-sketchbook.css" assets/js/designer.js
           grep -q "designer-community-bootstrap.js" assets/js/designer.js
           grep -q "designer-community.js" assets/js/designer-community-bootstrap.js
           grep -q "designer-community.css" assets/js/designer-community-bootstrap.js
@@ -151,6 +155,7 @@ jobs:
           test -f assets/js/designer-views.js
           test -f assets/js/designer-playplus.js
           test -f assets/js/designer-presentationplus.js
+          test -f assets/js/designer-sketchbook.js
           test -f assets/js/designer-community-bootstrap.js
           test -f assets/js/designer-community.js
           test -f assets/css/designer.css
@@ -159,6 +164,7 @@ jobs:
           test -f assets/css/designer-views.css
           test -f assets/css/designer-playplus.css
           test -f assets/css/designer-presentationplus.css
+          test -f assets/css/designer-sketchbook.css
           test -f assets/css/designer-community.css
           test -f data/designs.json
           test -f data/community-backend.json

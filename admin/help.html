@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Complete editing, publishing, moderation, troubleshooting, and handoff guide for the AIAS Memphis chapter website.">
+  <meta name="description" content="Complete editing, publishing, moderation, troubleshooting, live-community, and handoff guide for the AIAS Memphis chapter website.">
   <title>Admin Help Center | AIAS Memphis</title>
   <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
@@ -24,7 +24,7 @@
   <div class="kb-layout">
     <aside class="admin-panel kb-sidebar" aria-label="Help topics">
       <label for="kb-search"><strong>Search help articles</strong></label>
-      <input class="kb-search" id="kb-search" type="search" placeholder="Try “member”, “RSVP”, “design”, “payment”…" autocomplete="off">
+      <input class="kb-search" id="kb-search" type="search" placeholder="Try “member”, “RSVP”, “publish”, “Supabase”…" autocomplete="off">
       <nav class="kb-nav" id="kb-nav">
         <a href="#getting-started">Getting started</a>
         <a href="#dashboard">Dashboard & site health</a>
@@ -35,7 +35,8 @@
         <a href="#events">Events & RSVP</a>
         <a href="#jobs">Jobs & internships</a>
         <a href="#support">Support & payments</a>
-        <a href="#design-studio">Design Studio & showcase</a>
+        <a href="#design-studio">Design Studio</a>
+        <a href="#community-backend">Live community publishing</a>
         <a href="#pages">Custom pages</a>
         <a href="#images">Images & accessibility</a>
         <a href="#links">Links, rich text & URLs</a>
@@ -51,148 +52,150 @@
       <article class="admin-panel kb-intro">
         <p class="eyebrow">Knowledge base</p>
         <h1 style="font-size:clamp(2.3rem,5vw,4.2rem);margin-bottom:.75rem">Website editing guide</h1>
-        <p class="muted">The public website is a static GitHub Pages site. Pages CMS is the normal editing interface and saves approved content directly into the website repository. This guide covers routine editing, member portfolios, events, payments, the Design Studio community showcase, publishing, troubleshooting, and future chapter handoff.</p>
-        <div class="kb-chip-row"><span class="kb-chip">Pages CMS</span><span class="kb-chip">GitHub Pages</span><span class="kb-chip">No database</span><span class="kb-chip">Moderated community content</span><span class="kb-chip">Transfer-friendly</span></div>
+        <p class="muted">The main website remains a static GitHub Pages site. Pages CMS handles normal chapter content. The Design Studio can optionally connect to a small Supabase community backend so students can publish designs themselves while the existing curated CMS showcase remains available.</p>
+        <div class="kb-chip-row"><span class="kb-chip">Pages CMS</span><span class="kb-chip">GitHub Pages</span><span class="kb-chip">Optional live community</span><span class="kb-chip">Self-publish + curated</span><span class="kb-chip">Transfer-friendly</span></div>
       </article>
 
-      <div class="admin-panel kb-empty" id="kb-empty" hidden><strong>No help articles matched that search.</strong><p class="muted" style="margin:.35rem 0 0">Try a broader term such as “member”, “project”, “event”, “design”, “image”, “payment”, “access”, or “publish”.</p></div>
+      <div class="admin-panel kb-empty" id="kb-empty" hidden><strong>No help articles matched that search.</strong><p class="muted" style="margin:.35rem 0 0">Try “member”, “project”, “event”, “design”, “payment”, “Supabase”, “access”, or “publish”.</p></div>
 
       <article class="admin-panel kb-article" id="getting-started" data-keywords="start login pages cms editor github routine workflow save repository website chapter community content">
         <p class="eyebrow">Article 01</p><h2>Getting started with the editor</h2>
-        <p>Use <a href="https://app.pagescms.org/" target="_blank" rel="noopener">Pages CMS</a> for routine website updates. Editors should not need to edit JSON, HTML, CSS, or JavaScript directly.</p>
-        <ol><li>Open Pages CMS and sign in with an account authorized for the chapter website repository.</li><li>Select the repository containing the AIAS Memphis website.</li><li>Use <strong>Website</strong> for Site settings, Chapter members, Support & payments, and Custom pages.</li><li>Use <strong>Chapter content</strong> for Events, Student projects, and Jobs & internships.</li><li>Use <strong>Community</strong> for approved Design Studio showcase entries.</li><li>Make the change and save it.</li><li>Open the affected public page and verify the result after GitHub Pages republishes the site.</li></ol>
-        <div class="kb-callout"><strong>Use GitHub only when necessary.</strong> GitHub is primarily for repository ownership, permissions, deployment history, code changes, and recovery. Normal content editing belongs in Pages CMS.</div>
+        <p>Use <a href="https://app.pagescms.org/" target="_blank" rel="noopener">Pages CMS</a> for normal content updates. Editors should not need to edit JSON, HTML, CSS, or JavaScript directly.</p>
+        <ol><li>Sign in to Pages CMS with an account authorized for the chapter website repository.</li><li>Select the chapter website repository.</li><li>Use <strong>Website</strong> for Site settings, Chapter members, Support & payments, and Custom pages.</li><li>Use <strong>Chapter content</strong> for Events, Student projects, and Jobs & internships.</li><li>Use <strong>Community</strong> for the chapter-curated Design Studio showcase.</li><li>Save the change and verify the affected public page after GitHub Pages republishes.</li></ol>
+        <div class="kb-callout"><strong>GitHub is not the routine editor.</strong> Use GitHub for ownership, permissions, deployment history, code/configuration work, and recovery.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="dashboard" data-keywords="admin dashboard site health warning checks content counts errors duplicate slug invalid link placeholder expired job missing photo gallery design code showcase">
+      <article class="admin-panel kb-article" id="dashboard" data-keywords="admin dashboard site health warning checks counts errors duplicate slug invalid link placeholder expired job missing photo gallery design code showcase">
         <p class="eyebrow">Article 02</p><h2>Use the Admin Dashboard and Site Health checks</h2>
-        <p>The <a href="index.html">Admin Dashboard</a> is the first place to look before a presentation, major event, semester transition, or launch. It summarizes content and checks common publishing mistakes.</p>
-        <ul><li>Review invalid public emails and external links.</li><li>Replace prototype/sample content.</li><li>Check event dates and RSVP URLs.</li><li>Resolve duplicate or invalid project, member, event, and custom-page identifiers.</li><li>Fix projects missing covers, galleries, image descriptions, or narratives.</li><li>Fix project-to-member links that reference nonexistent profiles.</li><li>Clean up expired jobs still marked active.</li><li>Review incomplete public member profiles.</li><li>Review Community Showcase entries before publication.</li></ul>
-        <div class="kb-callout"><strong>A warning is not always a broken website.</strong> Site Health deliberately flags incomplete or placeholder content. Fix errors first, then decide whether advisory warnings are acceptable.</div>
+        <p>The <a href="index.html">Admin Dashboard</a> is the first place to look before a presentation, semester transition, or launch.</p>
+        <ul><li>Resolve invalid public emails and external links.</li><li>Replace prototype/sample content.</li><li>Check event dates and RSVP URLs.</li><li>Resolve duplicate/invalid member, project, event, and custom-page identifiers.</li><li>Fix missing project galleries, descriptions, or accessibility text.</li><li>Fix project-to-member links that reference nonexistent profiles.</li><li>Clean up expired jobs.</li><li>Review incomplete public member profiles.</li><li>Review curated Community Showcase entries and design-code warnings.</li></ul>
+        <div class="kb-callout"><strong>A warning is not always a broken website.</strong> Site Health intentionally flags placeholders and incomplete content.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="site-settings" data-keywords="homepage settings banner email instagram membership department headline about contact social logo chapter name tagline">
+      <article class="admin-panel kb-article" id="site-settings" data-keywords="homepage settings banner email instagram membership department headline about contact social chapter name tagline">
         <p class="eyebrow">Article 03</p><h2>Edit site settings, contact information, and social links</h2>
-        <p>Open <strong>Website → Site settings</strong>. These values are reused across multiple pages.</p>
-        <ul><li><strong>Full chapter name</strong> — chapter identification and footer.</li><li><strong>Header name</strong> — shorter navigation name.</li><li><strong>Tagline</strong> — short supporting phrase.</li><li><strong>Homepage headline/introduction</strong> — primary homepage copy.</li><li><strong>Chapter description</strong> — main About-page description.</li><li><strong>Public contact email</strong> — chapter-wide contact and Design Studio submission destination when it is a real address.</li><li><strong>Instagram URL</strong> — reused on the homepage, About page, and footer.</li><li><strong>AIAS membership URL</strong> — destination for Join AIAS buttons.</li><li><strong>UofM Architecture URL</strong> — department link.</li><li><strong>Announcement banner</strong> — optional message above navigation.</li></ul>
+        <p>Open <strong>Website → Site settings</strong>. These values are reused throughout the public site.</p>
+        <ul><li><strong>Full chapter name</strong> — chapter identification and footer.</li><li><strong>Header name</strong> — shorter navigation name.</li><li><strong>Tagline</strong> — short supporting phrase.</li><li><strong>Homepage headline/introduction</strong> — primary homepage copy.</li><li><strong>Chapter description</strong> — main About-page description.</li><li><strong>Public contact email</strong> — chapter-wide contact and fallback Design Studio submission destination.</li><li><strong>Instagram URL</strong> — reused on homepage, About, and footer.</li><li><strong>AIAS membership URL</strong> and <strong>UofM Architecture URL</strong> — global destinations.</li><li><strong>Announcement banner</strong> — optional message above navigation.</li></ul>
         <div class="kb-callout warning"><strong>Before launch:</strong> replace placeholder contact information, add the real Instagram URL, and remove prototype/sample messaging.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="members" data-keywords="member members leadership profile officer president photo bio blurb description interests program year slug public directory popout portfolio chapter role faculty advisor">
+      <article class="admin-panel kb-article" id="members" data-keywords="member leadership profile officer president photo bio description interests program year slug public directory popout portfolio role faculty advisor">
         <p class="eyebrow">Article 04</p><h2>Create and maintain chapter member profiles</h2>
-        <p>Open <strong>Website → Chapter members</strong>. This directory is for the chapter membership broadly, not only formal officers.</p>
-        <ol><li>Create a permanent <strong>Member URL name</strong>, such as <span class="code-lite">jordan-smith</span>.</li><li>Add the public name and chapter role/contribution.</li><li>Optionally add program/year and design or professional interests.</li><li>Upload a profile photo and useful photo description. Initials appear automatically when no photo is supplied.</li><li>Write the short introduction/blurb.</li><li>Optionally add a richer full profile description.</li><li>Add a public email only with permission.</li><li>Keep <strong>Show public member profile</strong> enabled only when the person should appear publicly.</li></ol>
-        <p>The About page previews members; the Members page contains the searchable directory, quick-view popouts, and links to full profiles with linked student projects.</p>
-        <div class="kb-callout warning"><strong>Public profile consent matters.</strong> Confirm the member approves publication of their name, photo, bio, email, interests, and school work.</div>
+        <p>Open <strong>Website → Chapter members</strong>. This directory is for chapter membership broadly, not only formal officers.</p>
+        <ol><li>Create a permanent Member URL name such as <span class="code-lite">jordan-smith</span>.</li><li>Add public name, chapter role/contribution, and optional program/year/interests.</li><li>Upload a profile photo and useful photo description. Initials are used when no photo is supplied.</li><li>Write the short introduction and optional full profile description.</li><li>Add a public email only with permission.</li><li>Enable Show public member profile only when the person should appear publicly.</li></ol>
+        <p>The About page previews members; the Members page provides search, popouts, and full profiles with linked projects.</p>
       </article>
 
-      <article class="admin-panel kb-article" id="project-links" data-keywords="associate link project member profile member_slug student author portfolio slug url relationship owner missing project profile">
+      <article class="admin-panel kb-article" id="project-links" data-keywords="associate link project member profile member_slug student author portfolio slug relationship missing">
         <p class="eyebrow">Article 05</p><h2>Link student projects to member profiles</h2>
-        <p>Projects and member profiles are connected using the member's stable URL name.</p>
-        <ol><li>Open <strong>Website → Chapter members</strong> and copy the person's Member URL name.</li><li>Open <strong>Chapter content → Student projects</strong>.</li><li>Paste the exact value into <strong>Member profile URL name</strong>.</li><li>Save the project.</li><li>Open the member profile and confirm the project appears.</li><li>Open the project page and confirm the profile link appears correctly.</li></ol>
-        <div class="kb-callout warning"><strong>Do not guess the slug.</strong> Copy it from the member entry. The Admin Dashboard flags projects that reference an unknown member URL name.</div>
+        <ol><li>Open <strong>Website → Chapter members</strong> and copy the person's Member URL name.</li><li>Open <strong>Chapter content → Student projects</strong>.</li><li>Paste it exactly into Member profile URL name.</li><li>Save, then verify both the member profile and project page.</li></ol>
+        <div class="kb-callout warning"><strong>Do not guess the slug.</strong> Site Health flags project links that point to an unknown member.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="projects" data-keywords="student project portfolio gallery slideshow cover image caption narrative slug featured consent studio semester year external link rendering drawing model">
-        <p class="eyebrow">Article 06</p><h2>Publish and maintain a student project portfolio</h2>
-        <ol><li>Open <strong>Chapter content → Student projects</strong>.</li><li>Enter project title, student name, and a permanent Project URL name.</li><li>Optionally link the project to a chapter member.</li><li>Add studio/course, semester, year, and project type when useful.</li><li>Write a concise short summary and choose a strong cover image.</li><li>Build the project gallery in presentation order. Each item needs an image and accessibility description; captions are optional.</li><li>Write the full project description using rich text.</li><li>Optionally add an external portfolio/publication/video URL.</li><li>Use Feature on homepage when appropriate.</li><li>Save and test the card, full detail page, gallery controls, and member association.</li></ol>
-        <div class="kb-callout warning"><strong>Publishing permission:</strong> confirm the student permits public use of their name and work. Do not publish grades, private critiques, confidential client material, or firm work without authorization.</div>
+      <article class="admin-panel kb-article" id="projects" data-keywords="student project portfolio gallery cover image caption narrative slug featured studio semester year external link rendering drawing model">
+        <p class="eyebrow">Article 06</p><h2>Publish and maintain student projects</h2>
+        <ol><li>Enter project title, student name, and permanent Project URL name.</li><li>Optionally link the project to a chapter member.</li><li>Add studio/course, semester, year, and project type.</li><li>Write a concise summary and choose a strong cover image.</li><li>Build the gallery in presentation order with image descriptions.</li><li>Write the full rich-text project narrative.</li><li>Optionally add an external portfolio/publication/video URL and homepage feature toggle.</li><li>Test the card, detail page, gallery controls, and member association.</li></ol>
       </article>
 
-      <article class="admin-panel kb-article" id="events" data-keywords="event calendar meeting workshop tour rsvp registration featured date time location detail description image slug archive past upcoming button">
+      <article class="admin-panel kb-article" id="events" data-keywords="event meeting workshop tour rsvp registration featured date time location detail image slug past upcoming">
         <p class="eyebrow">Article 07</p><h2>Publish an event and control RSVP behavior</h2>
-        <ol><li>Open <strong>Chapter content → Events</strong>.</li><li>Create a permanent Event URL name.</li><li>Add date, time, location, short summary, optional image, and image description.</li><li>Use Full event details for agenda, speakers, parking, what to bring, participating firms, or other expanded information.</li><li>Feature important upcoming events on the homepage when appropriate.</li></ol>
-        <h3>RSVP buttons</h3><p>An RSVP button appears only when <strong>Show RSVP button</strong> is on and the Registration URL is a valid full <span class="code-lite">https://</span> link. If either condition fails, the button stays hidden.</p>
-        <h3>Past events</h3><p>The date automatically determines whether an event appears as upcoming or past. Past events remain available as an archive.</p>
+        <ol><li>Create a permanent Event URL name.</li><li>Add date, time, location, short summary, optional image, and image description.</li><li>Use Full event details for agenda, speakers, parking, or other expanded information.</li><li>Feature important upcoming events when appropriate.</li></ol>
+        <p>An RSVP button appears only when <strong>Show RSVP button</strong> is enabled and Registration URL is a valid full <span class="code-lite">https://</span> URL. Past events remain available as an archive.</p>
       </article>
 
-      <article class="admin-panel kb-article" id="jobs" data-keywords="jobs internship career opportunity deadline apply employer firm fellowship competition expired active remote hybrid posting">
+      <article class="admin-panel kb-article" id="jobs" data-keywords="jobs internship career opportunity deadline apply employer firm fellowship competition expired active remote hybrid">
         <p class="eyebrow">Article 08</p><h2>Post a job, internship, or opportunity</h2>
-        <ol><li>Open <strong>Chapter content → Jobs & internships</strong>.</li><li>Add title, organization, location, and opportunity type.</li><li>Add posted/deadline dates when known.</li><li>Write a concise summary rather than copying a complete outside posting.</li><li>Add the original employer/source application URL.</li><li>Use Show on website to control visibility.</li></ol>
+        <ol><li>Add title, organization, location, and opportunity type.</li><li>Add posted/deadline dates when known.</li><li>Write a concise summary rather than copying a complete outside posting.</li><li>Add the original application URL.</li><li>Use Show on website to control visibility.</li></ol>
         <p>A listing with a valid past deadline automatically stops displaying publicly even if it remains marked active.</p>
       </article>
 
-      <article class="admin-panel kb-article" id="support" data-keywords="support donation payment paypal venmo cash app zelle firm career fair sponsorship account button receipt memo donation disclaimer money fee">
-        <p class="eyebrow">Article 09</p><h2>Manage the Support & Payments page</h2>
-        <p>Open <strong>Website → Support & payments</strong>. The website does not process or store payment information; it links to approved third-party accounts.</p>
-        <ol><li>Edit the firm-payment and donation explanatory text.</li><li>Add a provider and public button label.</li><li>Paste the full approved <span class="code-lite">https://</span> payment-account URL.</li><li>Turn on Show this payment button.</li><li>Save and verify the public destination yourself.</li></ol>
-        <p>If no enabled method has a valid URL, the public page shows a safe “payment links are being updated” state.</p>
-        <div class="kb-callout warning"><strong>Financial safety:</strong> never store bank/card credentials, passwords, tokens, private keys, or API secrets. Do not claim donations are tax-deductible unless formally confirmed.</div>
+      <article class="admin-panel kb-article" id="support" data-keywords="support donation payment paypal venmo cash app zelle firm career fair sponsorship account receipt memo money">
+        <p class="eyebrow">Article 09</p><h2>Manage Support & Payments</h2>
+        <p>The website does not process money itself; it links to approved third-party payment accounts.</p>
+        <ol><li>Edit the firm-payment and donation explanatory text.</li><li>Add a provider and public button label.</li><li>Paste the full approved <span class="code-lite">https://</span> account URL.</li><li>Enable the payment button and verify the public destination.</li></ol>
+        <div class="kb-callout warning"><strong>Financial safety:</strong> never store bank/card credentials, passwords, tokens, private keys, or API secrets here.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="design-studio" data-keywords="design studio game building architecture sandbox shapes parts windows doors arches columns trees templates quick start challenge surprise undo redo snap grid materials opacity layers lock palette scene night lights repeat favorite community showcase publish submission share code link remix draft png moderation designer name feature published">
-        <p class="eyebrow">Article 10</p><h2>Use, maintain, and moderate the Design Studio</h2>
-        <p>The public <a href="../designer.html">Design Studio</a> is an interactive architecture sandbox rather than a simple drawing page. Visitors can assemble buildings from blocks, roofs, circles, arches, windows, doors, columns, and trees; resize and rotate parts directly; change materials, opacity, colors, palettes, scenes, and lighting; use quick-start templates; generate random concepts; work from design challenges; undo/redo; snap to a grid; lock/layer parts; repeat facade elements; save a local draft; export a PNG; and create portable remix links.</p>
-        <h3>What visitors can do</h3>
-        <ul><li><strong>Quick starts:</strong> House, Tower, Pavilion, and Courtyard replace the canvas with a useful starting composition.</li><li><strong>Direct manipulation:</strong> select a part, drag it, use the blue handles to resize/rotate, or use the precise controls in the side panel.</li><li><strong>Parts list:</strong> the horizontal Parts strip makes overlapping or locked elements easy to select.</li><li><strong>Scenes:</strong> studio grid, paper, blueprint, riverfront, campus lawn, sunset, and night. Night scenes can illuminate window elements.</li><li><strong>Materials:</strong> solid, glass, translucent, and wireframe styles.</li><li><strong>Fast facade work:</strong> Duplicate and Repeat ×3 speed up windows, columns, and repeated forms.</li><li><strong>Play features:</strong> rotating challenge prompts, Surprise me random concepts, live design stats/vibe labels, and achievement-style badges.</li><li><strong>Community:</strong> visitors can remix showcase designs and save showcase favorites locally on their own device.</li></ul>
-        <h3>Shareable is not the same as permanently published</h3>
-        <p>A visitor's <strong>share link</strong> contains the complete sanitized design state in the URL. It can be opened and remixed immediately without an account. It does <strong>not</strong> automatically write anything into the chapter repository or permanent public gallery.</p>
-        <p>The permanent <strong>Community Showcase</strong> is intentionally moderated because GitHub Pages has no secure anonymous-write backend.</p>
-        <h3>Approve a submitted design</h3>
-        <ol><li>Receive the visitor's share link/design code. When a real chapter Public contact email is configured, the Design Studio provides a submission email button automatically.</li><li>Open the submitted share link and inspect the building. Try selecting/moving a few elements so you know the code reconstructed correctly.</li><li>Confirm the supplied building name and designer name are appropriate for public display and that the person approves public attribution.</li><li>Open <strong>Community → Community designs</strong> in Pages CMS.</li><li>Add a new entry with the approved Building name and Designer name.</li><li>Paste the <strong>Design code exactly as submitted</strong>. Do not shorten, reformat, or edit the encoded code by hand.</li><li>Turn on <strong>Show in community showcase</strong>.</li><li>Optionally turn on <strong>Feature this design</strong> to sort it near the beginning.</li><li>Save, then open Design Studio → Community Showcase and click Remix to verify it reconstructs correctly.</li></ol>
-        <p>The Admin Dashboard now decodes community design codes as part of Site Health. A string that merely looks like an encoded code will be flagged if it does not decode to a supported Design Studio shape list.</p>
-        <h3>Hide or remove a design</h3><p>Turn off <strong>Show in community showcase</strong> to hide an entry without losing it. Delete the entry only when leadership intentionally wants it removed from the curated list.</p>
-        <h3>Local-only features</h3><p>Saved drafts and showcase favorites use the visitor's own browser storage. They do not follow the person to another device or browser. A share link/design code and PNG export are the portable options.</p>
-        <h3>Why the design code is stored</h3><p>The showcase stores the portable design code rather than the current test-site URL. If the repository or domain is transferred later, the website reconstructs a new local remix link automatically.</p>
-        <div class="kb-callout warning"><strong>Moderate before publishing.</strong> Do not publish abusive/inappropriate titles, impersonation, personal information, or a person's name without their approval. The geometric design itself is constrained, but public title and attribution fields still require review.</div>
+      <article class="admin-panel kb-article" id="design-studio" data-keywords="design studio game building sandbox challenge daily brief roulette build battle night party mutate critique presentation xray silhouette shapes parts windows doors columns trees templates undo redo snap grid materials palette sprint badges share png remix">
+        <p class="eyebrow">Article 10</p><h2>Understand the Design Studio game</h2>
+        <p>The <a href="../designer.html">Design Studio</a> is a lightweight architecture sandbox designed to be played with, shared, and remixed.</p>
+        <h3>Core building tools</h3>
+        <ul><li>Blocks, roofs, circles, arches, windows, doors, columns, and trees.</li><li>Direct drag, resize, rotation, colors, materials, opacity, layering, locking, duplicate, Repeat ×3, and Ground.</li><li>Interactive windows, doors, and trees; night scenes can illuminate window elements.</li><li>House, Tower, Pavilion, and Courtyard quick starts plus Surprise Building.</li><li>Undo/redo, snap grid, parts/layers strip, local draft save/load, PNG export, and portable share links.</li></ul>
+        <h3>Play features</h3>
+        <ul><li><strong>Design Roulette</strong> combines a random concept, palette, name, and challenge.</li><li><strong>Build Battle</strong> starts a random design plus a three-minute sprint.</li><li><strong>Today's Brief</strong> changes daily to give repeat visitors a new architecture prompt.</li><li><strong>Night Party</strong> switches to a night/neon mood and lights available windows.</li><li><strong>Mutate Part</strong> quickly changes a selected part so students can accept, mutate again, or undo.</li><li><strong>Desk Crit</strong> generates contextual critique prompts and a concept statement from the current composition.</li><li><strong>Presentation, Focus, X-ray, and Silhouette</strong> modes help students read or present the composition differently.</li><li>Badges, challenge stamps, optional sound, native sharing on supported devices, and first-visit onboarding reward experimentation.</li></ul>
+        <h3>Two public galleries</h3>
+        <p><strong>Live Community</strong> is optional and allows students to self-publish through Supabase when configured. <strong>Community Showcase</strong> remains the chapter-curated list stored in <span class="code-lite">data/designs.json</span> and edited through Pages CMS.</p>
+        <p>If the live backend is disabled or unavailable, the Design Studio still works: students can save locally, export a PNG, create share/remix links, and submit codes for the curated showcase.</p>
       </article>
 
-      <article class="admin-panel kb-article" id="pages" data-keywords="custom page resources scholarships competitions committees slug navigation nav rich text markdown hero image summary hidden">
-        <p class="eyebrow">Article 11</p><h2>Create a custom information page</h2>
-        <ol><li>Open <strong>Website → Custom pages</strong>.</li><li>Add a clear title and permanent lowercase Page URL name.</li><li>Optionally provide a shorter navigation label.</li><li>Enable Show in main navigation only for pages that deserve a permanent top-level link.</li><li>Add an introduction, optional hero image/description, and formatted content.</li><li>Save and test the public page.</li></ol>
+      <article class="admin-panel kb-article" id="community-backend" data-keywords="supabase live community self publish auto publish moderated anonymous auth rls row level security publishable key service role secret likes report delete own remix backend database setup captcha">
+        <p class="eyebrow">Article 11</p><h2>Enable Live Community self-publishing</h2>
+        <p>Live Community is deliberately optional. The chapter can keep GitHub Pages + Pages CMS only, or add a small chapter-owned Supabase project so students can publish directly from the browser.</p>
+        <h3>One-time setup</h3>
+        <ol><li>Create a Supabase project owned by the chapter or another durable chapter-controlled account.</li><li>Open the Supabase SQL editor and run <span class="code-lite">docs/design-studio-supabase.sql</span> from this repository.</li><li>Enable <strong>Anonymous Sign-Ins</strong> in Supabase Auth settings.</li><li>Copy the project's URL and <strong>publishable key</strong>.</li><li>Open <span class="code-lite">data/community-backend.json</span>, paste those two public values, and set <span class="code-lite">enabled</span> to <span class="code-lite">true</span>.</li><li>Choose <span class="code-lite">mode: "auto"</span> for instant posting or <span class="code-lite">mode: "moderated"</span> for pending submissions.</li><li>Publish the repository change and test from a private/incognito browser window.</li></ol>
+        <div class="kb-callout warning"><strong>Never paste a secret or service-role key into this repository.</strong> Browser code uses a publishable key only. Row Level Security and table grants limit what that public client can do.</div>
+        <h3>What students can do in auto mode</h3>
+        <ul><li>Publish a building title, public designer credit, optional caption, and design code.</li><li>Like/unlike live designs.</li><li>Remix another live design; new posts retain remix lineage.</li><li>Report inappropriate posts.</li><li>Remove their own posts while their anonymous browser identity remains available.</li></ul>
+        <h3>Organizer workload</h3>
+        <p>Auto mode requires no approval for ordinary posts. Leadership only needs to review reports or remove inappropriate content in Supabase when necessary. The SQL setup caps a browser identity at 10 posts per 24 hours. For a public launch, CAPTCHA protection for anonymous sign-ins is also recommended.</p>
+        <h3>Curated showcase still exists</h3>
+        <p>The existing <strong>Community → Community designs</strong> CMS section remains useful for chapter-picked work, demos, featured designs, or a completely backend-free setup.</p>
+        <h3>Disable Live Community</h3>
+        <p>Set <span class="code-lite">enabled</span> back to <span class="code-lite">false</span>. The live feed and Publish button disappear, while the core game and curated showcase continue working.</p>
       </article>
 
-      <article class="admin-panel kb-article" id="images" data-keywords="image images media upload picture photo profile headshot file aspect ratio alt alternative text accessibility size optimization gallery rendering drawing webp jpg png copyright">
-        <p class="eyebrow">Article 12</p><h2>Images, uploads, and accessibility descriptions</h2>
-        <p>Images uploaded through Pages CMS are stored under <span class="code-lite">assets/uploads/</span> and move with the repository during ownership transfer.</p>
-        <ul><li>Use JPG, PNG, or WebP for normal photos, drawings, and renderings.</li><li>Compress unnecessarily large files before uploading.</li><li>Use portrait-oriented photos for member profiles and landscape covers for many event/project cards.</li><li>Write concise descriptions for meaningful images.</li><li>Use captions when a drawing/model/diagram benefits from explanation.</li><li>Do not upload work the chapter lacks permission to publish.</li></ul>
+      <article class="admin-panel kb-article" id="pages" data-keywords="custom page resources scholarships competitions committees slug navigation rich text hero image summary hidden">
+        <p class="eyebrow">Article 12</p><h2>Create a custom information page</h2>
+        <ol><li>Add a clear title and permanent lowercase Page URL name.</li><li>Optionally provide a shorter navigation label.</li><li>Enable Show in main navigation only for pages that deserve a permanent top-level link.</li><li>Add introduction, optional hero image/description, and formatted content.</li><li>Save and test the public page.</li></ol>
       </article>
 
-      <article class="admin-panel kb-article" id="links" data-keywords="link links url https markdown rich text formatting external email unsafe malformed slug url name permanent headings list bold image">
-        <p class="eyebrow">Article 13</p><h2>Links, rich text, and permanent URL names</h2>
-        <h3>External links</h3><p>Use complete URLs beginning with <span class="code-lite">https://</span> for RSVP forms, jobs, social accounts, payment accounts, portfolios, and other outside destinations.</p>
-        <h3>Rich text</h3><p>Full project descriptions, event details, custom-page content, and member descriptions support headings, paragraphs, lists, emphasis, links, and supported images.</p>
-        <h3>URL names / slugs</h3><p>Member, project, event, and custom-page URL names use lowercase letters, numbers, and hyphens. Treat them as permanent after publication.</p>
+      <article class="admin-panel kb-article" id="images" data-keywords="image media upload photo profile headshot alt accessibility size optimization gallery rendering drawing webp jpg png copyright">
+        <p class="eyebrow">Article 13</p><h2>Images, uploads, and accessibility descriptions</h2>
+        <p>Pages CMS uploads are stored under <span class="code-lite">assets/uploads/</span> and move with the repository during ownership transfer.</p>
+        <ul><li>Use JPG, PNG, or WebP for normal photos, drawings, and renderings.</li><li>Compress unnecessarily large files.</li><li>Use portrait-oriented member photos and strong landscape project/event covers.</li><li>Write concise descriptions for meaningful images and captions when useful.</li><li>Do not upload work the chapter lacks permission to publish.</li></ul>
       </article>
 
-      <article class="admin-panel kb-article" id="publishing" data-keywords="publish publishing save deployment github pages history undo revert commit refresh cache verify actions version previous change design showcase">
-        <p class="eyebrow">Article 14</p><h2>Publishing, verification, and change history</h2>
-        <p>Saving in Pages CMS writes content to GitHub as a commit. GitHub Pages then republishes the static website.</p>
-        <ol><li>Confirm the CMS save completed.</li><li>Refresh the affected public page.</li><li>Check important edits at desktop and phone widths.</li><li>Click newly added external links.</li><li>For events, test the detail page and RSVP visibility.</li><li>For projects, click through the gallery and member association.</li><li>For members, test the directory/popout and full profile.</li><li>For payments, verify each destination.</li><li>For a community design, open its showcase card and confirm Remix reconstructs the submitted design.</li></ol>
-        <p>Git history retains previous repository states so administrators can investigate or recover content.</p>
+      <article class="admin-panel kb-article" id="links" data-keywords="link url https markdown rich text formatting external email unsafe malformed slug permanent headings list bold image">
+        <p class="eyebrow">Article 14</p><h2>Links, rich text, and permanent URL names</h2>
+        <p>Use complete <span class="code-lite">https://</span> URLs for outside destinations. Member, project, event, and custom-page slugs use lowercase letters, numbers, and hyphens and should be treated as permanent after publication.</p>
       </article>
 
-      <article class="admin-panel kb-article" id="access" data-keywords="access collaborator github user invite permission editor pages cms authorization email collaborator revoke officer member account">
-        <p class="eyebrow">Article 15</p><h2>Manage editor access and collaborators</h2>
-        <p>Only people responsible for maintaining the chapter website should have editing access.</p>
-        <ul><li>Authorized GitHub users can edit through Pages CMS after the app is authorized for the repository.</li><li>CMS collaborators are separate from public chapter-member profiles.</li><li>Add replacement editors before removing outgoing people.</li><li>Revoke access that is no longer needed.</li><li>Keep at least two current people capable of administering long-term ownership.</li><li>Never share one GitHub password among the chapter.</li></ul>
+      <article class="admin-panel kb-article" id="publishing" data-keywords="publish save deployment github pages history undo revert commit refresh cache verify actions version design showcase live community">
+        <p class="eyebrow">Article 15</p><h2>Publishing, verification, and change history</h2>
+        <p>Saving in Pages CMS writes content to GitHub as a commit. GitHub Pages then republishes the static website. Live Community posts are different: they are stored in Supabase and should appear without a GitHub deployment.</p>
+        <ol><li>Confirm the CMS/code save completed when changing repository content.</li><li>Refresh the affected public page.</li><li>Check important edits at desktop and phone widths.</li><li>Test new external links.</li><li>For events, verify detail and RSVP behavior.</li><li>For projects, verify gallery and member association.</li><li>For payments, verify each destination.</li><li>For curated designs, verify Remix reconstructs the saved design code.</li><li>For Live Community, publish from an incognito/private browser and verify like/remix/report/self-remove behavior.</li></ol>
       </article>
 
-      <article class="admin-panel kb-article" id="handoff" data-keywords="handoff transfer repository ownership github organization graduation new officers chapter owned cms pages domain url migrate rebuild test account design codes">
-        <p class="eyebrow">Article 16</p><h2>Transfer the website to future chapter leadership</h2>
-        <p>The website should be transferred, not rebuilt. The repository contains the site, CMS schema, JSON content, uploaded media, community-design codes, and Git history.</p>
-        <ol><li>Create/confirm the chapter-controlled GitHub organization or durable owner.</li><li>Add at least two current administrators.</li><li>Transfer the existing repository.</li><li>Verify GitHub Pages still publishes from the correct branch/root.</li><li>Authorize Pages CMS under the new repository owner.</li><li>Verify every CMS section loads, including Community designs.</li><li>Re-invite CMS-only collaborators if needed.</li><li>Verify the public URL/custom domain.</li><li>Test at least one stored Design Studio showcase code after transfer.</li><li>Remove the previous owner/test-account access only after the handoff is confirmed.</li></ol>
-        <div class="kb-callout"><strong>No content rebuild is required.</strong> Portable design codes also survive a repository/domain transfer because the site generates current local remix links at runtime.</div>
+      <article class="admin-panel kb-article" id="access" data-keywords="access collaborator github user invite permission editor pages cms supabase authorization revoke officer account">
+        <p class="eyebrow">Article 16</p><h2>Manage editor and service access</h2>
+        <ul><li>Only current maintainers should have GitHub/Pages CMS editing access.</li><li>Add replacement editors before removing outgoing people.</li><li>Keep at least two current people capable of administering long-term ownership.</li><li>Never share one GitHub password among the chapter.</li><li>If Live Community is enabled, also keep at least two chapter-controlled administrators on the Supabase project.</li></ul>
       </article>
 
-      <article class="admin-panel kb-article" id="troubleshooting" data-keywords="troubleshoot error react page not updating missing broken refresh hard refresh cms invalid url image cache project member profile slug rsvp payment deployment design share code showcase local draft png">
-        <p class="eyebrow">Article 17</p><h2>Troubleshooting common problems</h2>
-        <h3>A saved CMS change is not visible</h3><p>Confirm the save completed, refresh the public page, and check GitHub Pages deployment status if necessary.</p>
-        <h3>A member or linked project is missing</h3><p>Verify public-profile visibility and confirm the project's Member profile URL name exactly matches the member's Member URL name.</p>
-        <h3>An RSVP/payment button is missing</h3><p>Check its visibility toggle and ensure the required URL is a complete valid <span class="code-lite">https://</span> address.</p>
-        <h3>A job disappeared</h3><p>Check its deadline and Show on website toggle. Expired jobs automatically stop displaying.</p>
-        <h3>A Design Studio share link says invalid</h3><p>Ask the visitor to create a fresh share link/code from the Design Studio. Do not manually repair or shorten the encoded code.</p>
-        <h3>A showcase card is missing</h3><p>Confirm the entry exists under Community → Community designs, has a valid Design code, and Show in community showcase is enabled. Site Health now fully decodes the code and will flag corrupt or unsupported codes.</p>
-        <h3>The submission button is missing</h3><p>The Design Studio only shows its email submission button when Site settings contains a valid non-placeholder Public contact email. Visitors can still create/copy a share link and design code.</p>
-        <h3>A local Design Studio draft or favorite disappeared</h3><p>Drafts and favorites use that visitor's browser storage. Clearing browser/site data or switching devices/browsers can remove them. Share links and PNG exports are the portable options.</p>
-        <h3>Pages CMS shows a React/configuration error</h3><p>Hard-refresh Pages CMS first. If the problem continues, have a site administrator inspect <span class="code-lite">.pages.yml</span> rather than experimenting with raw YAML.</p>
+      <article class="admin-panel kb-article" id="handoff" data-keywords="handoff transfer repository ownership github organization graduation new officers cms pages domain supabase backend database design codes">
+        <p class="eyebrow">Article 17</p><h2>Transfer the website to future chapter leadership</h2>
+        <p>The website should be transferred, not rebuilt.</p>
+        <ol><li>Transfer the existing GitHub repository to the chapter-controlled organization/owner.</li><li>Verify GitHub Pages and Pages CMS under the new owner.</li><li>Verify public URL/custom domain and all major CMS sections.</li><li>If Live Community is enabled, transfer/invite new chapter administrators to the Supabase project as well.</li><li>Do not rotate the public Supabase project URL/publishable key unless the Supabase project itself changes.</li><li>Test a live publish, like, remix, report, and owner delete from a normal browser.</li><li>Test at least one stored curated showcase code.</li><li>Remove previous/test-account access only after both GitHub and Supabase ownership are confirmed.</li></ol>
+        <div class="kb-callout"><strong>No website rebuild is required.</strong> Repository content and curated design codes transfer with GitHub; the optional Supabase project is simply handed to the next administrators.</div>
       </article>
 
-      <article class="admin-panel kb-article" id="safety" data-keywords="privacy safety secret password student record permission photo email grades personal data copyright payment banking public repository consent tax deductible client work design moderation impersonation">
-        <p class="eyebrow">Article 18</p><h2>Privacy, permissions, moderation, and content safety</h2>
-        <p>The repository is public. Treat everything entered through Pages CMS as information that may be publicly accessible even if it is not currently rendered.</p>
-        <ul><li>Never store passwords, API keys, tokens, recovery codes, banking credentials, or card information.</li><li>Never publish grades, student records, private critiques, or other protected educational data.</li><li>Get permission before publishing a member's portrait, biography, email, project work, or a Design Studio creator's name.</li><li>Use chapter-wide contact information when practical.</li><li>Do not publish copyrighted photography, firm/client work, or third-party material without permission.</li><li>Moderate Community Showcase titles and designer attribution before publication.</li><li>Verify payment, RSVP, job, portfolio, social, and other external links.</li></ul>
-        <div class="kb-callout warning"><strong>When uncertain, leave it out and confirm first.</strong> Removing sensitive content later does not guarantee it was never copied, cached, shared, or retained in repository history.</div>
+      <article class="admin-panel kb-article" id="troubleshooting" data-keywords="troubleshoot error react missing broken refresh cms url image cache member slug rsvp payment deployment design share live community supabase publish like report draft png">
+        <p class="eyebrow">Article 18</p><h2>Troubleshooting common problems</h2>
+        <h3>A saved CMS change is not visible</h3><p>Confirm the CMS save completed and check GitHub Pages deployment status.</p>
+        <h3>A member/project relationship is missing</h3><p>Confirm the project's Member profile URL name exactly matches the member's Member URL name.</p>
+        <h3>An RSVP/payment button is missing</h3><p>Check the visibility toggle and required full <span class="code-lite">https://</span> URL.</p>
+        <h3>A Design Studio share link says invalid</h3><p>Create a fresh link/code. Do not manually shorten or edit encoded design codes.</p>
+        <h3>Live Community is not visible</h3><p>Check <span class="code-lite">data/community-backend.json</span>. If enabled, verify the project URL/publishable key, Anonymous Sign-Ins, Data API grants, and RLS setup. The static/curated game remains usable while the backend is down.</p>
+        <h3>Publishing returns a permission error</h3><p>Re-run/compare the SQL setup and confirm RLS policies and table grants exist. Never solve a browser permission error by pasting a secret/service-role key into the site.</p>
+        <h3>A student's “Remove mine” option disappeared</h3><p>Live ownership uses Supabase anonymous auth stored by the browser. Clearing site storage or changing browsers/devices can lose that anonymous identity. A chapter administrator can still remove the row in Supabase.</p>
+        <h3>A local draft/favorite disappeared</h3><p>Those features use local browser storage. Share links and PNG exports are the portable options.</p>
+        <h3>Pages CMS shows a React/config error</h3><p>Hard-refresh Pages CMS first. If it continues, have a maintainer inspect <span class="code-lite">.pages.yml</span>.</p>
+      </article>
+
+      <article class="admin-panel kb-article" id="safety" data-keywords="privacy safety secret password api key supabase service role student record permission photo email grades copyright payment banking public repository consent moderation report impersonation">
+        <p class="eyebrow">Article 19</p><h2>Privacy, permissions, moderation, and content safety</h2>
+        <p>The GitHub repository is public. Treat repository content as public even when a field is not currently rendered. Live Community adds public user-generated title/credit/caption data stored in Supabase.</p>
+        <ul><li>Never store passwords, secret/service-role API keys, recovery codes, banking credentials, or card information in the repository.</li><li>Never publish grades, student records, private critiques, or other protected educational data.</li><li>Get permission before publishing portraits, biographies, public emails, project work, or another person's name.</li><li>Do not publish copyrighted photography, confidential client work, or third-party material without permission.</li><li>Periodically review Live Community reports when auto-publish mode is enabled.</li><li>Use moderated mode instead of auto mode if the chapter does not want user-generated content to appear immediately.</li><li>Verify payment, RSVP, job, portfolio, social, and other external links.</li></ul>
+        <div class="kb-callout warning"><strong>When uncertain, leave it out and confirm first.</strong> Removing public content later does not guarantee it was never copied, cached, or shared.</div>
       </article>
     </section>
   </div>

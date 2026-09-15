@@ -2,8 +2,8 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const app = $('designer-app');
-  const challengeBand = document.querySelector('.designer-challenge-band .container');
-  if (!app || !challengeBand) return;
+  const challengeSection = document.querySelector('.designer-challenge-band');
+  if (!app || !challengeSection) return;
 
   const PROMPTS = [
     'Design a shaded bus stop that would make a Memphis August afternoon tolerable.',
@@ -33,6 +33,7 @@
   ];
   const COLORS = ['#00498F','#193059','#9C9EA1','#E2E4E6','#B65E3C','#E5B769','#556B55','#A48B6A','#6EE7F5','#E879F9','#FDE047','#263238'];
   const MATERIALS = ['solid','glass','translucent','outline'];
+  const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)');
 
   function seededIndex() {
     const now = new Date();
@@ -42,11 +43,10 @@
 
   function ensureDailyBrief() {
     if ($('daily-brief')) return;
-    const brief = document.createElement('aside');
-    brief.id = 'daily-brief';
-    brief.className = 'daily-brief';
-    brief.innerHTML = `<div><span class="daily-brief-label">Today's brief</span><strong>${PROMPTS[seededIndex()]}</strong></div><span class="daily-brief-date">${new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</span>`;
-    challengeBand.appendChild(brief);
+    const wrap = document.createElement('div');
+    wrap.className = 'container daily-brief-wrap';
+    wrap.innerHTML = `<aside id="daily-brief" class="daily-brief"><div><span class="daily-brief-label">Today's brief</span><strong>${PROMPTS[seededIndex()]}</strong></div><span class="daily-brief-date">${new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</span></aside>`;
+    challengeSection.appendChild(wrap);
   }
 
   function ensurePlayButtons() {
@@ -137,10 +137,10 @@
     const chips=[...document.querySelectorAll('#designer-layers .layer-chip')];
     if (!chips.length) return;
     let index=chips.findIndex(chip=>chip.classList.contains('is-selected'));
-    if (index<0) index=direction>0?-1:0;
+    if(index<0) index=direction>0?-1:0;
     index=(index+direction+chips.length)%chips.length;
     chips[index].click();
-    chips[index].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+    chips[index].scrollIntoView({behavior:REDUCED_MOTION.matches?'auto':'smooth',block:'nearest',inline:'center'});
   }
 
   document.addEventListener('keydown',event=>{

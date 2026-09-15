@@ -1,0 +1,225 @@
+[
+  {
+    "id": "memphis-shade",
+    "title": "Shade for Memphis",
+    "prompt": "Design a small public shelter that would make a hot Memphis afternoon feel noticeably better.",
+    "difficulty": 1,
+    "rules": [
+      { "kind": "maxParts", "value": 14, "label": "Use 14 parts or fewer" },
+      { "kind": "minType", "type": "Roof", "value": 1, "label": "Include a roof" },
+      { "kind": "minType", "type": "Column", "value": 2, "label": "Use at least 2 columns" }
+    ],
+    "bonus": { "kind": "minType", "type": "Tree", "value": 2, "label": "Bonus: add 2 trees" }
+  },
+  {
+    "id": "river-room",
+    "title": "Room for the River",
+    "prompt": "Make a riverfront pavilion that frames the water without turning its back on the city.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "background", "value": "river", "label": "Use the riverfront scene" },
+      { "kind": "minType", "type": "Arch", "value": 1, "label": "Create at least 1 framed threshold" },
+      { "kind": "minType", "type": "Tree", "value": 2, "label": "Use at least 2 trees" },
+      { "kind": "maxParts", "value": 18, "label": "Keep it to 18 parts or fewer" }
+    ],
+    "bonus": { "kind": "minType", "type": "Window", "value": 4, "label": "Bonus: add 4 windows" }
+  },
+  {
+    "id": "public-porch",
+    "title": "The Public Porch",
+    "prompt": "Design a place that is not quite inside and not quite outside—a generous threshold for people to gather.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Column", "value": 4, "label": "Create a 4-column rhythm" },
+      { "kind": "minType", "type": "Door", "value": 1, "label": "Make arrival visible" },
+      { "kind": "minParts", "value": 8, "label": "Use at least 8 parts" },
+      { "kind": "maxColors", "value": 4, "label": "Use no more than 4 colors" }
+    ],
+    "bonus": { "kind": "minType", "type": "Tree", "value": 1, "label": "Bonus: give the porch some shade" }
+  },
+  {
+    "id": "after-dark",
+    "title": "Memphis After Dark",
+    "prompt": "Design a small public building whose identity becomes stronger after sunset.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "background", "value": "night", "label": "Use the night scene" },
+      { "kind": "minLitWindows", "value": 4, "label": "Light at least 4 windows" },
+      { "kind": "minParts", "value": 9, "label": "Use at least 9 parts" }
+    ],
+    "bonus": { "kind": "maxColors", "value": 4, "label": "Bonus: keep the palette disciplined" }
+  },
+  {
+    "id": "tiny-gallery",
+    "title": "Tiny Gallery",
+    "prompt": "Make a one-room gallery where the entrance, daylight, and one memorable spatial gesture do most of the work.",
+    "difficulty": 1,
+    "rules": [
+      { "kind": "maxParts", "value": 10, "label": "Use 10 parts or fewer" },
+      { "kind": "minType", "type": "Door", "value": 1, "label": "Include a clear entrance" },
+      { "kind": "minType", "type": "Window", "value": 2, "label": "Bring in daylight with 2 windows" }
+    ],
+    "bonus": { "kind": "minType", "type": "Arch", "value": 1, "label": "Bonus: use an arch as the main gesture" }
+  },
+  {
+    "id": "broken-rhythm",
+    "title": "Break the Rhythm",
+    "prompt": "Create a facade with a strong repeated order, then break that order exactly where something important happens.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Window", "value": 6, "label": "Use at least 6 windows" },
+      { "kind": "minType", "type": "Door", "value": 1, "label": "Mark one entrance" },
+      { "kind": "maxColors", "value": 3, "label": "Use 3 colors or fewer" }
+    ],
+    "bonus": { "kind": "minRotated", "value": 1, "label": "Bonus: rotate one part to break the order" }
+  },
+  {
+    "id": "civic-edge",
+    "title": "Civic Edge",
+    "prompt": "Design a small civic building that feels public and welcoming without relying on a perfectly symmetrical facade.",
+    "difficulty": 3,
+    "rules": [
+      { "kind": "minType", "type": "Column", "value": 5, "label": "Use at least 5 columns" },
+      { "kind": "minType", "type": "Door", "value": 1, "label": "Make the public entrance obvious" },
+      { "kind": "minRotated", "value": 1, "label": "Use at least 1 rotated element" },
+      { "kind": "minParts", "value": 12, "label": "Develop at least 12 parts" }
+    ],
+    "bonus": { "kind": "minType", "type": "Tree", "value": 2, "label": "Bonus: make the site feel civic too" }
+  },
+  {
+    "id": "courtyard-life",
+    "title": "Life in the Courtyard",
+    "prompt": "Build around an outdoor room. The empty middle should feel as intentional as the building masses around it.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Block", "value": 3, "label": "Use at least 3 building masses" },
+      { "kind": "minType", "type": "Tree", "value": 2, "label": "Put at least 2 trees in the composition" },
+      { "kind": "minType", "type": "Door", "value": 1, "label": "Give the courtyard an entrance" }
+    ],
+    "bonus": { "kind": "background", "value": "lawn", "label": "Bonus: use the campus lawn scene" }
+  },
+  {
+    "id": "glass-stack",
+    "title": "Glass Stack",
+    "prompt": "Make a vertical building with a readable base, middle, and top using repetition rather than detail overload.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Block", "value": 2, "label": "Use at least 2 masses" },
+      { "kind": "minType", "type": "Window", "value": 8, "label": "Use at least 8 windows" },
+      { "kind": "maxColors", "value": 4, "label": "Use 4 colors or fewer" },
+      { "kind": "minParts", "value": 12, "label": "Develop at least 12 parts" }
+    ],
+    "bonus": { "kind": "maxParts", "value": 22, "label": "Bonus: keep the whole tower under 22 parts" }
+  },
+  {
+    "id": "heavy-light",
+    "title": "Heavy / Light",
+    "prompt": "Make the bottom feel grounded and heavy while the top feels unexpectedly light.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Block", "value": 2, "label": "Use at least 2 masses" },
+      { "kind": "minType", "type": "Column", "value": 2, "label": "Use at least 2 slender supports" },
+      { "kind": "minRotated", "value": 1, "label": "Rotate at least 1 element" },
+      { "kind": "maxColors", "value": 4, "label": "Keep the palette to 4 colors or fewer" }
+    ],
+    "bonus": { "kind": "minType", "type": "Window", "value": 4, "label": "Bonus: open the upper mass with windows" }
+  },
+  {
+    "id": "landscape-first",
+    "title": "Landscape First",
+    "prompt": "Make the landscape feel like the first design move, not the decoration added at the end.",
+    "difficulty": 1,
+    "rules": [
+      { "kind": "minType", "type": "Tree", "value": 5, "label": "Use at least 5 trees" },
+      { "kind": "maxType", "type": "Block", "value": 3, "label": "Use no more than 3 building masses" },
+      { "kind": "maxParts", "value": 16, "label": "Use 16 parts or fewer" }
+    ],
+    "bonus": { "kind": "background", "value": "lawn", "label": "Bonus: use the campus lawn scene" }
+  },
+  {
+    "id": "one-arch",
+    "title": "One Arch Rules Everything",
+    "prompt": "Start with one arch and make every other move support, frame, repeat, or contrast it.",
+    "difficulty": 1,
+    "rules": [
+      { "kind": "minType", "type": "Arch", "value": 1, "label": "Use at least 1 arch" },
+      { "kind": "minParts", "value": 6, "label": "Develop at least 6 supporting parts" },
+      { "kind": "maxColors", "value": 3, "label": "Use 3 colors or fewer" }
+    ],
+    "bonus": { "kind": "minType", "type": "Column", "value": 2, "label": "Bonus: frame the arch with columns" }
+  },
+  {
+    "id": "three-colors",
+    "title": "Three-Color Discipline",
+    "prompt": "Build a complete composition using exactly three colors. Make hierarchy come from form, not extra decoration.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "exactColors", "value": 3, "label": "Use exactly 3 colors" },
+      { "kind": "minParts", "value": 8, "label": "Use at least 8 parts" },
+      { "kind": "minType", "type": "Door", "value": 1, "label": "Include an entrance" }
+    ],
+    "bonus": { "kind": "maxParts", "value": 16, "label": "Bonus: resolve it in 16 parts or fewer" }
+  },
+  {
+    "id": "silhouette",
+    "title": "Read It as a Silhouette",
+    "prompt": "Design a building whose massing would still be recognizable if every material and color disappeared.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Block", "value": 3, "label": "Use at least 3 masses" },
+      { "kind": "minRotated", "value": 2, "label": "Rotate at least 2 parts" },
+      { "kind": "maxColors", "value": 3, "label": "Use 3 colors or fewer" }
+    ],
+    "bonus": { "kind": "minType", "type": "Roof", "value": 1, "label": "Bonus: give the skyline a roof move" }
+  },
+  {
+    "id": "welcoming-tower",
+    "title": "A Tower That Says Hello",
+    "prompt": "Make a tall building whose base feels genuinely welcoming instead of simply stopping at the ground.",
+    "difficulty": 3,
+    "rules": [
+      { "kind": "minType", "type": "Window", "value": 8, "label": "Use at least 8 windows" },
+      { "kind": "minType", "type": "Door", "value": 2, "label": "Create at least 2 points of entry" },
+      { "kind": "minType", "type": "Column", "value": 2, "label": "Use at least 2 columns at the base" },
+      { "kind": "minParts", "value": 14, "label": "Develop at least 14 parts" }
+    ],
+    "bonus": { "kind": "minType", "type": "Tree", "value": 2, "label": "Bonus: soften the base with landscape" }
+  },
+  {
+    "id": "quiet-building",
+    "title": "Quiet Building",
+    "prompt": "Design something calm enough that one unusual move becomes impossible to ignore.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "maxColors", "value": 2, "label": "Use 2 colors or fewer" },
+      { "kind": "maxParts", "value": 9, "label": "Use 9 parts or fewer" },
+      { "kind": "minRotated", "value": 1, "label": "Use exactly one obvious rotated move" }
+    ],
+    "bonus": { "kind": "minType", "type": "Window", "value": 2, "label": "Bonus: add only the openings you really need" }
+  },
+  {
+    "id": "arcade",
+    "title": "Make an Arcade",
+    "prompt": "Create a repeated covered edge that could become a walkway, market, gallery, or public threshold.",
+    "difficulty": 2,
+    "rules": [
+      { "kind": "minType", "type": "Arch", "value": 3, "label": "Use at least 3 arches" },
+      { "kind": "minType", "type": "Column", "value": 4, "label": "Use at least 4 columns" },
+      { "kind": "maxColors", "value": 3, "label": "Use 3 colors or fewer" }
+    ],
+    "bonus": { "kind": "minType", "type": "Door", "value": 1, "label": "Bonus: connect the arcade to an entrance" }
+  },
+  {
+    "id": "campus-hangout",
+    "title": "Campus Hangout",
+    "prompt": "Design a small campus place that feels open enough to wander into and structured enough to stay awhile.",
+    "difficulty": 1,
+    "rules": [
+      { "kind": "background", "value": "lawn", "label": "Use the campus lawn scene" },
+      { "kind": "minType", "type": "Column", "value": 2, "label": "Use at least 2 columns" },
+      { "kind": "minType", "type": "Tree", "value": 3, "label": "Use at least 3 trees" },
+      { "kind": "maxParts", "value": 15, "label": "Use 15 parts or fewer" }
+    ],
+    "bonus": { "kind": "minType", "type": "Roof", "value": 1, "label": "Bonus: make a strong shade canopy" }
+  }
+]

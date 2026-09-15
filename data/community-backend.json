@@ -1,0 +1,10 @@
+{
+  "enabled": false,
+  "provider": "supabase",
+  "mode": "auto",
+  "supabase_url": "",
+  "supabase_publishable_key": "",
+  "feed_limit": 60,
+  "allow_likes": true,
+  "allow_reports": true
+}

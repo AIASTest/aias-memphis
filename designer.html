@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Create a simple 2D building composition, share it with friends, and browse community designs from AIAS Memphis.">
+  <meta name="description" content="Play with architecture in the AIAS Memphis Design Studio. Build, remix, export, share, and submit 2D building compositions.">
   <title>Design Studio | AIAS Memphis</title>
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/designer.css">
@@ -15,19 +15,33 @@
   <section class="designer-hero">
     <div class="container designer-hero-grid">
       <div>
-        <p class="eyebrow" style="color:#fff">Interactive design lab</p>
-        <h1>Build something.</h1>
-        <p class="designer-hero-copy">Stack simple shapes, experiment with color, choose a setting, and create a tiny architectural composition. Save it on your device, generate a share link, or submit it for the community showcase.</p>
+        <p class="eyebrow" style="color:#fff">Interactive architecture sandbox</p>
+        <h1>Sketch a building. Break the rules.</h1>
+        <p class="designer-hero-copy">Stack forms, cut in windows, change the atmosphere, chase a design prompt, remix someone else's idea, and share the result. It is intentionally simple enough to play with and flexible enough to get weird.</p>
         <div class="hero-actions">
-          <a class="button button-light" href="#studio">Open the studio</a>
-          <a class="button button-outline designer-light-outline" href="#showcase">Browse community designs</a>
+          <a class="button button-light" href="#studio">Start designing</a>
+          <a class="button button-outline designer-light-outline" href="#showcase">Remix community work</a>
         </div>
       </div>
       <aside class="designer-hero-card">
         <p class="eyebrow">No account required</p>
-        <h2>Design, save, and share.</h2>
-        <p>Your building is encoded into its share link. The website does not need a database to let someone else open your design.</p>
+        <h2>Make something in five minutes.</h2>
+        <p>Your design lives in a portable share code. Save locally, export a PNG, send a remix link, or submit it to the chapter showcase.</p>
       </aside>
+    </div>
+  </section>
+
+  <section class="section-tight designer-challenge-band" aria-labelledby="challenge-heading">
+    <div class="container designer-challenge-layout">
+      <div>
+        <p class="eyebrow">Design challenge</p>
+        <h2 id="challenge-heading">Need a constraint?</h2>
+        <p id="challenge-prompt" class="designer-challenge-prompt">Design a tiny pavilion using no more than 7 pieces.</p>
+      </div>
+      <div class="designer-challenge-actions">
+        <button class="button button-primary" type="button" id="new-challenge">New challenge</button>
+        <button class="button button-outline" type="button" id="surprise-building">Surprise me</button>
+      </div>
     </div>
   </section>
 
@@ -37,7 +51,7 @@
         <div>
           <p class="eyebrow">2D building designer</p>
           <h2>AIAS Design Studio</h2>
-          <p class="muted designer-intro">Add shapes, drag them around the canvas, then select a shape to change its color, size, rotation, and layer order.</p>
+          <p class="muted designer-intro">Click a part to add it. Drag forms directly on the canvas. Selected parts can be resized, rotated, layered, recolored, locked, and styled.</p>
         </div>
       </div>
 
@@ -54,68 +68,133 @@
           </div>
 
           <div class="designer-tool-section">
-            <h3>Add shapes</h3>
-            <div class="shape-palette" role="group" aria-label="Add a shape">
-              <button type="button" class="shape-button" data-add-shape="rect"><span class="shape-icon shape-icon-rect" aria-hidden="true"></span>Block</button>
-              <button type="button" class="shape-button" data-add-shape="triangle"><span class="shape-icon shape-icon-triangle" aria-hidden="true"></span>Roof</button>
-              <button type="button" class="shape-button" data-add-shape="circle"><span class="shape-icon shape-icon-circle" aria-hidden="true"></span>Circle</button>
+            <div class="designer-tool-heading"><h3>Quick starts</h3><span class="designer-hint">replace canvas</span></div>
+            <div class="template-grid" role="group" aria-label="Building templates">
+              <button type="button" class="template-button" data-template="house">House</button>
+              <button type="button" class="template-button" data-template="tower">Tower</button>
+              <button type="button" class="template-button" data-template="pavilion">Pavilion</button>
+              <button type="button" class="template-button" data-template="courtyard">Courtyard</button>
             </div>
           </div>
 
           <div class="designer-tool-section">
-            <h3>Background</h3>
-            <label class="designer-field">Scene
+            <h3>Add building parts</h3>
+            <div class="shape-palette" role="group" aria-label="Add a building part">
+              <button type="button" class="shape-button" data-add-shape="rect"><span class="shape-icon shape-icon-rect" aria-hidden="true"></span>Block</button>
+              <button type="button" class="shape-button" data-add-shape="triangle"><span class="shape-icon shape-icon-triangle" aria-hidden="true"></span>Roof</button>
+              <button type="button" class="shape-button" data-add-shape="circle"><span class="shape-icon shape-icon-circle" aria-hidden="true"></span>Circle</button>
+              <button type="button" class="shape-button" data-add-shape="arch"><span class="shape-icon shape-icon-arch" aria-hidden="true"></span>Arch</button>
+              <button type="button" class="shape-button" data-add-shape="window"><span class="shape-icon shape-icon-window" aria-hidden="true"></span>Window</button>
+              <button type="button" class="shape-button" data-add-shape="door"><span class="shape-icon shape-icon-door" aria-hidden="true"></span>Door</button>
+              <button type="button" class="shape-button" data-add-shape="column"><span class="shape-icon shape-icon-column" aria-hidden="true"></span>Column</button>
+              <button type="button" class="shape-button" data-add-shape="tree"><span class="shape-icon shape-icon-tree" aria-hidden="true"></span>Tree</button>
+            </div>
+          </div>
+
+          <div class="designer-tool-section">
+            <h3>Scene & palette</h3>
+            <label class="designer-field">Background
               <select id="design-background">
                 <option value="grid">Studio grid</option>
                 <option value="paper">White paper</option>
                 <option value="blueprint">Blueprint</option>
+                <option value="river">Riverfront</option>
+                <option value="lawn">Campus lawn</option>
                 <option value="sunset">Sunset</option>
                 <option value="night">Night</option>
               </select>
             </label>
+            <div class="palette-row" role="group" aria-label="Apply a color palette">
+              <button type="button" class="palette-button" data-palette="memphis" title="Memphis blue palette"><span style="--swatch:#00498F"></span><span style="--swatch:#193059"></span><span style="--swatch:#9C9EA1"></span></button>
+              <button type="button" class="palette-button" data-palette="warm" title="Warm palette"><span style="--swatch:#B65E3C"></span><span style="--swatch:#E5B769"></span><span style="--swatch:#6D3B2F"></span></button>
+              <button type="button" class="palette-button" data-palette="earth" title="Earth palette"><span style="--swatch:#556B55"></span><span style="--swatch:#A48B6A"></span><span style="--swatch:#D8CDBB"></span></button>
+              <button type="button" class="palette-button" data-palette="mono" title="Monochrome palette"><span style="--swatch:#263238"></span><span style="--swatch:#6B747A"></span><span style="--swatch:#D5D9DC"></span></button>
+              <button type="button" class="palette-button" data-palette="neon" title="Night neon palette"><span style="--swatch:#6EE7F5"></span><span style="--swatch:#E879F9"></span><span style="--swatch:#FDE047"></span></button>
+            </div>
           </div>
 
           <div class="designer-tool-section" id="selected-controls" aria-live="polite">
-            <div class="designer-tool-heading"><h3>Selected shape</h3><span id="selected-label" class="designer-selection-label">None</span></div>
+            <div class="designer-tool-heading"><h3>Selected part</h3><span id="selected-label" class="designer-selection-label">None</span></div>
             <label class="designer-field">Color
               <input id="shape-color" type="color" value="#00498F" disabled>
             </label>
+            <label class="designer-field">Material
+              <select id="shape-material" disabled>
+                <option value="solid">Solid</option>
+                <option value="glass">Glass</option>
+                <option value="translucent">Translucent</option>
+                <option value="outline">Wireframe</option>
+              </select>
+            </label>
             <label class="designer-field">Width <span id="width-value">—</span>
-              <input id="shape-width" type="range" min="24" max="560" step="2" value="140" disabled>
+              <input id="shape-width" type="range" min="18" max="600" step="2" value="140" disabled>
             </label>
             <label class="designer-field">Height <span id="height-value">—</span>
-              <input id="shape-height" type="range" min="24" max="420" step="2" value="120" disabled>
+              <input id="shape-height" type="range" min="18" max="460" step="2" value="120" disabled>
             </label>
             <label class="designer-field">Rotation <span id="rotation-value">—</span>
               <input id="shape-rotation" type="range" min="-180" max="180" step="1" value="0" disabled>
+            </label>
+            <label class="designer-field">Opacity <span id="opacity-value">—</span>
+              <input id="shape-opacity" type="range" min="20" max="100" step="5" value="100" disabled>
             </label>
             <div class="designer-mini-actions">
               <button type="button" id="shape-back" disabled>Send back</button>
               <button type="button" id="shape-front" disabled>Bring front</button>
               <button type="button" id="shape-duplicate" disabled>Duplicate</button>
+              <button type="button" id="shape-lock" disabled>Lock</button>
               <button type="button" id="shape-delete" class="danger-control" disabled>Delete</button>
             </div>
           </div>
         </aside>
 
         <div class="designer-workspace-wrap">
-          <div class="designer-workspace-toolbar">
-            <span id="studio-status" class="muted" role="status">Add a shape to begin.</span>
-            <span class="designer-tip">Drag shapes directly on the canvas.</span>
+          <div class="designer-workspace-toolbar" aria-label="Canvas tools">
+            <div class="designer-toolbar-group">
+              <button type="button" class="icon-action" id="undo-action" title="Undo (Ctrl/Cmd+Z)" disabled>↶ <span>Undo</span></button>
+              <button type="button" class="icon-action" id="redo-action" title="Redo (Ctrl/Cmd+Shift+Z)" disabled>↷ <span>Redo</span></button>
+            </div>
+            <div class="designer-toolbar-group designer-toolbar-options">
+              <label class="designer-toggle"><input type="checkbox" id="snap-toggle" checked> Snap</label>
+              <label class="designer-compact-field">Grid
+                <select id="grid-size"><option value="8">8</option><option value="16" selected>16</option><option value="32">32</option></select>
+              </label>
+              <label class="designer-toggle"><input type="checkbox" id="lights-toggle" checked> Lights</label>
+            </div>
+          </div>
+          <div class="designer-workspace-status">
+            <span id="studio-status" class="muted" role="status">Starter building loaded.</span>
+            <span class="designer-tip">Drag parts. Blue handles resize and rotate.</span>
           </div>
           <div class="designer-canvas-shell">
             <svg id="design-canvas" class="design-canvas" viewBox="0 0 800 520" role="img" aria-label="Interactive building design canvas" tabindex="0">
               <defs>
                 <pattern id="grid-pattern" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#d8e0e8" stroke-width="1"/></pattern>
-                <pattern id="blueprint-pattern" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#76a9d4" stroke-opacity=".28" stroke-width="1"/></pattern>
-                <linearGradient id="sunset-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5d7bc"/><stop offset=".55" stop-color="#dbe5ec"/><stop offset="1" stop-color="#c2d0d8"/></linearGradient>
-                <linearGradient id="night-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1730"/><stop offset="1" stop-color="#183a59"/></linearGradient>
+                <pattern id="blueprint-pattern" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#185b88"/><path d="M28 0H0V28" fill="none" stroke="#8fc0e8" stroke-opacity=".28" stroke-width="1"/></pattern>
+                <linearGradient id="sunset-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3c8a4"/><stop offset=".54" stop-color="#d9e1ea"/><stop offset="1" stop-color="#a8bdc8"/></linearGradient>
+                <linearGradient id="night-gradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#081329"/><stop offset="1" stop-color="#153c5f"/></linearGradient>
               </defs>
               <rect id="canvas-background" x="0" y="0" width="800" height="520" fill="url(#grid-pattern)"></rect>
+              <g id="scene-details" pointer-events="none"></g>
               <g id="canvas-shapes"></g>
-              <g id="selection-layer" pointer-events="none"></g>
+              <g id="selection-layer"></g>
             </svg>
           </div>
+
+          <div class="designer-layers-panel" aria-label="Building parts list">
+            <div class="designer-layers-heading"><strong>Parts</strong><span class="muted">Select overlapping or locked parts here.</span></div>
+            <div class="designer-layers" id="designer-layers"></div>
+          </div>
+
+          <div class="designer-live-panel">
+            <div class="designer-stats" aria-label="Design stats">
+              <div><strong id="stat-shapes">2</strong><span>parts</span></div>
+              <div><strong id="stat-colors">2</strong><span>colors</span></div>
+              <div><strong id="stat-vibe">Balanced</strong><span>vibe</span></div>
+            </div>
+            <div class="designer-badges" id="designer-badges" aria-live="polite"></div>
+          </div>
+
           <div class="designer-actions">
             <button type="button" class="button button-primary" id="save-draft">Save draft</button>
             <button type="button" class="button button-outline" id="load-draft">Load saved draft</button>
@@ -124,11 +203,16 @@
             <button type="button" class="button button-outline" id="clear-design">Clear canvas</button>
           </div>
 
+          <details class="designer-shortcuts">
+            <summary>Keyboard shortcuts</summary>
+            <p><kbd>Ctrl/Cmd</kbd> + <kbd>Z</kbd> undo · <kbd>Shift</kbd> + <kbd>Ctrl/Cmd</kbd> + <kbd>Z</kbd> redo · <kbd>D</kbd> duplicate · <kbd>Delete</kbd> remove · arrow keys move · <kbd>Shift</kbd> + arrows move faster.</p>
+          </details>
+
           <section class="designer-share-panel" id="share-panel" hidden aria-labelledby="share-title">
             <div>
               <p class="eyebrow">Share your building</p>
               <h3 id="share-title">Your design link is ready.</h3>
-              <p class="muted">Anyone with this link can open the design and remix it. The design itself is stored inside the link.</p>
+              <p class="muted">Anyone with this link can open the building and remix it. The design itself is stored inside the link.</p>
             </div>
             <label class="designer-field">Share link
               <div class="copy-row"><input id="share-url" type="text" readonly><button type="button" id="copy-share">Copy link</button></div>
@@ -151,8 +235,13 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Community showcase</p>
-          <h2>Buildings from the community</h2>
-          <p class="muted designer-showcase-copy">Approved designs can be featured here by chapter leadership. Open one to view it in the studio or use it as a starting point for your own composition.</p>
+          <h2>Steal an idea. Make it yours.</h2>
+          <p class="muted designer-showcase-copy">Approved community designs live here. Remix one in the studio, or save favorites on this device for later inspiration.</p>
+        </div>
+        <div class="designer-showcase-filter" role="group" aria-label="Showcase filter">
+          <button type="button" class="filter-chip is-active" data-showcase-filter="all">All</button>
+          <button type="button" class="filter-chip" data-showcase-filter="featured">Featured</button>
+          <button type="button" class="filter-chip" data-showcase-filter="favorites">Favorites</button>
         </div>
       </div>
       <div class="designer-gallery" id="design-showcase"></div>

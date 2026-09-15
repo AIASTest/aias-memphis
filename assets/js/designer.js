@@ -4,9 +4,9 @@
 
   for (const href of [
     'assets/css/designer-fun.css',
+    'assets/css/designer-game.css',
     'assets/css/designer-onboarding.css',
     'assets/css/designer-views.css',
-    'assets/css/designer-playplus.css',
     'assets/css/designer-presentationplus.css',
     'assets/css/designer-sketchbook.css'
   ]) {
@@ -20,9 +20,9 @@
   core.src = 'assets/js/designer-v2.js';
   core.defer = true;
 
-  const fun = document.createElement('script');
-  fun.src = 'assets/js/designer-fun.js';
-  fun.defer = true;
+  const game = document.createElement('script');
+  game.src = 'assets/js/designer-game.js';
+  game.defer = true;
 
   const onboarding = document.createElement('script');
   onboarding.src = 'assets/js/designer-onboarding.js';
@@ -31,10 +31,6 @@
   const views = document.createElement('script');
   views.src = 'assets/js/designer-views.js';
   views.defer = true;
-
-  const playplus = document.createElement('script');
-  playplus.src = 'assets/js/designer-playplus.js';
-  playplus.defer = true;
 
   const presentationplus = document.createElement('script');
   presentationplus.src = 'assets/js/designer-presentationplus.js';
@@ -58,14 +54,9 @@
     else document.head.appendChild(sketchbook);
   });
 
-  playplus.addEventListener('load', () => {
-    if (playplus.parentNode) playplus.parentNode.insertBefore(presentationplus, playplus.nextSibling);
-    else document.head.appendChild(presentationplus);
-  });
-
   views.addEventListener('load', () => {
-    if (views.parentNode) views.parentNode.insertBefore(playplus, views.nextSibling);
-    else document.head.appendChild(playplus);
+    if (views.parentNode) views.parentNode.insertBefore(presentationplus, views.nextSibling);
+    else document.head.appendChild(presentationplus);
   });
 
   onboarding.addEventListener('load', () => {
@@ -73,14 +64,14 @@
     else document.head.appendChild(views);
   });
 
-  fun.addEventListener('load', () => {
-    if (fun.parentNode) fun.parentNode.insertBefore(onboarding, fun.nextSibling);
+  game.addEventListener('load', () => {
+    if (game.parentNode) game.parentNode.insertBefore(onboarding, game.nextSibling);
     else document.head.appendChild(onboarding);
   });
 
   core.addEventListener('load', () => {
-    if (core.parentNode) core.parentNode.insertBefore(fun, core.nextSibling);
-    else document.head.appendChild(fun);
+    if (core.parentNode) core.parentNode.insertBefore(game, core.nextSibling);
+    else document.head.appendChild(game);
   });
 
   if (current?.parentNode) current.parentNode.insertBefore(core, current.nextSibling);

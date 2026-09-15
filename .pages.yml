@@ -646,3 +646,46 @@ content:
             label: Show on website
             type: boolean
             description: "Turn this off to hide a listing immediately, even if its deadline has not passed."
+
+  - name: community
+    label: Community
+    type: group
+    items:
+      - name: designs
+        label: Community designs
+        type: file
+        path: data/designs.json
+        format: json
+        list: true
+        operations:
+          delete: false
+        fields:
+          - name: title
+            label: Building name
+            type: string
+            required: true
+            description: "Public title shown on the Design Studio community showcase card."
+            options:
+              maxlength: 80
+          - name: designer
+            label: Designer name
+            type: string
+            required: true
+            description: "Public name supplied by the designer. Confirm they are comfortable with publication."
+            options:
+              maxlength: 80
+          - name: design_code
+            label: Design code
+            type: text
+            required: true
+            description: "Paste the Design Studio code supplied with the user's submission. Do not edit the code by hand."
+            options:
+              maxlength: 12000
+          - name: featured
+            label: Feature this design
+            type: boolean
+            description: "Featured designs sort to the beginning of the showcase."
+          - name: published
+            label: Show in community showcase
+            type: boolean
+            description: "Turn this off to keep the entry saved without displaying it publicly."

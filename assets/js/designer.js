@@ -3,7 +3,6 @@
   const current = document.currentScript;
 
   for (const href of [
-    'assets/css/designer-fun.css',
     'assets/css/designer-game.css',
     'assets/css/designer-onboarding.css',
     'assets/css/designer-views.css',

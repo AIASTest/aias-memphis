@@ -7,7 +7,8 @@
     'assets/css/designer-onboarding.css',
     'assets/css/designer-views.css',
     'assets/css/designer-playplus.css',
-    'assets/css/designer-presentationplus.css'
+    'assets/css/designer-presentationplus.css',
+    'assets/css/designer-sketchbook.css'
   ]) {
     const style = document.createElement('link');
     style.rel = 'stylesheet';
@@ -39,13 +40,22 @@
   presentationplus.src = 'assets/js/designer-presentationplus.js';
   presentationplus.defer = true;
 
+  const sketchbook = document.createElement('script');
+  sketchbook.src = 'assets/js/designer-sketchbook.js';
+  sketchbook.defer = true;
+
   const communityBootstrap = document.createElement('script');
   communityBootstrap.src = 'assets/js/designer-community-bootstrap.js';
   communityBootstrap.defer = true;
 
-  presentationplus.addEventListener('load', () => {
-    if (presentationplus.parentNode) presentationplus.parentNode.insertBefore(communityBootstrap, presentationplus.nextSibling);
+  sketchbook.addEventListener('load', () => {
+    if (sketchbook.parentNode) sketchbook.parentNode.insertBefore(communityBootstrap, sketchbook.nextSibling);
     else document.head.appendChild(communityBootstrap);
+  });
+
+  presentationplus.addEventListener('load', () => {
+    if (presentationplus.parentNode) presentationplus.parentNode.insertBefore(sketchbook, presentationplus.nextSibling);
+    else document.head.appendChild(sketchbook);
   });
 
   playplus.addEventListener('load', () => {

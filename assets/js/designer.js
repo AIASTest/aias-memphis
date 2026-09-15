@@ -6,7 +6,8 @@
     'assets/css/designer-fun.css',
     'assets/css/designer-onboarding.css',
     'assets/css/designer-views.css',
-    'assets/css/designer-playplus.css'
+    'assets/css/designer-playplus.css',
+    'assets/css/designer-presentationplus.css'
   ]) {
     const style = document.createElement('link');
     style.rel = 'stylesheet';
@@ -34,13 +35,22 @@
   playplus.src = 'assets/js/designer-playplus.js';
   playplus.defer = true;
 
+  const presentationplus = document.createElement('script');
+  presentationplus.src = 'assets/js/designer-presentationplus.js';
+  presentationplus.defer = true;
+
   const communityBootstrap = document.createElement('script');
   communityBootstrap.src = 'assets/js/designer-community-bootstrap.js';
   communityBootstrap.defer = true;
 
-  playplus.addEventListener('load', () => {
-    if (playplus.parentNode) playplus.parentNode.insertBefore(communityBootstrap, playplus.nextSibling);
+  presentationplus.addEventListener('load', () => {
+    if (presentationplus.parentNode) presentationplus.parentNode.insertBefore(communityBootstrap, presentationplus.nextSibling);
     else document.head.appendChild(communityBootstrap);
+  });
+
+  playplus.addEventListener('load', () => {
+    if (playplus.parentNode) playplus.parentNode.insertBefore(presentationplus, playplus.nextSibling);
+    else document.head.appendChild(presentationplus);
   });
 
   views.addEventListener('load', () => {

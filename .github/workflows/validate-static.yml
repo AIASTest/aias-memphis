@@ -160,6 +160,7 @@ jobs:
           set -euo pipefail
           test -f assets/js/designer-v2.js
           test -f assets/js/designer-game.js
+          test -f assets/js/designer-finish.js
           test -f assets/js/designer-onboarding.js
           test -f assets/js/designer-views.js
           test -f assets/js/designer-presentationplus.js
@@ -177,6 +178,7 @@ jobs:
           test -f data/designer-briefs.json
           grep -q "designer-v2.js" assets/js/designer.js
           grep -q "designer-game.js" assets/js/designer.js
+          grep -q "designer-finish.js" assets/js/designer.js
           grep -q "designer-onboarding.js" assets/js/designer.js
           grep -q "designer-views.js" assets/js/designer.js
           grep -q "designer-presentationplus.js" assets/js/designer.js
@@ -203,6 +205,7 @@ jobs:
           test -f assets/js/designer.js
           test -f assets/js/designer-v2.js
           test -f assets/js/designer-game.js
+          test -f assets/js/designer-finish.js
           test -f assets/js/designer-onboarding.js
           test -f assets/js/designer-views.js
           test -f assets/js/designer-presentationplus.js

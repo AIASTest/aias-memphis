@@ -10,7 +10,7 @@
   const SOUND_KEY = 'aias-memphis-design-studio-sound-v1';
   const STAMPS_KEY = 'aias-memphis-design-studio-stamps-v1';
   const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)');
-  let soundEnabled = localStorage.getItem(SOUND_KEY) === 'on';
+  let soundEnabled = (() => { try { return localStorage.getItem(SOUND_KEY) === 'on'; } catch { return false; } })();
   let audioContext = null;
   let lastCelebratedChallenge = '';
   let stamps = loadStamps();
@@ -361,11 +361,13 @@
     addShareCaption();
     wireInteractionSounds();
     enhanceTouchTargets();
-    new MutationObserver(() => {
-      addRandomRemixButton();
-      addShareCaption();
-      updatePresentationMeta();
-    }).observe(app, { childList: true, subtree: true });
+    $('design-title')?.addEventListener('input', updatePresentationMeta);
+    $('design-author')?.addEventListener('input', updatePresentationMeta);
+    const shortcutText = document.querySelector('.designer-shortcuts p');
+    if (shortcutText && !shortcutText.dataset.funShortcuts) {
+      shortcutText.dataset.funShortcuts = 'true';
+      shortcutText.insertAdjacentHTML('beforeend', ' · <kbd>I</kbd> interact · <kbd>G</kbd> ground');
+    }
   }
 
   initialize();

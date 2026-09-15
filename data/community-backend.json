@@ -6,5 +6,7 @@
   "supabase_publishable_key": "",
   "feed_limit": 60,
   "allow_likes": true,
-  "allow_reports": true
+  "allow_reports": true,
+  "captcha_provider": "none",
+  "captcha_site_key": ""
 }

@@ -193,7 +193,7 @@
     "rules": [
       { "kind": "maxColors", "value": 2, "label": "Use 2 colors or fewer" },
       { "kind": "maxParts", "value": 9, "label": "Use 9 parts or fewer" },
-      { "kind": "minRotated", "value": 1, "label": "Use exactly one obvious rotated move" }
+      { "kind": "minRotated", "value": 1, "label": "Use at least 1 obvious rotated move" }
     ],
     "bonus": { "kind": "minType", "type": "Window", "value": 2, "label": "Bonus: add only the openings you really need" }
   },

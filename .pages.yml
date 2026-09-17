@@ -29,80 +29,37 @@ content:
         operations:
           delete: false
         fields:
-          - name: chapter_name
-            label: Full chapter name
-            type: string
-            required: true
-            description: "Used in the footer and chapter identification."
-            options:
-              maxlength: 100
-          - name: short_name
-            label: Header name
-            type: string
-            required: true
-            description: "Short chapter name shown in the site header."
-            options:
-              maxlength: 50
-          - name: tagline
-            label: Tagline
-            type: string
-            description: "Short supporting line used in the footer."
-            options:
-              maxlength: 140
-          - name: hero_title
-            label: Homepage headline
-            type: string
-            required: true
-            description: "Main headline at the top of the homepage."
-            options:
-              maxlength: 120
-          - name: hero_text
-            label: Homepage introduction
-            type: text
-            required: true
-            options:
-              maxlength: 500
-          - name: about_text
-            label: Chapter description
-            type: text
-            required: true
-            description: "Main chapter description on the About page."
-            options:
-              maxlength: 1200
+          - { name: chapter_name, label: Full chapter name, type: string, required: true }
+          - { name: short_name, label: Header name, type: string, required: true }
+          - { name: tagline, label: Tagline, type: string }
+          - { name: hero_title, label: Homepage headline, type: string, required: true }
+          - { name: hero_text, label: Homepage introduction, type: text, required: true }
+          - { name: about_text, label: Chapter description, type: text, required: true }
           - name: contact_email
             label: Public contact email
             type: string
-            description: "Public chapter email shown on the site. Leave blank if the chapter does not want to publish one."
             pattern:
               regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
-              message: "Enter a valid email address or leave this field blank."
+              message: "Enter a valid email address or leave blank."
           - name: instagram_url
             label: Instagram URL
             type: string
-            description: "Full https:// link to the chapter Instagram account. Used on the homepage, About page, and footer."
             pattern:
               regex: "^$|^https://.+$"
-              message: "Use a full https:// URL or leave this field blank."
+              message: "Use a full https:// URL or leave blank."
           - name: membership_url
             label: AIAS membership URL
             type: string
-            description: "Destination for the Join AIAS button."
             pattern:
               regex: "^$|^https://.+$"
-              message: "Use a full https:// URL or leave this field blank."
+              message: "Use a full https:// URL or leave blank."
           - name: department_url
             label: UofM Architecture URL
             type: string
-            description: "Link to the University of Memphis Architecture department."
             pattern:
               regex: "^$|^https://.+$"
-              message: "Use a full https:// URL or leave this field blank."
-          - name: demo_notice
-            label: Announcement banner
-            type: string
-            description: "Optional message shown above the navigation. Clear it completely to hide the banner."
-            options:
-              maxlength: 160
+              message: "Use a full https:// URL or leave blank."
+          - { name: demo_notice, label: Announcement banner, type: string }
 
       - name: payments
         label: Support & payments
@@ -112,60 +69,18 @@ content:
         operations:
           delete: false
         fields:
-          - name: page_title
-            label: Page title
-            type: string
-            required: true
-            options:
-              maxlength: 100
-          - name: page_intro
-            label: Page introduction
-            type: text
-            required: true
-            description: "Short introduction for the Support & Payments page."
-            options:
-              maxlength: 700
-          - name: firm_section_enabled
-            label: Show firm payment section
-            type: boolean
-            description: "Turn this off to hide the firm/partner explanation."
-          - name: firm_heading
-            label: Firm payment heading
-            type: string
-            required: true
-            options:
-              maxlength: 100
-          - name: firm_intro
-            label: Firm payment instructions
-            type: text
-            required: true
-            description: "Explain what firms may be paying for and remind them to confirm the amount with leadership."
-            options:
-              maxlength: 1000
-          - name: donation_section_enabled
-            label: Show donation section
-            type: boolean
-          - name: donation_heading
-            label: Donation heading
-            type: string
-            required: true
-            options:
-              maxlength: 100
-          - name: donation_intro
-            label: Donation description
-            type: text
-            required: true
-            options:
-              maxlength: 900
+          - { name: page_title, label: Page title, type: string, required: true }
+          - { name: page_intro, label: Page introduction, type: text, required: true }
+          - { name: firm_section_enabled, label: Show firm payment section, type: boolean }
+          - { name: firm_heading, label: Firm payment heading, type: string, required: true }
+          - { name: firm_intro, label: Firm payment instructions, type: text, required: true }
+          - { name: donation_section_enabled, label: Show donation section, type: boolean }
+          - { name: donation_heading, label: Donation heading, type: string, required: true }
+          - { name: donation_intro, label: Donation description, type: text, required: true }
           - name: payment_methods
             label: Payment buttons
             type: object
-            list:
-              max: 12
-              collapsible:
-                collapsed: true
-                summary: "{provider}: {label}"
-            description: "Add the chapter's approved payment accounts. Only enabled entries with a valid https:// link appear publicly."
+            list: true
             fields:
               - name: provider
                 label: Provider
@@ -173,49 +88,24 @@ content:
                 required: true
                 options:
                   values: [PayPal, Venmo, Cash App, Zelle, Other]
-              - name: label
-                label: Button label
-                type: string
-                required: true
-                description: "Example: Pay with Venmo."
-                options:
-                  maxlength: 80
+              - { name: label, label: Button label, type: string, required: true }
               - name: url
                 label: Payment account URL
                 type: string
                 required: true
-                description: "Full https:// link to the chapter's payment account or payment page."
                 pattern:
                   regex: "^https://.+$"
                   message: "Use a full https:// URL."
-              - name: enabled
-                label: Show this payment button
-                type: boolean
-                description: "Turn this off to hide the button without deleting the saved account."
-          - name: payment_memo_instructions
-            label: Firm payment memo instructions
-            type: text
-            description: "What firms should put in the payment note so leadership can match the payment."
-            options:
-              maxlength: 500
-          - name: receipt_note
-            label: Receipt instructions
-            type: text
-            options:
-              maxlength: 500
-          - name: donation_disclaimer
-            label: Donation / receipt note
-            type: text
-            description: "Optional cautious language about receipts or sponsorship recognition."
-            options:
-              maxlength: 700
+              - { name: enabled, label: Show this payment button, type: boolean }
+          - { name: payment_memo_instructions, label: Firm payment memo instructions, type: text }
+          - { name: receipt_note, label: Receipt instructions, type: text }
+          - { name: donation_disclaimer, label: Donation / receipt note, type: text }
           - name: contact_email
             label: Payment contact email
             type: string
-            description: "Optional payment-specific contact. If blank, the page uses the main chapter contact email from Site settings."
             pattern:
               regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
-              message: "Enter a valid email address or leave this field blank."
+              message: "Enter a valid email address or leave blank."
 
       - name: pages
         label: Custom pages
@@ -226,50 +116,23 @@ content:
         operations:
           delete: false
         fields:
-          - name: title
-            label: Page title
-            type: string
-            required: true
-            options:
-              maxlength: 100
+          - { name: title, label: Page title, type: string, required: true }
           - name: slug
             label: Page URL name
             type: string
             required: true
-            description: "Lowercase URL name such as resources, scholarships, or competitions. Do not change a slug casually after sharing the page link."
             pattern:
               regex: "^[a-z0-9-]+$"
               message: "Use lowercase letters, numbers, and hyphens only."
-            options:
-              minlength: 2
-              maxlength: 60
-          - name: nav_label
-            label: Navigation label
-            type: string
-            description: "Optional shorter label for the main navigation."
-            options:
-              maxlength: 30
-          - name: show_in_nav
-            label: Show in main navigation
-            type: boolean
-            description: "Turn this off for pages that should only be reached through a direct link."
-          - name: summary
-            label: Page introduction
-            type: text
-            options:
-              maxlength: 350
+          - { name: nav_label, label: Navigation label, type: string }
+          - { name: show_in_nav, label: Show in main navigation, type: boolean }
+          - { name: summary, label: Page introduction, type: text }
           - name: hero_image
             label: Hero image
             type: image
-            description: "Optional image displayed near the top of the page."
             options:
               rename: safe
-          - name: hero_image_alt
-            label: Hero image description
-            type: string
-            description: "Briefly describe meaningful image content for screen-reader users."
-            options:
-              maxlength: 180
+          - { name: hero_image_alt, label: Hero image description, type: string }
           - name: body
             label: Page content
             type: rich-text
@@ -291,75 +154,34 @@ content:
             label: Member URL name
             type: string
             required: true
-            description: "Permanent lowercase identifier used by this member profile, such as jordan-smith. Use the same value in Student projects → Member profile URL name to link projects to this person."
             pattern:
               regex: "^[a-z0-9-]+$"
               message: "Use lowercase letters, numbers, and hyphens only."
-            options:
-              minlength: 2
-              maxlength: 70
-          - name: name
-            label: Name
-            type: string
-            required: true
-            options:
-              maxlength: 80
-          - name: role
-            label: Chapter role / contribution
-            type: string
-            required: true
-            description: "Examples: President, Treasurer, Member, Events Committee, Professional Outreach, Faculty Advisor."
-            options:
-              maxlength: 100
-          - name: program
-            label: Program / year
-            type: string
-            description: "Optional public academic context, such as Fourth-year Architecture or Interior Architecture."
-            options:
-              maxlength: 100
+          - { name: name, label: Name, type: string, required: true }
+          - { name: role, label: Chapter role / contribution, type: string, required: true }
+          - { name: program, label: Program / year, type: string }
           - name: photo
             label: Profile photo
             type: image
-            description: "Optional headshot or profile photo. A clear portrait works best; initials are shown automatically when no photo is uploaded."
             options:
               rename: safe
-          - name: photo_alt
-            label: Photo description
-            type: string
-            description: "Briefly describe the photo for visitors using screen readers."
-            options:
-              maxlength: 180
-          - name: bio
-            label: Short introduction / blurb
-            type: text
-            description: "A short introduction shown on cards and in the profile popout: who they are, how they contribute to AIAS, or what they care about."
-            options:
-              maxlength: 500
+          - { name: photo_alt, label: Photo description, type: string }
+          - { name: bio, label: Short introduction / blurb, type: text }
           - name: description
             label: Full profile description
             type: rich-text
-            description: "Optional longer profile shown in the popout and full member page. Use this for background, goals, studio interests, involvement, or a more personal introduction."
             options:
               format: markdown
               switcher: true
               rename: safe
-          - name: interests
-            label: Design / professional interests
-            type: string
-            description: "Optional short list such as Adaptive reuse, housing, visualization, fabrication."
-            options:
-              maxlength: 180
+          - { name: interests, label: Design / professional interests, type: string }
           - name: email
             label: Public email
             type: string
-            description: "Leave blank if this address should not be published."
             pattern:
               regex: "^$|^[^@ ]+@[^@ ]+\\.[^@ ]+$"
-              message: "Enter a valid email address or leave this field blank."
-          - name: public_profile
-            label: Show public member profile
-            type: boolean
-            description: "Turn this off to keep the member in the data file without listing a public profile."
+              message: "Enter a valid email address or leave blank."
+          - { name: public_profile, label: Show public member profile, type: boolean }
 
   - name: chapter_content
     label: Chapter content
@@ -374,82 +196,40 @@ content:
         operations:
           delete: false
         fields:
-          - name: title
-            label: Event name
-            type: string
-            required: true
-            options:
-              maxlength: 100
+          - { name: title, label: Event name, type: string, required: true }
           - name: slug
             label: Event URL name
             type: string
             required: true
-            description: "Permanent lowercase identifier used in the event detail link, such as portfolio-night. Avoid changing this after the event link has been shared."
             pattern:
               regex: "^[a-z0-9-]+$"
               message: "Use lowercase letters, numbers, and hyphens only."
-            options:
-              minlength: 2
-              maxlength: 80
-          - name: date
-            label: Event date
-            type: date
-            required: true
-          - name: time
-            label: Time
-            type: string
-            description: "Example: 6:00 PM or 1:00–3:00 PM."
-            options:
-              maxlength: 40
-          - name: location
-            label: Location
-            type: string
-            description: "Building, room, firm, or general meeting location."
-            options:
-              maxlength: 120
-          - name: summary
-            label: Short event summary
-            type: text
-            required: true
-            description: "Brief description shown on event cards and beneath the event title."
-            options:
-              maxlength: 500
+          - { name: date, label: Event date, type: date, required: true }
+          - { name: time, label: Time, type: string }
+          - { name: location, label: Location, type: string }
+          - { name: summary, label: Short event summary, type: text, required: true }
           - name: image
             label: Event image
             type: image
-            description: "Optional event image or graphic. Landscape images work best."
             options:
               rename: safe
-          - name: image_alt
-            label: Event image description
-            type: string
-            description: "Describe meaningful image content for screen-reader users. If blank, the site uses the event name as a fallback."
-            options:
-              maxlength: 180
+          - { name: image_alt, label: Event image description, type: string }
           - name: details
             label: Full event details
             type: rich-text
             required: true
-            description: "Expanded event information shown after a visitor opens the event. Use headings, paragraphs, and lists for agenda, what to bring, transportation, speakers, or other useful details."
             options:
               format: markdown
               switcher: true
               rename: safe
-          - name: registration_enabled
-            label: Show RSVP button
-            type: boolean
-            description: "Turn this on only when the event should display a Register / RSVP button. If it is off, the RSVP button stays hidden even if a URL is saved below."
+          - { name: registration_enabled, label: Show RSVP button, type: boolean }
           - name: registration_url
             label: Registration URL
             type: string
-            description: "Full https:// registration or RSVP link used when Show RSVP button is enabled."
             pattern:
               regex: "^$|^https://.+$"
-              message: "Use a full https:// URL or leave this field blank."
-          - name: featured
-            label: Feature on homepage
-            type: boolean
-            description: "Featured upcoming events are prioritized on the homepage."
+              message: "Use a full https:// URL or leave blank."
+          - { name: featured, label: Feature on homepage, type: boolean }
 
       - name: projects
         label: Student projects
@@ -460,94 +240,37 @@ content:
         operations:
           delete: false
         fields:
-          - name: title
-            label: Project title
-            type: string
-            required: true
-            description: "The public title shown on project cards and the project detail page."
-            options:
-              maxlength: 100
+          - { name: title, label: Project title, type: string, required: true }
           - name: slug
             label: Project URL name
             type: string
             required: true
-            description: "Permanent lowercase identifier used in the project link, such as river-threshold. Avoid changing this after the project has been shared."
             pattern:
               regex: "^[a-z0-9-]+$"
               message: "Use lowercase letters, numbers, and hyphens only."
-            options:
-              minlength: 2
-              maxlength: 70
-          - name: student
-            label: Student name
-            type: string
-            required: true
-            options:
-              maxlength: 80
+          - { name: student, label: Student name, type: string, required: true }
           - name: member_slug
             label: Member profile URL name
             type: string
-            description: "Optional. To show this project on a chapter member's profile, copy that person's Member URL name from Website → Chapter members. Example: jordan-smith."
             pattern:
               regex: "^$|^[a-z0-9-]+$"
-              message: "Use the member's lowercase URL name, or leave this blank."
-            options:
-              maxlength: 70
-          - name: studio
-            label: Studio / course
-            type: string
-            description: "Example: Third-Year Design Studio."
-            options:
-              maxlength: 100
-          - name: semester
-            label: Semester
-            type: string
-            description: "Example: Fall 2026."
-            options:
-              maxlength: 40
-          - name: year
-            label: Project year
-            type: string
-            description: "Academic or project year, such as 2026."
-            options:
-              maxlength: 20
-          - name: project_type
-            label: Project type
-            type: string
-            description: "Optional category such as Civic / Waterfront, Housing, Adaptive Reuse, or Fabrication."
-            options:
-              maxlength: 100
-          - name: summary
-            label: Short project summary
-            type: text
-            required: true
-            description: "Short introduction used on project cards and beneath the project title."
-            options:
-              maxlength: 500
+              message: "Use the member's URL name or leave blank."
+          - { name: studio, label: Studio / course, type: string }
+          - { name: semester, label: Semester, type: string }
+          - { name: year, label: Project year, type: string }
+          - { name: project_type, label: Project type, type: string }
+          - { name: summary, label: Short project summary, type: text, required: true }
           - name: cover_image
             label: Cover image
             type: image
             required: true
-            description: "Primary image used on project cards and social previews. Landscape images work best."
             options:
               rename: safe
-          - name: cover_image_alt
-            label: Cover image description
-            type: string
-            description: "Describe the cover image for visitors using screen readers."
-            options:
-              maxlength: 180
+          - { name: cover_image_alt, label: Cover image description, type: string }
           - name: gallery
             label: Project gallery
             type: object
-            required: true
-            list:
-              min: 1
-              max: 20
-              collapsible:
-                collapsed: true
-                summary: "Image {index}: {caption}"
-            description: "Add drawings, renderings, photographs, diagrams, model photos, and process work in the order they should appear."
+            list: true
             fields:
               - name: image
                 label: Image
@@ -555,24 +278,12 @@ content:
                 required: true
                 options:
                   rename: safe
-              - name: alt
-                label: Image description
-                type: string
-                required: true
-                description: "Briefly describe what is visible in the image."
-                options:
-                  maxlength: 220
-              - name: caption
-                label: Caption
-                type: string
-                description: "Optional visible caption explaining the image or drawing."
-                options:
-                  maxlength: 240
+              - { name: alt, label: Image description, type: string, required: true }
+              - { name: caption, label: Caption, type: string }
           - name: body
             label: Full project description
             type: rich-text
             required: true
-            description: "Long-form project narrative. Use headings, paragraphs, lists, and emphasis to explain the project, process, design decisions, and outcomes."
             options:
               format: markdown
               switcher: true
@@ -580,14 +291,10 @@ content:
           - name: external_url
             label: External project link
             type: string
-            description: "Optional full https:// link to the student's portfolio, publication, video, or other project page."
             pattern:
               regex: "^$|^https://.+$"
-              message: "Use a full https:// URL or leave this field blank."
-          - name: featured
-            label: Feature on homepage
-            type: boolean
-            description: "Featured projects are shown first on the homepage."
+              message: "Use a full https:// URL or leave blank."
+          - { name: featured, label: Feature on homepage, type: boolean }
 
       - name: jobs
         label: Jobs & internships
@@ -598,94 +305,22 @@ content:
         operations:
           delete: false
         fields:
-          - name: title
-            label: Position title
-            type: string
-            required: true
-            options:
-              maxlength: 100
-          - name: company
-            label: Organization / firm
-            type: string
-            required: true
-            options:
-              maxlength: 100
-          - name: location
-            label: Location
-            type: string
-            description: "Example: Memphis, TN; Remote; Hybrid."
-            options:
-              maxlength: 100
+          - { name: title, label: Position title, type: string, required: true }
+          - { name: company, label: Organization / firm, type: string, required: true }
+          - { name: location, label: Location, type: string }
           - name: type
             label: Opportunity type
             type: select
             required: true
             options:
               values: [Internship, Part-time, Full-time, Fellowship, Competition, Other]
-          - name: posted
-            label: Posted date
-            type: date
-          - name: deadline
-            label: Application deadline
-            type: date
-            description: "If a deadline is provided, the public site automatically stops showing the listing after that date."
-          - name: summary
-            label: Description
-            type: text
-            required: true
-            options:
-              maxlength: 900
+          - { name: posted, label: Posted date, type: date }
+          - { name: deadline, label: Application deadline, type: date }
+          - { name: summary, label: Description, type: text, required: true }
           - name: apply_url
             label: Application URL
             type: string
-            description: "Full https:// link to the application or original job posting."
             pattern:
               regex: "^$|^https://.+$"
-              message: "Use a full https:// URL or leave this field blank."
-          - name: active
-            label: Show on website
-            type: boolean
-            description: "Turn this off to hide a listing immediately, even if its deadline has not passed."
-
-  - name: community
-    label: Community
-    type: group
-    items:
-      - name: designs
-        label: Community designs
-        type: file
-        path: data/designs.json
-        format: json
-        list: true
-        operations:
-          delete: false
-        fields:
-          - name: title
-            label: Building name
-            type: string
-            required: true
-            description: "Public title shown on the Design Studio community showcase card."
-            options:
-              maxlength: 80
-          - name: designer
-            label: Designer name
-            type: string
-            required: true
-            description: "Public name supplied by the designer. Confirm they are comfortable with publication."
-            options:
-              maxlength: 80
-          - name: design_code
-            label: Design code
-            type: text
-            required: true
-            description: "Paste the Design Studio code supplied with the user's submission. Do not edit the code by hand."
-            options:
-              maxlength: 12000
-          - name: featured
-            label: Feature this design
-            type: boolean
-            description: "Featured designs sort to the beginning of the showcase."
-          - name: published
-            label: Show in community showcase
-            type: boolean
-            description: "Turn this off to keep the entry saved without displaying it publicly."
+              message: "Use a full https:// URL or leave blank."
+          - { name: active, label: Show on website, type: boolean }

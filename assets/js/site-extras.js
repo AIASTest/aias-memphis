@@ -24,15 +24,6 @@
       insertBeforeAbout(nav, link);
     }
 
-    if (nav && !nav.querySelector('[data-designer-nav]')) {
-      const link = document.createElement('a');
-      link.href = 'designer.html';
-      link.textContent = 'Design Studio';
-      link.dataset.designerNav = 'true';
-      if (document.body.dataset.page === 'designer') link.setAttribute('aria-current', 'page');
-      insertBeforeAbout(nav, link);
-    }
-
     if (nav && !nav.querySelector('[data-support-nav]')) {
       const link = document.createElement('a');
       link.href = 'support.html';
@@ -48,14 +39,6 @@
       link.href = 'members.html';
       link.textContent = 'Chapter Members';
       link.dataset.membersFooter = 'true';
-      insertBeforeAbout(footerLinks, link);
-    }
-
-    if (footerLinks && !footerLinks.querySelector('[data-designer-footer]')) {
-      const link = document.createElement('a');
-      link.href = 'designer.html';
-      link.textContent = 'Design Studio';
-      link.dataset.designerFooter = 'true';
       insertBeforeAbout(footerLinks, link);
     }
 
